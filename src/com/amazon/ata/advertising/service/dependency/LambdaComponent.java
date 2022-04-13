@@ -28,7 +28,7 @@ public interface LambdaComponent {
     //LambdaEndpoint getLambdaEndpoint();
 
     /**
-     * Inject's targeting predicates with the DAOs they require.
+     * Injects targeting predicates with the DAOs they require.
      * @return a TargetingPredicateInjector
      */
     TargetingPredicateInjector getTargetingPredicateInjector();

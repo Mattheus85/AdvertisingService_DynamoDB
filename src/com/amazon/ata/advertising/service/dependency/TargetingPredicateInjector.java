@@ -46,8 +46,8 @@ public class TargetingPredicateInjector {
     }
 
     /**
-     * Inject's any member variables or method's marked with @Inject. This is how we can serialize the targeting
-     * predicates without the Daos and then inject the dependencies later.
+     * Injects any member variables or method's marked with @Inject. This is how we can serialize the targeting
+     * predicates without the DAOs and then inject the dependencies later.
      * @param targetingPredicate predicate to be injected
      */
     public void inject(TargetingPredicate targetingPredicate) {

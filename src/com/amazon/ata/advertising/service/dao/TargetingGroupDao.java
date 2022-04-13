@@ -32,7 +32,7 @@ public class TargetingGroupDao implements ReadableDao<String, List<TargetingGrou
 
     /**
      * Retrieves a metadata object for a piece of ATA ad content. The return is wrapped in an optional, which will be
-     * empty if no metatdata could be retrieved.
+     * empty if no metadata could be retrieved.
      * @param contentId The id of the content to get metadata for
      * @return the Advertisement metadata for the piece of content. If there is no metadata the Optional will be empty.
      */
