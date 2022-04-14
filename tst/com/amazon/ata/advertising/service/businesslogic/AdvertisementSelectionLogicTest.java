@@ -98,17 +98,17 @@ public class AdvertisementSelectionLogicTest {
 
     @Test
     public void selectAdvertisement_multipleAds_returnsOneRandom() {
-        List<AdvertisementContent> contents = Arrays.asList(CONTENT1, CONTENT2, CONTENT3);
+        List<AdvertisementContent> contents = Arrays.asList(CONTENT1, CONTENT2, CONTENT3, CONTENT4);
         List<TargetingGroup> groups = Arrays.asList(GROUP1, GROUP2, GROUP3, GROUP4);
 
         when(contentDao.get(MARKETPLACE_ID)).thenReturn(contents);
-        when(targetingGroupDao.get(any())).thenReturn(groups);
+        when(targetingGroupDao.get(any(String.class))).thenReturn(groups);
         GeneratedAdvertisement ad = adSelectionService.selectAdvertisement(CUSTOMER_ID, MARKETPLACE_ID);
 
-        assertEquals(CONTENT_ID3, ad.getContent().getContentId(),
+        assertTrue(contents.contains(ad.getContent()),
                 "\n********************************************************\n" +
-                "This test is truly random. As in, it may pass depending\non which of the three elements get " +
-                        "randomly chosen.\nIf it did not pass for you, try it several more times." +
+                        "Expected the GeneratedAdvertisement to contain at least\n" +
+                        "one of the AdvertisementContent objects in the list." +
                         "\n********************************************************\n\n\n");
     }
 
