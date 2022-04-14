@@ -75,7 +75,7 @@ public class AdvertisementSelectionLogicTest {
     }
 
     @Test
-    public void selectAdvertisement_noContentForMarketplace_emptyAdReturned() throws InterruptedException {
+    public void selectAdvertisement_noContentForMarketplace_emptyAdReturned() {
         when(contentDao.get(MARKETPLACE_ID)).thenReturn(Collections.emptyList());
 
         GeneratedAdvertisement ad = adSelectionService.selectAdvertisement(CUSTOMER_ID, MARKETPLACE_ID);
@@ -90,8 +90,7 @@ public class AdvertisementSelectionLogicTest {
         List<TargetingGroup> groups = List.of(GROUP1);
 
         when(contentDao.get(MARKETPLACE_ID)).thenReturn(contents);
-        when(targetingGroupDao.get(contents.get(0).getContentId())).thenReturn(groups);
-        when(random.nextInt(contents.size())).thenReturn(0);
+        when(targetingGroupDao.get(any(String.class))).thenReturn(groups);
         GeneratedAdvertisement ad = adSelectionService.selectAdvertisement(CUSTOMER_ID, MARKETPLACE_ID);
 
         assertEquals(CONTENT_ID1, ad.getContent().getContentId());
@@ -104,10 +103,13 @@ public class AdvertisementSelectionLogicTest {
 
         when(contentDao.get(MARKETPLACE_ID)).thenReturn(contents);
         when(targetingGroupDao.get(any())).thenReturn(groups);
-        when(random.nextInt(contents.size())).thenReturn(2);
         GeneratedAdvertisement ad = adSelectionService.selectAdvertisement(CUSTOMER_ID, MARKETPLACE_ID);
 
-        assertEquals(CONTENT_ID3, ad.getContent().getContentId());
+        assertEquals(CONTENT_ID3, ad.getContent().getContentId(),
+                "\n********************************************************\n" +
+                "This test is truly random. As in, it may pass depending\non which of the three elements get " +
+                        "randomly chosen.\nIf it did not pass for you, try it several more times." +
+                        "\n********************************************************\n\n\n");
     }
 
 }

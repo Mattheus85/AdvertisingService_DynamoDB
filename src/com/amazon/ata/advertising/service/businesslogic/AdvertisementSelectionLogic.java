@@ -1,6 +1,7 @@
 package com.amazon.ata.advertising.service.businesslogic;
 
 import com.amazon.ata.advertising.service.dao.ReadableDao;
+import com.amazon.ata.advertising.service.exceptions.AdvertisementServiceException;
 import com.amazon.ata.advertising.service.model.AdvertisementContent;
 import com.amazon.ata.advertising.service.model.EmptyGeneratedAdvertisement;
 import com.amazon.ata.advertising.service.model.GeneratedAdvertisement;
@@ -8,14 +9,14 @@ import com.amazon.ata.advertising.service.model.RequestContext;
 import com.amazon.ata.advertising.service.targeting.TargetingEvaluator;
 import com.amazon.ata.advertising.service.targeting.TargetingGroup;
 import com.amazon.ata.advertising.service.targeting.predicate.TargetingPredicateResult;
-import org.apache.commons.collections4.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import javax.inject.Inject;
-import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
+import java.util.NoSuchElementException;
 import java.util.Random;
 import java.util.stream.Collectors;
 
@@ -68,19 +69,29 @@ public class AdvertisementSelectionLogic {
 
         if (StringUtils.isEmpty(marketplaceId)) {
             LOG.warn("MarketplaceId cannot be null or empty. Returning empty ad.");
+            return generatedAdvertisement;
         } else {
-            final List<AdvertisementContent> contents = contentDao.get(marketplaceId)
-                    .stream()
-                    .filter(adContent -> (
-                            targetingGroupDao.get(adContent.getContentId())
-                                    .stream()
-                                    .anyMatch(targetingGroup -> evaluator.evaluate(targetingGroup)
-                                            .equals(TargetingPredicateResult.TRUE)))
-                    )
-                    .collect(Collectors.toList());
-            if (CollectionUtils.isNotEmpty(contents)) {
-                AdvertisementContent randomAdvertisementContent = contents.get(random.nextInt(contents.size()));
-                generatedAdvertisement = new GeneratedAdvertisement(randomAdvertisementContent);
+            try {
+                generatedAdvertisement = new GeneratedAdvertisement(contentDao.get(marketplaceId)
+                        .stream()
+                        .filter(adContent -> (
+                                targetingGroupDao.get(adContent.getContentId())
+                                        .stream()
+                                        .anyMatch(targetingGroup -> evaluator.evaluate(targetingGroup)
+                                                .equals(TargetingPredicateResult.TRUE)))
+                        ).collect(Collectors.collectingAndThen(Collectors.toList(),
+                                list -> {
+                                    Collections.shuffle(list);
+                                    return list.stream();
+                                }))
+                        .findAny()
+                        .orElseThrow());
+            } catch (NoSuchElementException e) {
+                System.out.println("\n*********************************************************************\n" +
+                        "There was no AdvertisementContent which matched the marketplace ID: " + marketplaceId +
+                        "\nReturning a new EmptyGeneratedAdvertisement." +
+                        "\n*********************************************************************\n");
+                e.printStackTrace();
             }
         }
         return generatedAdvertisement;
