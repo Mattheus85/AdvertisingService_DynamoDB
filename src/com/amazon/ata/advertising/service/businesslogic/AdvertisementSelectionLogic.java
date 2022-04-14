@@ -17,6 +17,7 @@ import javax.inject.Inject;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
+import java.util.stream.Collectors;
 
 /**
  * This class is responsible for picking the advertisement to be rendered.
@@ -68,33 +69,20 @@ public class AdvertisementSelectionLogic {
         if (StringUtils.isEmpty(marketplaceId)) {
             LOG.warn("MarketplaceId cannot be null or empty. Returning empty ad.");
         } else {
-            final List<AdvertisementContent> contents = contentDao.get(marketplaceId);
-
-            final List<TargetingGroup> groups = new ArrayList<>();
-            for (AdvertisementContent content : contents) {
-                for (TargetingGroup group : targetingGroupDao.get(content.getContentId())) {
-                    if (evaluator.evaluate(group).equals(TargetingPredicateResult.TRUE)) {
-                        groups.add(group);
-                    }
-                }
-            }
-
-            final List<AdvertisementContent> contentList = new ArrayList<>();
-            for (TargetingGroup group : groups) {
-                for (AdvertisementContent content : contents) {
-                    if (content.getContentId().equals(group.getContentId())) {
-                        contentList.add(content);
-                    }
-                }
-            }
-
-            if (CollectionUtils.isNotEmpty(contentList)) {
-                AdvertisementContent randomAdvertisementContent = contentList.get(random.nextInt(contentList.size()));
+            final List<AdvertisementContent> contents = contentDao.get(marketplaceId)
+                    .stream()
+                    .filter(adContent -> (
+                            targetingGroupDao.get(adContent.getContentId())
+                                    .stream()
+                                    .anyMatch(targetingGroup -> evaluator.evaluate(targetingGroup)
+                                            .equals(TargetingPredicateResult.TRUE)))
+                    )
+                    .collect(Collectors.toList());
+            if (CollectionUtils.isNotEmpty(contents)) {
+                AdvertisementContent randomAdvertisementContent = contents.get(random.nextInt(contents.size()));
                 generatedAdvertisement = new GeneratedAdvertisement(randomAdvertisementContent);
             }
-
         }
-
         return generatedAdvertisement;
     }
 }

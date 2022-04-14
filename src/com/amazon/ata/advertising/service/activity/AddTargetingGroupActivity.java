@@ -5,11 +5,11 @@ import com.amazon.ata.advertising.service.model.requests.AddTargetingGroupReques
 import com.amazon.ata.advertising.service.model.responses.AddTargetingGroupResponse;
 import com.amazon.ata.advertising.service.model.translator.TargetingGroupTranslator;
 import com.amazon.ata.advertising.service.model.translator.TargetingPredicateTranslator;
-import com.amazon.ata.advertising.service.targeting.TargetingGroup;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import javax.inject.Inject;
+import java.util.ArrayList;
 import java.util.Objects;
 import java.util.stream.Collectors;
 
@@ -43,21 +43,25 @@ public class AddTargetingGroupActivity {
      * @return The service response
      */
     public AddTargetingGroupResponse addTargetingGroup(AddTargetingGroupRequest request) {
-        String contentId = request.getContentId();
         LOG.info(String.format("Adding targeting predicates [%s] to content with id: %s.",
                 request.getTargetingPredicates(),
-                contentId));
+                request.getContentId()));
 
-        TargetingGroup targetingGroup = targetingGroupDao.create(contentId,
-                request.getTargetingPredicates()
-                        .stream()
-                        .filter(Objects::nonNull)
-                        .map(TargetingPredicateTranslator::fromCoral)
-                        .collect(Collectors.toList()));
-
-        return AddTargetingGroupResponse.builder()
-                .withTargetingGroup(TargetingGroupTranslator.toCoral(targetingGroup))
-                .build();
+        return request.getTargetingPredicates() != null ?
+                AddTargetingGroupResponse.builder()
+                        .withTargetingGroup(TargetingGroupTranslator.toCoral(
+                                targetingGroupDao.create(
+                                        request.getContentId(),
+                                        request.getTargetingPredicates()
+                                                .stream()
+                                                .map(TargetingPredicateTranslator::fromCoral)
+                                                .collect(Collectors.toList()))))
+                        .build() :
+                AddTargetingGroupResponse.builder()
+                        .withTargetingGroup(TargetingGroupTranslator.toCoral(
+                                targetingGroupDao.create(
+                                        request.getContentId(),
+                                        new ArrayList<>())))
+                        .build();
     }
-
 }

@@ -28,20 +28,8 @@ public class TargetingEvaluator {
      * @return TRUE if all the TargetingPredicates evaluate to TRUE against the RequestContext, FALSE otherwise.
      */
     public TargetingPredicateResult evaluate(TargetingGroup targetingGroup) {
-//        List<TargetingPredicate> targetingPredicates = targetingGroup.getTargetingPredicates();
-//        boolean allTruePredicates = true;
-//        for (TargetingPredicate predicate : targetingPredicates) {
-//            TargetingPredicateResult predicateResult = predicate.evaluate(requestContext);
-//            if (!predicateResult.isTrue()) {
-//                allTruePredicates = false;
-//                break;
-//            }
-//        }
-//
-//        return allTruePredicates ? TargetingPredicateResult.TRUE :
-//                                   TargetingPredicateResult.FALSE;
-
-        return targetingGroup.getTargetingPredicates().stream()
+        return targetingGroup.getTargetingPredicates()
+                .stream()
                 .map(x -> x.evaluate(requestContext))
                 .anyMatch(x -> !x.isTrue()) ?
                 TargetingPredicateResult.FALSE :

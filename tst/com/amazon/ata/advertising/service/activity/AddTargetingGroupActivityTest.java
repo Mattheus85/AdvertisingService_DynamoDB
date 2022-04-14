@@ -1,11 +1,11 @@
 package com.amazon.ata.advertising.service.activity;
 
-import com.amazon.ata.advertising.service.model.requests.AddTargetingGroupRequest;
-import com.amazon.ata.advertising.service.model.responses.AddTargetingGroupResponse;
+import com.amazon.ata.advertising.service.dao.TargetingGroupDao;
 import com.amazon.ata.advertising.service.model.TargetingGroup;
 import com.amazon.ata.advertising.service.model.TargetingPredicate;
 import com.amazon.ata.advertising.service.model.TargetingPredicateType;
-import com.amazon.ata.advertising.service.dao.TargetingGroupDao;
+import com.amazon.ata.advertising.service.model.requests.AddTargetingGroupRequest;
+import com.amazon.ata.advertising.service.model.responses.AddTargetingGroupResponse;
 import com.amazon.ata.advertising.service.targeting.predicate.AgeTargetingPredicate;
 import com.amazon.ata.customerservice.AgeRange;
 import org.junit.jupiter.api.BeforeEach;
@@ -26,7 +26,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.ArgumentMatchers.argThat;
 import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.when;
-import static org.mockito.MockitoAnnotations.initMocks;
+import static org.mockito.MockitoAnnotations.openMocks;
 
 public class AddTargetingGroupActivityTest {
     private static final String CONTENT_ID = UUID.randomUUID().toString();
@@ -40,7 +40,7 @@ public class AddTargetingGroupActivityTest {
 
     @BeforeEach
     public void setup() {
-        initMocks(this);
+        openMocks(this);
     }
 
     @Test

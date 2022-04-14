@@ -41,7 +41,7 @@ public abstract class TargetingPredicate {
     }
 
     /**
-     * Evaluate this targeting predicate ignoring whether or not it is set to inverse.
+     * Evaluate this targeting predicate ignoring whether it is set to inverse.
      * @param context The context of this request.
      * @return The result of evaluating the predicate.
      */

@@ -59,7 +59,7 @@ public class TargetingGroupDao implements ReadableDao<String, List<TargetingGrou
     }
 
     /**
-     * Update the click through rate for a targeting group.
+     * Update the click-through rate for a targeting group.
      * @param targetingGroupId The ID of the targeting group to update
      * @param clickThroughRate The new clickThroughRate for the targeting group
      * @return The updated TargetingGroup
