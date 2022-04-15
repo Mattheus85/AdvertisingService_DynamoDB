@@ -29,11 +29,10 @@ public class TargetingPredicateTypeConverter implements DynamoDBTypeConverter<St
      */
     @Override
     public String convert(List<TargetingPredicate> predicateList) {
-        return new StringBuffer()
-                .append("[")
-                .append(predicateList.stream()
-                        .map(this::getSerializePredicateFunction).collect(Collectors.joining(",")))
-                .append("]").toString();
+        return "[" +
+                predicateList.stream()
+                        .map(this::getSerializePredicateFunction).collect(Collectors.joining(","))
+                + "]";
     }
 
     private String getSerializePredicateFunction(TargetingPredicate predicate) {

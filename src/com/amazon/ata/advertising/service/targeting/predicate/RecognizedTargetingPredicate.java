@@ -8,7 +8,7 @@ import com.amazon.ata.advertising.service.model.RequestContext;
 public class RecognizedTargetingPredicate extends TargetingPredicate {
 
     /**
-     * Evalutates to true based on the customer being recognized and how the inverse flag is set.
+     * Evaluates to true based on the customer being recognized and how the inverse flag is set.
      * @param inverse Can force the predicate to only evaluate to true if the customer isn't recognized.
      */
     public RecognizedTargetingPredicate(boolean inverse) {

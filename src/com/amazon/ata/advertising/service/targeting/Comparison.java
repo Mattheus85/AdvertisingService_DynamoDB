@@ -7,7 +7,7 @@ public enum Comparison {
     LT(Integer.MIN_VALUE, -1), GT(1, Integer.MAX_VALUE), EQ(0, 0);
 
     private final int min;
-    private int max;
+    private final int max;
 
     /**
      * Values to compare against.
@@ -27,7 +27,7 @@ public enum Comparison {
      * @return true if the evaluation holds
      */
     public <T> boolean compare(Comparable<T> left, T right) {
-        final int comparision = left.compareTo(right);
-        return comparision >= min && comparision <= max;
+        final int comparison = left.compareTo(right);
+        return comparison >= min && comparison <= max;
     }
 }

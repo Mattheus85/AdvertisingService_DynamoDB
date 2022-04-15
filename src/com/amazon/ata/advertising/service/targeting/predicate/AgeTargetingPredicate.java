@@ -48,7 +48,7 @@ public class AgeTargetingPredicate extends TargetingPredicate {
         Validate.notNull(targetedAgeRange, "Targeted AgeRange cannot be null.");
 
         final CustomerProfile profile = customerProfileDao.get(context.getCustomerId());
-        return targetedAgeRange.toString().equalsIgnoreCase(profile.getAgeRange()) ?
+        return targetedAgeRange.equalsIgnoreCase(profile.getAgeRange()) ?
                 TargetingPredicateResult.TRUE : TargetingPredicateResult.FALSE;
     }
 
