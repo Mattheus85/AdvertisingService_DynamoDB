@@ -14,12 +14,11 @@ import java.util.UUID;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.when;
-import static org.mockito.MockitoAnnotations.initMocks;
+import static org.mockito.MockitoAnnotations.openMocks;
 
 public class TargetingEvaluatorTest {
-    private List<TargetingPredicate> targetingPredicates;
     TargetingGroup targetingGroup;
-
+    private List<TargetingPredicate> targetingPredicates;
     @Mock
     private TargetingPredicate predicate1;
 
@@ -34,7 +33,7 @@ public class TargetingEvaluatorTest {
 
     @BeforeEach
     public void setup() {
-        initMocks(this);
+        openMocks(this);
         targetingPredicates = new ArrayList<>();
         targetingGroup = new TargetingGroup(UUID.randomUUID().toString(), UUID.randomUUID().toString(), 0, targetingPredicates);
     }

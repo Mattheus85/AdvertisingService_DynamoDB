@@ -7,7 +7,6 @@ import com.amazon.ata.advertising.service.model.GeneratedAdvertisement;
 import com.amazon.ata.advertising.service.model.RequestContext;
 import com.amazon.ata.advertising.service.targeting.TargetingEvaluator;
 import com.amazon.ata.advertising.service.targeting.TargetingGroup;
-import com.amazon.ata.advertising.service.targeting.predicate.TargetingPredicateResult;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -15,7 +14,9 @@ import org.apache.logging.log4j.Logger;
 import javax.inject.Inject;
 import java.util.Collections;
 import java.util.List;
+import java.util.Map;
 import java.util.Random;
+import java.util.TreeMap;
 import java.util.stream.Collectors;
 
 /**
@@ -73,8 +74,7 @@ public class AdvertisementSelectionLogic {
                     .filter(adContent -> (
                             targetingGroupDao.get(adContent.getContentId())
                                     .stream()
-                                    .anyMatch(targetingGroup -> evaluator.evaluate(targetingGroup)
-                                            .equals(TargetingPredicateResult.TRUE)))
+                                    .anyMatch(targetingGroup -> evaluator.evaluate(targetingGroup).isTrue()))
                     ).collect(Collectors.collectingAndThen(Collectors.toList(), list -> {
                         Collections.shuffle(list);
                         return list.stream();
