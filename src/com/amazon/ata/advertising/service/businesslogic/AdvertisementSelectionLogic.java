@@ -28,7 +28,6 @@ public class AdvertisementSelectionLogic {
 
     private final ReadableDao<String, List<AdvertisementContent>> contentDao;
     private final ReadableDao<String, List<TargetingGroup>> targetingGroupDao;
-    private Random random = new Random();
 
     /**
      * Constructor for AdvertisementSelectionLogic.
@@ -41,15 +40,6 @@ public class AdvertisementSelectionLogic {
                                        ReadableDao<String, List<TargetingGroup>> targetingGroupDao) {
         this.contentDao = contentDao;
         this.targetingGroupDao = targetingGroupDao;
-    }
-
-    /**
-     * Setter for Random class.
-     *
-     * @param random generates random number used to select advertisements.
-     */
-    public void setRandom(Random random) {
-        this.random = random;
     }
 
     /**

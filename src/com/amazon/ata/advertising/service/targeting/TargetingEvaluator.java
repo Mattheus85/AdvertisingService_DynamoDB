@@ -2,6 +2,7 @@ package com.amazon.ata.advertising.service.targeting;
 
 import com.amazon.ata.advertising.service.model.RequestContext;
 import com.amazon.ata.advertising.service.targeting.predicate.TargetingPredicateResult;
+import com.amazon.ata.advertising.service.util.Futures;
 
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ExecutorService;
@@ -36,15 +37,12 @@ public class TargetingEvaluator {
     public TargetingPredicateResult evaluate(TargetingGroup targetingGroup) {
         ExecutorService service = Executors.newCachedThreadPool();
 
-        return targetingGroup.getTargetingPredicates()
+        boolean result = targetingGroup.getTargetingPredicates()
                 .stream()
                 .map(predicate -> service.submit(() -> predicate.evaluate(requestContext)))
-                .anyMatch(future -> {
-                    try {
-                        return !future.get(250, TimeUnit.MILLISECONDS).isTrue();
-                    } catch (TimeoutException | InterruptedException | ExecutionException e) {
-                        e.printStackTrace();
-                        return true;}}) ?
+                .anyMatch(future -> !Futures.getUnchecked(future).isTrue());
+
+                return result ?
                 TargetingPredicateResult.FALSE :
                 TargetingPredicateResult.TRUE;
     }

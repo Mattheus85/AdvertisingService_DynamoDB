@@ -59,7 +59,7 @@ public class AdvertisementSelectionLogicTest {
     public void setup() {
         openMocks(this);
         adSelectionService = new AdvertisementSelectionLogic(contentDao, targetingGroupDao);
-        adSelectionService.setRandom(random);
+//        adSelectionService.setRandom(random);
     }
 
     @Test
