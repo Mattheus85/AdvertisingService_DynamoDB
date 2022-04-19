@@ -1,7 +1,6 @@
 package com.amazon.ata.test.reflect;
 
 import com.amazon.ata.test.helper.AtaTestHelper;
-
 import org.reflections.Reflections;
 import org.reflections.scanners.SubTypesScanner;
 
@@ -12,8 +11,8 @@ import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
 /**
- * Allows finding a Java {@code Class} object using introspection by specifying
- * constraints on the class being sought (e.g. name/partial name, containing package).
+ * Allows finding a Java {@code Class} object using introspection by specifying constraints on the class being sought
+ * (e.g. name/partial name, containing package).
  * <p>
  * Allows for:
  * <ul>
@@ -44,7 +43,7 @@ import java.util.stream.Collectors;
  *         {@code withSimpleNameContaining}:
  *     </li>
  * </ul>
- *
+ * <p>
  * Examples:
  * <ul>
  *     <li><pre>
@@ -78,9 +77,9 @@ import java.util.stream.Collectors;
  * Will return a {@code Set<Class<?>>}, whether 0, 1, or many {@code Class}es are found.
  * </p>
  *
- * @see com.amazon.ata.test.assertions.IntrospectionAssertions for assertions on
- * classes after the class of interest is returned.
- *
+ * @see com.amazon.ata.test.assertions.IntrospectionAssertions for assertions on classes after the class of interest is
+ * returned.
+ * <p>
  * For further improvements (e.g. {@code subtypeOf}), see https://sim.amazon.com/issues/ATAENG-1614
  */
 public final class ClassQuery {
@@ -120,14 +119,14 @@ public final class ClassQuery {
     }
 
     /**
-     * Creates a new {@code ClassQuery} by specifying the exact package in which to look
-     * for the class(es) of interest.
+     * Creates a new {@code ClassQuery} by specifying the exact package in which to look for the class(es) of interest.
      * <p>
-     *     This method can only be called once per query.
+     * This method can only be called once per query.
      * </p>
      * <p>
-     *     Providing a {@code null} or empty package name results in {@code IllegalArgumentException}.
+     * Providing a {@code null} or empty package name results in {@code IllegalArgumentException}.
      * </p>
+     *
      * @param exactPackageName The exact package in which to look for classes
      * @return a new {@code ClassQuery} to build a query from
      */
@@ -141,16 +140,15 @@ public final class ClassQuery {
     }
 
     /**
-     * Creates a new {@code ClassQuery} by specifying a super-package in which to look
-     * for the class(es) of interest.
+     * Creates a new {@code ClassQuery} by specifying a super-package in which to look for the class(es) of interest.
      * <p>
-     *     This method can only be called once per query.
+     * This method can only be called once per query.
      * </p>
      * <p>
-     *     Providing a {@code null} or empty package name results in {@code IllegalArgumentException}.
+     * Providing a {@code null} or empty package name results in {@code IllegalArgumentException}.
      * </p>
-     * @param containingPackageName The package in which to look for classes (including in
-     *                              sub-packages
+     *
+     * @param containingPackageName The package in which to look for classes (including in sub-packages
      * @return a new {@code ClassQuery} to build a query from
      */
     public static ClassQuery inContainingPackage(final String containingPackageName) {
@@ -165,13 +163,13 @@ public final class ClassQuery {
     /**
      * Applies a filter specifying the exact class name.
      * <p>
-     *     This method can only be called once per query. Multiple calls will result in
-     *     {@code IllegalArgumentException}. Similarly, cannot be called if
-     *     {@code withSimpleNameContaining} has already been called.
+     * This method can only be called once per query. Multiple calls will result in {@code IllegalArgumentException}.
+     * Similarly, cannot be called if {@code withSimpleNameContaining} has already been called.
      * </p>
      * <p>
-     *     Passing in {@code null} or empty class name will result in {@code IllegalArgumentException}.
+     * Passing in {@code null} or empty class name will result in {@code IllegalArgumentException}.
      * </p>
+     *
      * @param simpleName The exact class name to look for
      * @return an updated {@code ClassQuery} with new filter applied
      */
@@ -182,30 +180,31 @@ public final class ClassQuery {
         }
 
         return new ClassQuery(
-            this.packageName,
-            this.packageNameIsExact,
-            this.superTypes,
-            simpleName,
-            this.classNameContainingSubstrings
+                this.packageName,
+                this.packageNameIsExact,
+                this.superTypes,
+                simpleName,
+                this.classNameContainingSubstrings
         );
     }
 
     /**
      * Applies a filter specifying a substring of class name to look for.
      * <p>
-     *     This filter *is* case-sensitive.
+     * This filter *is* case-sensitive.
      * </p>
      * <p>
-     *     This method can be called any number of times and each name filter will be
-     *     AND-ed together so that all provided substrings must be found in class name.
+     * This method can be called any number of times and each name filter will be AND-ed together so that all provided
+     * substrings must be found in class name.
      * </p>
      * <p>
-     *     This method cannot be called after {@code withExactSimpleName}; this will result in
-     *     {@code IllegalStateException}.
+     * This method cannot be called after {@code withExactSimpleName}; this will result in
+     * {@code IllegalStateException}.
      * </p>
      * <p>
-     *     Passing in {@code null} or empty class name will result in {@code IllegalArgumentException}.
+     * Passing in {@code null} or empty class name will result in {@code IllegalArgumentException}.
      * </p>
+     *
      * @param nameContainingSubstring The substring of the class name to look for
      * @return an updated {@code ClassQuery} with new filter applied
      */
@@ -219,11 +218,11 @@ public final class ClassQuery {
         newClassNameContainingSubstrings.add(nameContainingSubstring);
 
         return new ClassQuery(
-            this.packageName,
-            this.packageNameIsExact,
-            this.superTypes,
-            this.exactSimpleName,
-            newClassNameContainingSubstrings
+                this.packageName,
+                this.packageNameIsExact,
+                this.superTypes,
+                this.exactSimpleName,
+                newClassNameContainingSubstrings
         );
     }
 
@@ -235,8 +234,7 @@ public final class ClassQuery {
     /**
      * Returns the unique class matching the specified filters, if one exists.
      * <p>
-     *     If no class is found, or if too many classes are found, will {@code fail()} (JUnit)
-     *     with meaningful message.
+     * If no class is found, or if too many classes are found, will {@code fail()} (JUnit) with meaningful message.
      * </p>
      *
      * @return the unique {@code Class<>} matching the criteria
@@ -281,18 +279,18 @@ public final class ClassQuery {
      */
     public Set<Class<?>> findClasses() {
         Reflections reflections = new Reflections(packageName,
-            // By setting "excludeObjectClass" to false we are able to find direct subclasses of Object
-            new SubTypesScanner(false));
+                // By setting "excludeObjectClass" to false we are able to find direct subclasses of Object
+                new SubTypesScanner(false));
         if (reflections.getStore().keySet().isEmpty()) {
             // The Scanner did not get added to the reflections store as the package name does not exist, return empty.
             // Related to open bug: https://github.com/ronmamo/reflections/issues/273
             return Collections.emptySet();
         }
         return reflections.getSubTypesOf(subTypeOf).stream()
-            .filter(clazz -> !packageNameIsExact || packageName.equals(clazz.getPackage().getName()))
-            .filter(this::classHasAllSupertypes)
-            .filter(this::classNameMatchesConstraints)
-            .collect(Collectors.toSet());
+                .filter(clazz -> !packageNameIsExact || packageName.equals(clazz.getPackage().getName()))
+                .filter(this::classHasAllSupertypes)
+                .filter(this::classNameMatchesConstraints)
+                .collect(Collectors.toSet());
     }
 
     private boolean classHasAllSupertypes(Class<?> clazz) {
@@ -322,7 +320,7 @@ public final class ClassQuery {
         ensureExactClassNameNotAlreadySet();
         if (!classNameContainingSubstrings.isEmpty()) {
             throw new IllegalStateException(
-                String.format("Name filter(s) already exist(s): %s", classNameContainingSubstrings.toString())
+                    String.format("Name filter(s) already exist(s): %s", classNameContainingSubstrings.toString())
             );
         }
     }
@@ -330,7 +328,7 @@ public final class ClassQuery {
     private void ensureExactClassNameNotAlreadySet() {
         if (null != exactSimpleName) {
             throw new IllegalStateException(
-                String.format("Exact simple name filter already exists: '%s'", exactSimpleName)
+                    String.format("Exact simple name filter already exists: '%s'", exactSimpleName)
             );
         }
     }
@@ -338,7 +336,7 @@ public final class ClassQuery {
     private static void validatePackageName(final String candidatePackageName) {
         if (!VALID_PACKAGE_PATTERN.matcher(candidatePackageName).find()) {
             throw new IllegalArgumentException(
-                String.format("Cannot specify a top-level package filter: '%s'", candidatePackageName)
+                    String.format("Cannot specify a top-level package filter: '%s'", candidatePackageName)
             );
         }
     }
@@ -351,13 +349,13 @@ public final class ClassQuery {
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder("{ClassQuery | ")
-            .append(String.format("packageName: %s (include subpackages: %b)", packageName, !packageNameIsExact));
+                .append(String.format("packageName: %s (include subpackages: %b)", packageName, !packageNameIsExact));
 
         if (null != exactSimpleName) {
             sb.append(String.format(", searching for exactSimpleName: '%s'", exactSimpleName));
         } else if (null != classNameContainingSubstrings && !classNameContainingSubstrings.isEmpty()) {
             sb.append(String.format(", filtering on classNameContainingSubstrings: [%s]",
-                classNameContainingSubstrings.toString()));
+                    classNameContainingSubstrings.toString()));
         }
 
         sb.append(String.format(", scanning for subTypes of: '%s'", subTypeOf));

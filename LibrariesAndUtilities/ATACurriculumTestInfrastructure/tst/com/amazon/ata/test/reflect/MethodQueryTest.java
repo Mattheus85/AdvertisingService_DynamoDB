@@ -28,20 +28,37 @@ public class MethodQueryTest {
     private static final String INTEGER_RETURN_METHOD_NAME = "getInteger";
 
     class OneMethodClass {
-        public void firstMethod() {}
+        public void firstMethod() {
+        }
     }
 
     class TwoMethodClass {
-        public void firstMethod() {}
-        public String secondMethod() { return "secondMethod!"; }
+        public void firstMethod() {
+        }
+
+        public String secondMethod() {
+            return "secondMethod!";
+        }
     }
 
     class VoidAndTypedReturnMethodsClass {
-        public void getVoid() {}
-        public void anotherGetVoid() {}
-        public String getString() { return "a string"; }
-        public String getAnotherString() { return "another string"; }
-        public Integer getInteger() { return 1; }
+        public void getVoid() {
+        }
+
+        public void anotherGetVoid() {
+        }
+
+        public String getString() {
+            return "a string";
+        }
+
+        public String getAnotherString() {
+            return "another string";
+        }
+
+        public Integer getInteger() {
+            return 1;
+        }
     }
 
     @Test
@@ -73,7 +90,7 @@ public class MethodQueryTest {
 
         // WHEN
         MethodQuery methodQuery = MethodQuery.inType(clazz)
-                                             .withReturnType(String.class);
+                .withReturnType(String.class);
 
         // THEN
         Set<Method> methods = methodQuery.findMethods();
@@ -115,7 +132,7 @@ public class MethodQueryTest {
 
         // WHEN
         MethodQuery methodQuery = MethodQuery.inType(clazz)
-                                             .withVoidReturnType();
+                .withVoidReturnType();
 
         // THEN
         Set<Method> methods = methodQuery.findMethods();
@@ -147,7 +164,7 @@ public class MethodQueryTest {
 
         // WHEN
         MethodQuery methodQuery = MethodQuery.inType(clazz)
-                                             .withExactName(INTEGER_RETURN_METHOD_NAME);
+                .withExactName(INTEGER_RETURN_METHOD_NAME);
 
         // THEN
         Method method = methodQuery.findMethod();
@@ -162,17 +179,17 @@ public class MethodQueryTest {
 
         // WHEN
         MethodQuery methodQuery = MethodQuery.inType(clazz)
-                                             .withExactName(incorrectMethodName);
+                .withExactName(incorrectMethodName);
 
         // THEN
         Set<Method> methods = methodQuery.findMethods();
         assertEquals(
-            0,
-            methods.size(),
-            String.format(
-                "Expected withExactName(%s) not to match any methods, but matches were returned: {%s}",
-                incorrectMethodName,
-                methods.toString())
+                0,
+                methods.size(),
+                String.format(
+                        "Expected withExactName(%s) not to match any methods, but matches were returned: {%s}",
+                        incorrectMethodName,
+                        methods.toString())
         );
     }
 
@@ -219,18 +236,18 @@ public class MethodQueryTest {
 
         // WHEN
         MethodQuery methodQuery = MethodQuery.inType(clazz)
-            .withNameContaining(SECOND_METHOD_NAME);
+                .withNameContaining(SECOND_METHOD_NAME);
 
         // THEN
         Method method = methodQuery.findMethod();
         assertEquals(
-            SECOND_METHOD_NAME,
-            method.getName(),
-            String.format(
-                "Expected findMethod to return method %s when searching for '%s', but returned %s",
                 SECOND_METHOD_NAME,
-                SECOND_METHOD_NAME,
-                method.getName())
+                method.getName(),
+                String.format(
+                        "Expected findMethod to return method %s when searching for '%s', but returned %s",
+                        SECOND_METHOD_NAME,
+                        SECOND_METHOD_NAME,
+                        method.getName())
         );
     }
 
@@ -242,18 +259,18 @@ public class MethodQueryTest {
 
         // WHEN
         MethodQuery methodQuery = MethodQuery.inType(clazz)
-            .withNameContaining(methodNameSubstring);
+                .withNameContaining(methodNameSubstring);
 
         // THEN
         Method method = methodQuery.findMethod();
         assertEquals(
-            SECOND_METHOD_NAME,
-            method.getName(),
-            String.format(
-                "Expected findMethod to return method %s when searching for '%s', but returned %s",
                 SECOND_METHOD_NAME,
-                methodNameSubstring,
-                method.getName())
+                method.getName(),
+                String.format(
+                        "Expected findMethod to return method %s when searching for '%s', but returned %s",
+                        SECOND_METHOD_NAME,
+                        methodNameSubstring,
+                        method.getName())
         );
     }
 
@@ -265,18 +282,18 @@ public class MethodQueryTest {
 
         // WHEN
         MethodQuery methodQuery = MethodQuery.inType(clazz)
-            .withNameContaining(methodNameSubstring);
+                .withNameContaining(methodNameSubstring);
 
         // THEN
         Method method = methodQuery.findMethod();
         assertEquals(
-            SECOND_METHOD_NAME,
-            method.getName(),
-            String.format(
-                "Expected findMethod to return method %s when searching for '%s', but returned %s",
                 SECOND_METHOD_NAME,
-                methodNameSubstring,
-                method.getName())
+                method.getName(),
+                String.format(
+                        "Expected findMethod to return method %s when searching for '%s', but returned %s",
+                        SECOND_METHOD_NAME,
+                        methodNameSubstring,
+                        method.getName())
         );
     }
 
@@ -286,15 +303,15 @@ public class MethodQueryTest {
         Class<?> clazz = VoidAndTypedReturnMethodsClass.class;
         String methodNameSubstring = "get";
         Set<String> expectedMethodNames = ImmutableSet.of(
-                                              VOID_RETURN_METHOD_NAME,
-                                              STRING_RETURN_METHOD_NAME,
-                                              ANOTHER_STRING_RETURN_METHOD_NAME,
-                                              INTEGER_RETURN_METHOD_NAME
+                VOID_RETURN_METHOD_NAME,
+                STRING_RETURN_METHOD_NAME,
+                ANOTHER_STRING_RETURN_METHOD_NAME,
+                INTEGER_RETURN_METHOD_NAME
         );
 
         // WHEN
         MethodQuery methodQuery = MethodQuery.inType(clazz)
-            .withNameContaining(methodNameSubstring);
+                .withNameContaining(methodNameSubstring);
 
         // THEN
         Set<Method> methods = methodQuery.findMethods();
@@ -306,14 +323,14 @@ public class MethodQueryTest {
         // GIVEN
         Class<?> clazz = VoidAndTypedReturnMethodsClass.class;
         Set<String> expectedMethodNames = ImmutableSet.of(
-            STRING_RETURN_METHOD_NAME,
-            ANOTHER_STRING_RETURN_METHOD_NAME
+                STRING_RETURN_METHOD_NAME,
+                ANOTHER_STRING_RETURN_METHOD_NAME
         );
 
         // WHEN
         MethodQuery methodQuery = MethodQuery.inType(clazz)
-            .withNameContaining("get")
-            .withNameContaining("String");
+                .withNameContaining("get")
+                .withNameContaining("String");
 
         // THEN
         Set<Method> methods = methodQuery.findMethods();
@@ -354,10 +371,18 @@ public class MethodQueryTest {
         private static final String INTEGER_THEN_STRING_ARGS_METHOD_NAME = "withTwoArgsAndReturn";
 
         class ArgedMethodsClass {
-            public void withNoArgs() {}
-            public void withString(String s) {}
-            public void withTwoArgs(String s, Integer i) {}
-            public String withTwoArgsAndReturn(Integer i, String s) { return s + i; }
+            public void withNoArgs() {
+            }
+
+            public void withString(String s) {
+            }
+
+            public void withTwoArgs(String s, Integer i) {
+            }
+
+            public String withTwoArgsAndReturn(Integer i, String s) {
+                return s + i;
+            }
         }
 
         @Test
@@ -367,14 +392,14 @@ public class MethodQueryTest {
 
             // WHEN
             MethodQuery methodQuery = MethodQuery.inType(clazz)
-                .withExactArgTypes(Collections.emptyList());
+                    .withExactArgTypes(Collections.emptyList());
 
             // THEN
             Method method = methodQuery.findMethod();
             assertEquals(
-                NO_ARGS_METHOD_NAME,
-                method.getName(),
-                String.format("Expected to return method %s but found instead: %s", NO_ARGS_METHOD_NAME, method.toString())
+                    NO_ARGS_METHOD_NAME,
+                    method.getName(),
+                    String.format("Expected to return method %s but found instead: %s", NO_ARGS_METHOD_NAME, method.toString())
             );
         }
 
@@ -383,12 +408,12 @@ public class MethodQueryTest {
             // GIVEN
             Class<?> clazz = ArgedMethodsClass.class;
             Set<String> expectedMethodNames = ImmutableSet.of(
-                STRING_THEN_INTEGER_ARGS_METHOD_NAME, INTEGER_THEN_STRING_ARGS_METHOD_NAME
+                    STRING_THEN_INTEGER_ARGS_METHOD_NAME, INTEGER_THEN_STRING_ARGS_METHOD_NAME
             );
 
             // WHEN
             MethodQuery methodQuery = MethodQuery.inType(clazz)
-                .withExactArgTypes(ImmutableList.of(String.class, Integer.class));
+                    .withExactArgTypes(ImmutableList.of(String.class, Integer.class));
 
             // THEN
             Set<Method> methods = methodQuery.findMethods();
@@ -402,14 +427,14 @@ public class MethodQueryTest {
 
             // WHEN
             MethodQuery methodQuery = MethodQuery.inType(clazz)
-                .withExactArgTypes(ImmutableList.of(Integer.class));
+                    .withExactArgTypes(ImmutableList.of(Integer.class));
 
             // THEN
             Set<Method> methods = methodQuery.findMethods();
             assertTrue(
-                methods.isEmpty(),
-                String.format(
-                    "Expected no methods to return for withExactArgTypes(Integer) but found: %s", methods.toString())
+                    methods.isEmpty(),
+                    String.format(
+                            "Expected no methods to return for withExactArgTypes(Integer) but found: %s", methods.toString())
             );
         }
 
@@ -434,8 +459,8 @@ public class MethodQueryTest {
 
             // WHEN + THEN - null return type results in exception
             assertThrows(
-                IllegalArgumentException.class,
-                () -> MethodQuery.inType(clazz).withExactArgTypes(listIncludingNull)
+                    IllegalArgumentException.class,
+                    () -> MethodQuery.inType(clazz).withExactArgTypes(listIncludingNull)
             );
         }
 
@@ -443,7 +468,7 @@ public class MethodQueryTest {
         void withExactArgTypes_calledMultipleTimes_throwsException() {
             // GIVEN - method query with exact args already specified
             MethodQuery methodQuery =
-                MethodQuery.inType(ArgedMethodsClass.class).withExactArgTypes(Collections.emptyList());
+                    MethodQuery.inType(ArgedMethodsClass.class).withExactArgTypes(Collections.emptyList());
 
             // WHEN + THEN - calling again throws exception
             assertThrows(IllegalStateException.class, () -> methodQuery.withExactArgTypes(ImmutableList.of(int.class)));
@@ -453,25 +478,25 @@ public class MethodQueryTest {
         void withExactArgTypes_withTooManyArgs_throwsException() {
             // GIVEN
             List<Class<?>> tooManyArgs = ImmutableList.of(
-                int.class,
-                int.class,
-                int.class,
-                int.class,
-                int.class,
-                int.class,
-                int.class,
-                int.class,
-                int.class,
-                int.class,
-                int.class,
-                int.class,
-                String.class
+                    int.class,
+                    int.class,
+                    int.class,
+                    int.class,
+                    int.class,
+                    int.class,
+                    int.class,
+                    int.class,
+                    int.class,
+                    int.class,
+                    int.class,
+                    int.class,
+                    String.class
             );
 
             // WHEN + THEN - too many arg types throws exception
             assertThrows(
-                IllegalArgumentException.class,
-                () -> MethodQuery.inType(String.class).withExactArgTypes(tooManyArgs)
+                    IllegalArgumentException.class,
+                    () -> MethodQuery.inType(String.class).withExactArgTypes(tooManyArgs)
             );
         }
     }
@@ -481,8 +506,8 @@ public class MethodQueryTest {
         // GIVEN
         // WHEN + THEN - no match assert failure
         assertThrows(
-            AssertionFailedError.class,
-            () -> MethodQuery.inType(String.class).withExactName("whoPutThisHere").findMethodOrFail()
+                AssertionFailedError.class,
+                () -> MethodQuery.inType(String.class).withExactName("whoPutThisHere").findMethodOrFail()
         );
     }
 
@@ -491,14 +516,14 @@ public class MethodQueryTest {
         // GIVEN
         // WHEN
         Method method = MethodQuery.inType(OneMethodClass.class)
-            .withExactName(FIRST_METHOD_NAME)
-            .findMethodOrFail();
+                .withExactName(FIRST_METHOD_NAME)
+                .findMethodOrFail();
 
         // THEN
         assertEquals(
-            FIRST_METHOD_NAME,
-            method.getName(),
-            String.format("Expected method %s but got: %s", FIRST_METHOD_NAME, method.toString())
+                FIRST_METHOD_NAME,
+                method.getName(),
+                String.format("Expected method %s but got: %s", FIRST_METHOD_NAME, method.toString())
         );
     }
 
@@ -507,8 +532,8 @@ public class MethodQueryTest {
         // GIVEN
         // WHEN + THEN - too many matches assert failure
         assertThrows(
-            AssertionFailedError.class,
-            () -> MethodQuery.inType(String.class).withNameContaining("valueOf").findMethodOrFail()
+                AssertionFailedError.class,
+                () -> MethodQuery.inType(String.class).withNameContaining("valueOf").findMethodOrFail()
         );
     }
 
@@ -517,8 +542,8 @@ public class MethodQueryTest {
         // GIVEN
         // WHEN + THEN - no match throws exception
         assertThrows(
-            NoMethodFoundException.class,
-            () -> MethodQuery.inType(String.class).withExactName("whoPutThisHere").findMethod()
+                NoMethodFoundException.class,
+                () -> MethodQuery.inType(String.class).withExactName("whoPutThisHere").findMethod()
         );
     }
 
@@ -527,14 +552,14 @@ public class MethodQueryTest {
         // GIVEN
         // WHEN
         Method method = MethodQuery.inType(OneMethodClass.class)
-            .withExactName(FIRST_METHOD_NAME)
-            .findMethod();
+                .withExactName(FIRST_METHOD_NAME)
+                .findMethod();
 
         // THEN
         assertEquals(
-            FIRST_METHOD_NAME,
-            method.getName(),
-            String.format("Expected method %s but got: %s", FIRST_METHOD_NAME, method.toString())
+                FIRST_METHOD_NAME,
+                method.getName(),
+                String.format("Expected method %s but got: %s", FIRST_METHOD_NAME, method.toString())
         );
     }
 
@@ -543,8 +568,8 @@ public class MethodQueryTest {
         // GIVEN
         // WHEN + THEN - too many matches throws exception
         assertThrows(
-            MultipleMethodsFoundException.class,
-            () -> MethodQuery.inType(String.class).withNameContaining("valueOf").findMethod()
+                MultipleMethodsFoundException.class,
+                () -> MethodQuery.inType(String.class).withNameContaining("valueOf").findMethod()
         );
     }
 
@@ -554,11 +579,22 @@ public class MethodQueryTest {
         private static final String OTHER_OVERLOADED_METHOD_NAME = "overloadMeToo";
 
         class OverloadedMethodsClass {
-            public void overloadMe() {}
-            public void overloadMe(String s) {}
-            public String overloadMe(Integer i) { return i.toString(); }
-            public String overloadMeToo(String s) { return s; }
-            public void overloadMeToo(Integer i) {}
+            public void overloadMe() {
+            }
+
+            public void overloadMe(String s) {
+            }
+
+            public String overloadMe(Integer i) {
+                return i.toString();
+            }
+
+            public String overloadMeToo(String s) {
+                return s;
+            }
+
+            public void overloadMeToo(Integer i) {
+            }
         }
 
         @Test
@@ -566,8 +602,8 @@ public class MethodQueryTest {
             // GIVEN
             // WHEN
             Set<Method> methods = MethodQuery.inType(String.class)
-                .withExactName("whoPutThisHere")
-                .findMethods();
+                    .withExactName("whoPutThisHere")
+                    .findMethods();
 
             // THEN
             assertTrue(methods.isEmpty(), String.format("Expected no methods returned but found: %s", methods.toString()));
@@ -578,13 +614,13 @@ public class MethodQueryTest {
             // GIVEN
             // WHEN
             Set<Method> methods = MethodQuery.inType(String.class)
-                .withExactName("valueOf")
-                .findMethods();
+                    .withExactName("valueOf")
+                    .findMethods();
 
             // THEN
             assertTrue(
-                methods.size() > 1,
-                String.format("Expected to find many valueOf methods, but only found: %s", methods.toString())
+                    methods.size() > 1,
+                    String.format("Expected to find many valueOf methods, but only found: %s", methods.toString())
             );
         }
 
@@ -593,15 +629,15 @@ public class MethodQueryTest {
             // GIVEN
             // WHEN
             Set<Method> methods = MethodQuery.inType(OverloadedMethodsClass.class)
-                .withExactName(OVERLOADED_METHOD_NAME)
-                .withVoidReturnType()
-                .findMethods();
+                    .withExactName(OVERLOADED_METHOD_NAME)
+                    .withVoidReturnType()
+                    .findMethods();
 
             // THEN
             assertEquals(
-                2,
-                methods.size(),
-                String.format("Expected two overloaded methods to match but got %s", methods.toString())
+                    2,
+                    methods.size(),
+                    String.format("Expected two overloaded methods to match but got %s", methods.toString())
             );
         }
 
@@ -611,9 +647,9 @@ public class MethodQueryTest {
             Set<String> expectedMethodNames = ImmutableSet.of(OVERLOADED_METHOD_NAME, OTHER_OVERLOADED_METHOD_NAME);
             // WHEN
             Set<Method> methods = MethodQuery.inType(OverloadedMethodsClass.class)
-                .withNameContaining("overload")
-                .withExactArgTypes(ImmutableList.of(String.class))
-                .findMethods();
+                    .withNameContaining("overload")
+                    .withExactArgTypes(ImmutableList.of(String.class))
+                    .findMethods();
 
             // THEN
             assertMethodsContainOnlyExpectedMethods(methods, expectedMethodNames);
@@ -624,29 +660,30 @@ public class MethodQueryTest {
             // GIVEN
             // WHEN
             Set<Method> methods = MethodQuery.inType(OverloadedMethodsClass.class)
-                .withNameContaining("overload")
-                .withVoidReturnType()
-                .withExactArgTypes(ImmutableList.of(String.class))
-                .findMethods();
+                    .withNameContaining("overload")
+                    .withVoidReturnType()
+                    .withExactArgTypes(ImmutableList.of(String.class))
+                    .findMethods();
 
             // THEN
             assertEquals(
-                1,
-                methods.size(),
-                String.format("Expected only one of overloaded methods to match but got %s", methods.toString())
+                    1,
+                    methods.size(),
+                    String.format("Expected only one of overloaded methods to match but got %s", methods.toString())
             );
         }
     }
+
     private void assertMethodsContainOnlyExpectedMethods(Set<Method> methods, Set<String> expectedMethodNames) {
         Set<String> methodNames = methods.stream()
-            .map(Method::getName)
-             .collect(Collectors.toSet());
+                .map(Method::getName)
+                .collect(Collectors.toSet());
         assertEquals(
-            expectedMethodNames,
+                expectedMethodNames,
                 methodNames,
-            String.format("Expected findMethods to return only methods {%s}, but found {%s}",
-                expectedMethodNames.toString(),
-                methodNames.toString())
+                String.format("Expected findMethods to return only methods {%s}, but found {%s}",
+                        expectedMethodNames.toString(),
+                        methodNames.toString())
         );
     }
 }

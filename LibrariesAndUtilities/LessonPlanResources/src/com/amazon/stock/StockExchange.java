@@ -11,9 +11,9 @@ public class StockExchange {
     public StockPriceResponse getMarketPrice(String symbol) throws NonExistentStockException {
         if (symbol.equals(amazonId)) {
             return StockPriceResponse.builder()
-                .withSymbol(amazonId)
-                .withPrice(currentAmazonStockPrice)
-                .build();
+                    .withSymbol(amazonId)
+                    .withPrice(currentAmazonStockPrice)
+                    .build();
         }
 
         if (symbol.equals("wfm") | symbol.equals("nonexistent")) {
@@ -26,10 +26,10 @@ public class StockExchange {
     public SellStockResponse offer(SellStockRequest request) throws NonExistentStockException {
         if (request.getSymbol().equals(amazonId)) {
             return SellStockResponse.builder()
-                .withSymbol(amazonId)
-                .withPrice(currentAmazonStockPrice.multiply(BigDecimal.valueOf(request.getQuantity())))
-                .withQuantity(request.getQuantity())
-                .build();
+                    .withSymbol(amazonId)
+                    .withPrice(currentAmazonStockPrice.multiply(BigDecimal.valueOf(request.getQuantity())))
+                    .withQuantity(request.getQuantity())
+                    .build();
         }
 
         if (request.getSymbol().equals("wfm") | request.getSymbol().equals("nonexistent")) {
@@ -42,10 +42,10 @@ public class StockExchange {
     public BuyStockResponse bid(BuyStockRequest request) throws NonExistentStockException {
         if (request.getSymbol().equals(amazonId)) {
             return BuyStockResponse.builder()
-                .withSymbol(amazonId)
-                .withPrice(currentAmazonStockPrice.multiply(BigDecimal.valueOf(request.getQuantity())))
-                .withQuantity(request.getQuantity())
-                .build();
+                    .withSymbol(amazonId)
+                    .withPrice(currentAmazonStockPrice.multiply(BigDecimal.valueOf(request.getQuantity())))
+                    .withQuantity(request.getQuantity())
+                    .build();
         }
 
         if (request.getSymbol().equals("wfm") | request.getSymbol().equals("nonexistent")) {

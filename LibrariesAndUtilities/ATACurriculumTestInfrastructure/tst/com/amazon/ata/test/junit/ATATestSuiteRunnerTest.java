@@ -3,7 +3,6 @@ package com.amazon.ata.test.junit;
 import com.amazon.ata.test.types.ATATestResult;
 import com.amazon.ata.test.types.ATATestSuiteId;
 import com.amazon.ata.test.types.ATATestSuiteReport;
-
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -61,7 +60,7 @@ public class ATATestSuiteRunnerTest {
 
         // THEN
         assertEquals(testSuiteId, suiteReport.getTestSuiteId(),
-            "Expected result to be be for provided testSuiteId");
+                "Expected result to be be for provided testSuiteId");
         assertEquals(2, suiteReport.getResults().size());
 
         int failedCount = 0;
@@ -109,13 +108,13 @@ public class ATATestSuiteRunnerTest {
 
         // THEN
         assertEquals(testSuiteId, suiteReport.getTestSuiteId(),
-            "Expected result to be be for provided testSuiteId");
+                "Expected result to be be for provided testSuiteId");
         assertEquals(3, suiteReport.getResults().size());
 
         int errorCount = 0;
         for (ATATestResult testResult : suiteReport.getResults()) {
             if (testResult.getErrorMessage().isPresent()) {
-                errorCount ++;
+                errorCount++;
                 assertEquals("java.lang.RuntimeException: message", testResult.getErrorMessage().get());
             }
         }

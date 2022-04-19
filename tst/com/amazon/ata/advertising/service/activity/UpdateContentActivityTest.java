@@ -1,11 +1,11 @@
 package com.amazon.ata.advertising.service.activity;
 
-import com.amazon.ata.advertising.service.model.AdvertisingContent;
-import com.amazon.ata.advertising.service.model.requests.UpdateContentRequest;
-import com.amazon.ata.advertising.service.model.responses.UpdateContentResponse;
 import com.amazon.ata.advertising.service.dao.ContentDao;
 import com.amazon.ata.advertising.service.dao.TargetingGroupDao;
 import com.amazon.ata.advertising.service.model.AdvertisementContent;
+import com.amazon.ata.advertising.service.model.AdvertisingContent;
+import com.amazon.ata.advertising.service.model.requests.UpdateContentRequest;
+import com.amazon.ata.advertising.service.model.responses.UpdateContentResponse;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;

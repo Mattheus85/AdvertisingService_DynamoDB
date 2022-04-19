@@ -1,7 +1,5 @@
 package com.amazon.ata.test.wrapper;
 
-import com.amazon.ata.test.reflect.MethodQuery;
-
 import org.junit.jupiter.api.Test;
 import org.opentest4j.AssertionFailedError;
 
@@ -42,16 +40,25 @@ public class WrapperBaseTest {
     }
 
     public static class ClassWithVoidMethods {
-        public void run() {}
-        public void runWithArgs(String first, String second) {}
-        public static void runStatic() {}
+        public void run() {
+        }
+
+        public void runWithArgs(String first, String second) {
+        }
+
+        public static void runStatic() {
+        }
     }
 
     /* Wrapper of above class */
     public static class ClassWithVoidMethodsWrapper extends WrapperBase {
-        ClassWithVoidMethodsWrapper(Object wrappedInstance) { super(wrappedInstance); }
+        ClassWithVoidMethodsWrapper(Object wrappedInstance) {
+            super(wrappedInstance);
+        }
 
-        public Class<?> getWrappedClass() { return ClassWithVoidMethods.class; }
+        public Class<?> getWrappedClass() {
+            return ClassWithVoidMethods.class;
+        }
     }
 
     /* used for reflection when we need exceptions thrown */
@@ -64,7 +71,9 @@ public class WrapperBaseTest {
             }
         }
 
-        public void throwExceptionFromVoidMethod() { ExceptionThrowingType.staticallyThrowAnException(); }
+        public void throwExceptionFromVoidMethod() {
+            ExceptionThrowingType.staticallyThrowAnException();
+        }
 
         public String throwAnExceptionForMe() {
             return ExceptionThrowingType.staticallyThrowAnException();
@@ -533,29 +542,29 @@ public class WrapperBaseTest {
         } catch (AssertionFailedError e) {
             // message contains class name
             assertTrue(
-                e.getMessage().contains(exceptionThrowingTypeWrapper.getWrappedClass().getSimpleName()),
-                String.format(
-                    "Expected exception message to include class name ('%s') but was '%s'",
-                    exceptionThrowingTypeWrapper.getWrappedClass().getSimpleName(),
-                    e.getMessage())
+                    e.getMessage().contains(exceptionThrowingTypeWrapper.getWrappedClass().getSimpleName()),
+                    String.format(
+                            "Expected exception message to include class name ('%s') but was '%s'",
+                            exceptionThrowingTypeWrapper.getWrappedClass().getSimpleName(),
+                            e.getMessage())
             );
 
             // message contains method name
             assertTrue(
-                e.getMessage().contains(methodName),
-                String.format(
-                    "Expected exception message to include method name ('%s') but was '%s'",
-                    methodName,
-                    e.getMessage())
+                    e.getMessage().contains(methodName),
+                    String.format(
+                            "Expected exception message to include method name ('%s') but was '%s'",
+                            methodName,
+                            e.getMessage())
             );
 
             // message contains exception name
             assertTrue(
-                e.getMessage().contains(ExceptionThrowingType.getExceptionTypeThrown().getSimpleName()),
-                String.format(
-                    "Expected exception message to include exception name ('%s') but was '%s'",
-                    ExceptionThrowingType.getExceptionTypeThrown().getSimpleName(),
-                    e.getMessage())
+                    e.getMessage().contains(ExceptionThrowingType.getExceptionTypeThrown().getSimpleName()),
+                    String.format(
+                            "Expected exception message to include exception name ('%s') but was '%s'",
+                            ExceptionThrowingType.getExceptionTypeThrown().getSimpleName(),
+                            e.getMessage())
             );
 
             // all good!

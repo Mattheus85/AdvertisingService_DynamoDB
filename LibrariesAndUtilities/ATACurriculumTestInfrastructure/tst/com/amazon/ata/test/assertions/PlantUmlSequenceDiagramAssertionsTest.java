@@ -29,7 +29,7 @@ public class PlantUmlSequenceDiagramAssertionsTest {
                 AssertionFailedError.class,
                 () -> PlantUmlSequenceDiagramAssertions.assertSequenceDiagramContains(
                         "Automobile --> Engine", nonMatchingClass)
-            );
+        );
     }
 
     // assertSequenceDiagramContainsEntity
@@ -37,11 +37,11 @@ public class PlantUmlSequenceDiagramAssertionsTest {
     // PlantUmlSequenceDiagramHelperTest has more comprehensive set of cases
     @ParameterizedTest
     @ValueSource(strings = {
-        "Automobile -> Engine: method()",
-        "Automobile -->   Engine",
-        "Engine<- Automobile:method()",
-        "Engine<--Automobile:ReturnType",
-        "participant    Automobile as Auto"
+            "Automobile -> Engine: method()",
+            "Automobile -->   Engine",
+            "Engine<- Automobile:method()",
+            "Engine<--Automobile:ReturnType",
+            "participant    Automobile as Auto"
     })
     void assertSequenceDiagramContainsEntity_stringMatches_noAssertFires(String content) {
         // GIVEN -- matching string
@@ -67,12 +67,12 @@ public class PlantUmlSequenceDiagramAssertionsTest {
     // PlantUmlSequenceDiagramHelperTest has more comprehensive set of cases
     @ParameterizedTest
     @ValueSource(strings = {
-        "SlowAutomobile -> Engine : method()",
-        "AutomobileType<--Engine : ReturnType",
-        "SlowAutomobileType<--Engine",
-        "participant AutomobileType",
-        "participant SlowAutomobile",
-        "participant SlowAutomobileType"
+            "SlowAutomobile -> Engine : method()",
+            "AutomobileType<--Engine : ReturnType",
+            "SlowAutomobileType<--Engine",
+            "participant AutomobileType",
+            "participant SlowAutomobile",
+            "participant SlowAutomobileType"
     })
     void assertSequenceDiagramContainsEntity_entityNameIsSubstringOfEntityInDiagram_assertFires(String content) {
         // GIVEN -- mon-matching string
@@ -80,18 +80,18 @@ public class PlantUmlSequenceDiagramAssertionsTest {
 
         // WHEN + THEN -- assert failure
         assertThrows(
-            AssertionFailedError.class,
-            () -> PlantUmlSequenceDiagramAssertions.assertSequenceDiagramContainsEntity(
-                content, nonMatchingClass)
+                AssertionFailedError.class,
+                () -> PlantUmlSequenceDiagramAssertions.assertSequenceDiagramContainsEntity(
+                        content, nonMatchingClass)
         );
     }
 
     // PlantUmlSequenceDiagramHelperTest has more comprehensive set of cases
     @ParameterizedTest
     @ValueSource(strings = {
-        "Automobile --> Engine: ReturnType",
-        "Automobile -> Engine: getReturnType",
-        "' Comment with ReturnType"
+            "Automobile --> Engine: ReturnType",
+            "Automobile -> Engine: getReturnType",
+            "' Comment with ReturnType"
     })
     void assertSequenceDiagramContainsEntity_stringExistsButIsntAnEntity_assertFires(String content) {
         // GIVEN - string that exists in the diagram content, but not as an entity
@@ -99,9 +99,9 @@ public class PlantUmlSequenceDiagramAssertionsTest {
 
         // WHEN + THEN -- assert failure
         assertThrows(
-            AssertionFailedError.class,
-            () -> PlantUmlSequenceDiagramAssertions.assertSequenceDiagramContainsEntity(
-                content, nonMatchingClass)
+                AssertionFailedError.class,
+                () -> PlantUmlSequenceDiagramAssertions.assertSequenceDiagramContainsEntity(
+                        content, nonMatchingClass)
         );
     }
 

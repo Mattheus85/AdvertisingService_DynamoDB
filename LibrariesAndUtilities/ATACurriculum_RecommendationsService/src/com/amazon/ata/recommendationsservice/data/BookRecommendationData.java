@@ -11,7 +11,7 @@ import java.util.Map;
 public final class BookRecommendationData {
 
     private static Map<BookGenre, List<BookRecommendation>> genreToRecs = new HashMap<BookGenre,
-        List<BookRecommendation>>() {
+            List<BookRecommendation>>() {
         {
             put(BookGenre.TRAVEL, TravelBookRecommendations.get());
             put(BookGenre.FANTASY, FantasyBookRecommendations.get());

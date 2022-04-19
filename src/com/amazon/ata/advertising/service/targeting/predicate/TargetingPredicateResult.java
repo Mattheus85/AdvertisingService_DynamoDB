@@ -11,6 +11,7 @@ public enum TargetingPredicateResult {
 
     /**
      * Each targeting predicate result value defines if it could be considered true.
+     *
      * @param isTrueResult Should this result be considered a true result.
      */
     TargetingPredicateResult(boolean isTrueResult) {
@@ -23,6 +24,7 @@ public enum TargetingPredicateResult {
 
     /**
      * Calculate the inverse of the passed result.
+     *
      * @return the inverse TargetingPredicateResult value
      */
     public TargetingPredicateResult invert() {

@@ -3,12 +3,11 @@ package com.amazon.ata.recommendationsservice;
 import com.amazon.ata.recommendationsservice.data.BookRecommendationData;
 import com.amazon.ata.recommendationsservice.types.BookGenre;
 import com.amazon.ata.recommendationsservice.types.BookRecommendation;
-
 import org.apache.commons.lang3.RandomUtils;
 
+import javax.inject.Inject;
 import java.util.Collections;
 import java.util.List;
-import javax.inject.Inject;
 
 
 public class RecommendationsService {
@@ -17,6 +16,7 @@ public class RecommendationsService {
     public RecommendationsService() {
 
     }
+
     /**
      * Retrieves three book recommendations based on genre.
      *

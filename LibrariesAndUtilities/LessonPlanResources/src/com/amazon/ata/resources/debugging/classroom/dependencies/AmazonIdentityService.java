@@ -20,6 +20,7 @@ public class AmazonIdentityService {
     /**
      * Creates an in memory service to validate Amazon customer identities. Customers that exist within the provided
      * file will be validated.
+     *
      * @param customerIdFile - a file with one customerId per line
      * @throws IllegalStateException if the file cannot be read and the service "started"
      */
@@ -35,11 +36,12 @@ public class AmazonIdentityService {
 
     /**
      * Returns true if the provided customerId corresponds to a valid Amazon account.
+     *
      * @param customerId - the id of the customer to validate. The customerId cannot be null/empty/whitespace.
      * @return true if the customerId exists, false otherwise
      */
-    public boolean validateCustomer(String customerId){
-        if(StringUtils.isBlank(customerId)){
+    public boolean validateCustomer(String customerId) {
+        if (StringUtils.isBlank(customerId)) {
             throw new IllegalArgumentException("A customerId must be provided.");
         }
         return customerIdentities.contains(customerId);

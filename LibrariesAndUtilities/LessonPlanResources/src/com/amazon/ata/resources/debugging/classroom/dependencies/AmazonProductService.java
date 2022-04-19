@@ -22,6 +22,7 @@ public class AmazonProductService {
 
     /**
      * Creates an in memory Amazon catalog service. Reads product information from a file.
+     *
      * @param catalogueFile - lines of JSON, each representing a Product
      */
     public AmazonProductService(File catalogueFile) {
@@ -32,7 +33,7 @@ public class AmazonProductService {
         try {
             List<String> productDescriptions = FileUtils.readLines(catalogueFile, Charset.defaultCharset());
 
-            for (String productDescription : productDescriptions){
+            for (String productDescription : productDescriptions) {
                 Product product = mapper.readValue(productDescription, Product.class);
                 asinMapping.put(product.getAsin(), product);
             }
@@ -43,11 +44,12 @@ public class AmazonProductService {
 
     /**
      * Retrieve product information from Amazon's catalogue.
+     *
      * @param asin - the asin identifier for the product to be retrieved. The asin cannot be null/empty/whitespace.
      * @return a populated Product object if the asin corresponds to a catalogue item, null otherwise.
      */
     public Product getProductByAsin(String asin) {
-        if(StringUtils.isBlank(asin)){
+        if (StringUtils.isBlank(asin)) {
             throw new IllegalArgumentException("An asin must be provided.");
         }
         return asinMapping.getOrDefault(asin, null);

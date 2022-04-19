@@ -11,14 +11,14 @@ public final class MusicPlaylistServiceUtils {
     static final int PLAYLIST_ID_LENGTH = 5;
 
     // do not instantiate
-    private MusicPlaylistServiceUtils() {}
+    private MusicPlaylistServiceUtils() {
+    }
 
     /**
      * Checks that the provided String contains only valid characters.
      *
      * @param stringToValidate the playlist name to be validated
-     * @return true if the String is valid (contains only valid characters),
-     *         false otherwise
+     * @return true if the String is valid (contains only valid characters), false otherwise
      */
     public static boolean isValidString(final String stringToValidate) {
         if (StringUtils.isBlank(stringToValidate)) {

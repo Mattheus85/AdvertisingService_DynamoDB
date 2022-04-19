@@ -3,20 +3,20 @@ package com.amazon.ata.test.junit;
 import com.amazon.ata.test.types.ATATestId;
 import com.amazon.ata.test.types.ATATestResult;
 import com.amazon.ata.test.types.ATATestSuiteReport;
-
 import org.junit.platform.engine.TestExecutionResult;
 import org.junit.platform.launcher.TestExecutionListener;
 import org.junit.platform.launcher.TestIdentifier;
 
 /**
- * Custom TestExecutionListener so we can populate a ATATestSuiteReport. After each test is executed
- * its results are appended to the ATATestSuiteReport.
+ * Custom TestExecutionListener so we can populate a ATATestSuiteReport. After each test is executed its results are
+ * appended to the ATATestSuiteReport.
  */
 public class ATATestExecutionListener implements TestExecutionListener {
     private final ATATestSuiteReport suiteReport;
 
     /**
      * Instantiates a new ATATestExecutionListener.
+     *
      * @param suiteReport An empty report with the id of the test suite this object is listening to
      */
     public ATATestExecutionListener(ATATestSuiteReport suiteReport) {

@@ -7,10 +7,10 @@
     </Appenders>
     <Loggers>
         <Root level="INFO">
-            <AppenderRef ref="CloudwatchLoggerStream" />
+            <AppenderRef ref="CloudwatchLoggerStream"/>
         </Root>
         <Logger name="com.amazon.atacustomerservicelambda" level="DEBUG" additivity="false">
-            <AppenderRef ref="CloudwatchLoggerStream" />
+            <AppenderRef ref="CloudwatchLoggerStream"/>
         </Logger>
     </Loggers>
 </Configuration>

@@ -9,14 +9,12 @@ Resources:
       PolicyDocument:
         Version: "2012-10-17"
         Statement:
-          -
-            Effect: "Allow"
+          - Effect: "Allow"
             Action:
               - "cloudformation:DescribeStacks"
             Resource: "*"
-          -
-            Effect: "Allow"
+          - Effect: "Allow"
             Action:
               - "execute-api:Invoke"
             Resource:
-              {"Fn::Sub": ["arn:${AWS::Partition}:execute-api:${AWS::Region}:${AWS::AccountId}:${LambdaApiId}/${LambdaApiStage}/*", {'LambdaApiId': {Ref: 'LambdaAPIDefinition'}, 'LambdaApiStage': {Ref: 'LambdaAPIDefinitionStage'}}]}
+              { "Fn::Sub": [ "arn:${AWS::Partition}:execute-api:${AWS::Region}:${AWS::AccountId}:${LambdaApiId}/${LambdaApiStage}/*", { 'LambdaApiId': { Ref: 'LambdaAPIDefinition' }, 'LambdaApiStage': { Ref: 'LambdaAPIDefinitionStage' } } ] }

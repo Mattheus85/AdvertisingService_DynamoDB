@@ -22,32 +22,32 @@ stack:
         variables:
           AWS_REGION: us-west-2
       mountPoints:
-      - sourceURI: mounts/events/get_benefits_hash0.json
-        destinationURI: /tmp/events/get_benefits_hash0.json
-      - sourceURI: mounts/events/get_benefits_hash1.json
-        destinationURI: /tmp/events/get_benefits_hash1.json
-      - sourceURI: mounts/events/get_benefits_hash2.json
-        destinationURI: /tmp/events/get_benefits_hash2.json
-      - sourceURI: mounts/events/get_benefits_hash3.json
-        destinationURI: /tmp/events/get_benefits_hash3.json
-      - sourceURI: mounts/events/get_benefits_hash4.json
-        destinationURI: /tmp/events/get_benefits_hash4.json
-      - sourceURI: mounts/events/get_benefits_hash5.json
-        destinationURI: /tmp/events/get_benefits_hash5.json
-      - sourceURI: mounts/events/get_benefits_hash6.json
-        destinationURI: /tmp/events/get_benefits_hash6.json
-      - sourceURI: mounts/events/get_benefits_hash7.json
-        destinationURI: /tmp/events/get_benefits_hash7.json
-      - sourceURI: mounts/events/get_benefits_hash8.json
-        destinationURI: /tmp/events/get_benefits_hash8.json
-      - sourceURI: mounts/events/get_benefits_hash9.json
-        destinationURI: /tmp/events/get_benefits_hash9.json
+        - sourceURI: mounts/events/get_benefits_hash0.json
+          destinationURI: /tmp/events/get_benefits_hash0.json
+        - sourceURI: mounts/events/get_benefits_hash1.json
+          destinationURI: /tmp/events/get_benefits_hash1.json
+        - sourceURI: mounts/events/get_benefits_hash2.json
+          destinationURI: /tmp/events/get_benefits_hash2.json
+        - sourceURI: mounts/events/get_benefits_hash3.json
+          destinationURI: /tmp/events/get_benefits_hash3.json
+        - sourceURI: mounts/events/get_benefits_hash4.json
+          destinationURI: /tmp/events/get_benefits_hash4.json
+        - sourceURI: mounts/events/get_benefits_hash5.json
+          destinationURI: /tmp/events/get_benefits_hash5.json
+        - sourceURI: mounts/events/get_benefits_hash6.json
+          destinationURI: /tmp/events/get_benefits_hash6.json
+        - sourceURI: mounts/events/get_benefits_hash7.json
+          destinationURI: /tmp/events/get_benefits_hash7.json
+        - sourceURI: mounts/events/get_benefits_hash8.json
+          destinationURI: /tmp/events/get_benefits_hash8.json
+        - sourceURI: mounts/events/get_benefits_hash9.json
+          destinationURI: /tmp/events/get_benefits_hash9.json
       networkMappings:
-      - name: com.amazon.ataprimeclubservicelambda
-        internalPort: 3000
-        externalPort: 80
-        exposedPort: 1180
-        protocol: http
+        - name: com.amazon.ataprimeclubservicelambda
+          internalPort: 3000
+          externalPort: 80
+          exposedPort: 1180
+          protocol: http
     HydraPrimeTestApp:
       type: hydra
       codeURI: ../../
@@ -68,84 +68,84 @@ steps:
     type: stackExec
     arguments:
       applications:
-      - ATAPrimeClubServiceLambda
+        - ATAPrimeClubServiceLambda
       command: aws-sam-local local invoke LambdaFunction --event /tmp/events/get_benefits_hash0.json
   test-invoke-get-benefits1:
-      type: stackExec
-      arguments:
-        applications:
+    type: stackExec
+    arguments:
+      applications:
         - ATAPrimeClubServiceLambda
-        command: aws-sam-local local invoke LambdaFunction --event /tmp/events/get_benefits_hash1.json
+      command: aws-sam-local local invoke LambdaFunction --event /tmp/events/get_benefits_hash1.json
   test-invoke-get-benefits2:
     type: stackExec
     arguments:
       applications:
-      - ATAPrimeClubServiceLambda
+        - ATAPrimeClubServiceLambda
       command: aws-sam-local local invoke LambdaFunction --event /tmp/events/get_benefits_hash2.json
   test-invoke-get-benefits3:
-      type: stackExec
-      arguments:
-        applications:
+    type: stackExec
+    arguments:
+      applications:
         - ATAPrimeClubServiceLambda
-        command: aws-sam-local local invoke LambdaFunction --event /tmp/events/get_benefits_hash3.json
+      command: aws-sam-local local invoke LambdaFunction --event /tmp/events/get_benefits_hash3.json
   test-invoke-get-benefits4:
     type: stackExec
     arguments:
       applications:
-      - ATAPrimeClubServiceLambda
+        - ATAPrimeClubServiceLambda
       command: aws-sam-local local invoke LambdaFunction --event /tmp/events/get_benefits_hash4.json
   test-invoke-get-benefits5:
-      type: stackExec
-      arguments:
-        applications:
+    type: stackExec
+    arguments:
+      applications:
         - ATAPrimeClubServiceLambda
-        command: aws-sam-local local invoke LambdaFunction --event /tmp/events/get_benefits_hash5.json
+      command: aws-sam-local local invoke LambdaFunction --event /tmp/events/get_benefits_hash5.json
   test-invoke-get-benefits6:
     type: stackExec
     arguments:
       applications:
-      - ATAPrimeClubServiceLambda
+        - ATAPrimeClubServiceLambda
       command: aws-sam-local local invoke LambdaFunction --event /tmp/events/get_benefits_hash6.json
   test-invoke-get-benefits7:
-      type: stackExec
-      arguments:
-        applications:
+    type: stackExec
+    arguments:
+      applications:
         - ATAPrimeClubServiceLambda
-        command: aws-sam-local local invoke LambdaFunction --event /tmp/events/get_benefits_hash7.json
+      command: aws-sam-local local invoke LambdaFunction --event /tmp/events/get_benefits_hash7.json
   test-invoke-get-benefits8:
     type: stackExec
     arguments:
       applications:
-      - ATAPrimeClubServiceLambda
+        - ATAPrimeClubServiceLambda
       command: aws-sam-local local invoke LambdaFunction --event /tmp/events/get_benefits_hash8.json
   test-invoke-get-benefits9:
-      type: stackExec
-      arguments:
-        applications:
+    type: stackExec
+    arguments:
+      applications:
         - ATAPrimeClubServiceLambda
-        command: aws-sam-local local invoke LambdaFunction --event /tmp/events/get_benefits_hash9.json
+      command: aws-sam-local local invoke LambdaFunction --event /tmp/events/get_benefits_hash9.json
   run-hydra-tests:
     type: stackExec
     arguments:
       applications:
-      - HydraPrimeTestApp
+        - HydraPrimeTestApp
       command: run-hydra-tests
 workflows:
   default:
-  - build
-  - deploy
+    - build
+    - deploy
   test:
-  - test-invoke-get-benefits0
-  - test-invoke-get-benefits1
-  - test-invoke-get-benefits2
-  - test-invoke-get-benefits3
-  - test-invoke-get-benefits4
-  - test-invoke-get-benefits5
-  - test-invoke-get-benefits6
-  - test-invoke-get-benefits7
-  - test-invoke-get-benefits8
-  - test-invoke-get-benefits9
+    - test-invoke-get-benefits0
+    - test-invoke-get-benefits1
+    - test-invoke-get-benefits2
+    - test-invoke-get-benefits3
+    - test-invoke-get-benefits4
+    - test-invoke-get-benefits5
+    - test-invoke-get-benefits6
+    - test-invoke-get-benefits7
+    - test-invoke-get-benefits8
+    - test-invoke-get-benefits9
   hydra-tests:
-  - build
-  - deploy
-  - run-hydra-tests
+    - build
+    - deploy
+    - run-hydra-tests

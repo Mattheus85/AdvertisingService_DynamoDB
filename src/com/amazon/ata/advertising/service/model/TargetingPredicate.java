@@ -62,7 +62,9 @@ public class TargetingPredicate {
         attributes = builder.attributes;
     }
 
-    public static Builder builder() {return new Builder();}
+    public static Builder builder() {
+        return new Builder();
+    }
 
     public static final class Builder {
         private TargetingPredicateType targetingPredicateType;
@@ -88,6 +90,8 @@ public class TargetingPredicate {
             return this;
         }
 
-        public TargetingPredicate build() { return new TargetingPredicate(this); }
+        public TargetingPredicate build() {
+            return new TargetingPredicate(this);
+        }
     }
 }

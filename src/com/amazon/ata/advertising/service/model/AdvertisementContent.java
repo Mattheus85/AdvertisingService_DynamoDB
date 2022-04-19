@@ -19,10 +19,12 @@ public class AdvertisementContent {
     private String marketplaceId;
 
     /**
-     * An Advertisement's content contains an id that is unique to the template used to generate its renderable content.
-     * @param contentId The unique identifier for this piece of content.
+     * An Advertisement's content contains an id that is unique to the template used to generate its renderable
+     * content.
+     *
+     * @param contentId         The unique identifier for this piece of content.
      * @param renderableContent Html and css to be displayed on the retail website.
-     * @param marketplaceId Which marketplace this advertisement should display in
+     * @param marketplaceId     Which marketplace this advertisement should display in
      */
     protected AdvertisementContent(String contentId, String renderableContent, String marketplaceId) {
         this.contentId = contentId;
@@ -33,7 +35,8 @@ public class AdvertisementContent {
     /**
      * Empty constructor for DynamoDB.
      */
-    public AdvertisementContent() {}
+    public AdvertisementContent() {
+    }
 
     @DynamoDBAttribute(attributeName = "RenderableContent")
     public String getRenderableContent() {
@@ -83,6 +86,7 @@ public class AdvertisementContent {
 
     /**
      * A builder to create a new AdvertisementContent.
+     *
      * @return The fluent builder
      */
     public static Builder builder() {
@@ -100,6 +104,7 @@ public class AdvertisementContent {
 
         /**
          * Use the properties provided to create an AdvertisementContent.
+         *
          * @return The content of an advertisement.
          */
         public AdvertisementContent build() {
@@ -108,6 +113,7 @@ public class AdvertisementContent {
 
         /**
          * The unique identifier of the content.
+         *
          * @param id A unique id for the content.
          * @return The fluent builder.
          */
@@ -118,6 +124,7 @@ public class AdvertisementContent {
 
         /**
          * The html and css of the advertisement to be displayed on the retail website.
+         *
          * @param content html and css
          * @return The fluent builder
          */
@@ -128,6 +135,7 @@ public class AdvertisementContent {
 
         /**
          * The marketplace ID to render the advertisement in.
+         *
          * @param marketplaceIdToUse marketplace to display ad in
          * @return The fluent builder
          */

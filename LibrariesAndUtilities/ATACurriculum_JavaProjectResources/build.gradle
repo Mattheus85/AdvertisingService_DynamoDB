@@ -2,47 +2,46 @@
 //import org.gradle.api.tasks.testing.logging.TestLogEvent
 
 plugins {
-  id 'java'
+    id 'java'
 
 }
 
 repositories {
-  mavenCentral()
+    mavenCentral()
 }
-
 
 
 // for use with the Gradle Java Plugin
 sourceSets {
-  main {
-    java {
-      srcDirs = ['src/']
+    main {
+        java {
+            srcDirs = ['src/']
+        }
+        resources {
+            srcDirs = ['src/resources/']
+        }
     }
-    resources {
-      srcDirs = ['src/resources/']
+    test {
+        java {
+            srcDirs = ['tst/']
+        }
+        resources {
+            srcDirs = ['tst/resources/']
+        }
     }
-  }
-  test {
-    java {
-      srcDirs = ['tst/']
-    }
-    resources {
-      srcDirs = ['tst/resources/']
-    }
-  }
 }
 
 dependencies {
-  implementation group: 'org.apache.commons', name: 'commons-lang3', version: '3.12.0'
+    implementation group: 'org.apache.commons', name: 'commons-lang3', version: '3.12.0'
 }
 
 project.configurations.implementation.setCanBeResolved(true)
 jar {
-  manifest {
-    attributes(
-            "Main-Class": "",
-            "Class-Path": configurations.implementation.collect { it.name }.join(' ')
-    )
-  }
-  dependsOn('dependencies')
+    manifest {
+        attributes(
+                "Main-Class": "",
+                "Class-Path": configurations.implementation.collect { it.name }.join(' ')
+        )
+    }
+    dependsOn('dependencies')
 }

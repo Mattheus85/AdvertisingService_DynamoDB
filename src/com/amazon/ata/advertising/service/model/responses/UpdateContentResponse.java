@@ -38,7 +38,9 @@ public class UpdateContentResponse {
         this.advertisingContent = builder.advertisingContent;
     }
 
-    public static Builder builder() {return new Builder();}
+    public static Builder builder() {
+        return new Builder();
+    }
 
     public static final class Builder {
         private AdvertisingContent advertisingContent;
@@ -58,6 +60,8 @@ public class UpdateContentResponse {
             return this;
         }
 
-        public UpdateContentResponse build() { return new UpdateContentResponse(this); }
+        public UpdateContentResponse build() {
+            return new UpdateContentResponse(this);
+        }
     }
 }

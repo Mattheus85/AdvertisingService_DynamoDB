@@ -1,8 +1,8 @@
 package com.amazon.ata.advertising.service.activity;
 
+import com.amazon.ata.advertising.service.dao.TargetingGroupDao;
 import com.amazon.ata.advertising.service.model.requests.UpdateClickThroughRateRequest;
 import com.amazon.ata.advertising.service.model.responses.UpdateClickThroughRateResponse;
-import com.amazon.ata.advertising.service.dao.TargetingGroupDao;
 import com.amazon.ata.advertising.service.targeting.TargetingGroup;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;

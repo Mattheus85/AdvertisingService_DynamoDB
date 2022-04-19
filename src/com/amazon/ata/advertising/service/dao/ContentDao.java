@@ -3,13 +3,12 @@ package com.amazon.ata.advertising.service.dao;
 import com.amazon.ata.advertising.service.exceptions.AdvertisementClientException;
 import com.amazon.ata.advertising.service.model.AdvertisementContent;
 import com.amazon.ata.advertising.service.util.EncryptionUtil;
-
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBMapper;
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBQueryExpression;
 
+import javax.inject.Inject;
 import java.util.List;
 import java.util.UUID;
-import javax.inject.Inject;
 
 /**
  * Gets ATA Content based on Marketplace.
@@ -19,6 +18,7 @@ public class ContentDao implements ReadableDao<String, List<AdvertisementContent
 
     /**
      * Constructs a ContentDao.
+     *
      * @param mapper Connection to dynamo
      */
     @Inject
@@ -28,6 +28,7 @@ public class ContentDao implements ReadableDao<String, List<AdvertisementContent
 
     /**
      * Gets content for ATA based on the Marketplace of the request.
+     *
      * @param marketplaceId The marketplace to get content for.
      * @return A list of all advertisement content that could be shown for ATA in this marketplace.
      */
@@ -46,8 +47,9 @@ public class ContentDao implements ReadableDao<String, List<AdvertisementContent
 
     /**
      * Create a new advertisement content and persist it.
+     *
      * @param marketplaceId The marketplace to save the new advertisement content in
-     * @param content The content to save
+     * @param content       The content to save
      * @return The newly created advertisement content
      */
     public AdvertisementContent create(String marketplaceId, String content) {
@@ -64,7 +66,8 @@ public class ContentDao implements ReadableDao<String, List<AdvertisementContent
 
     /**
      * Update an AdvertisementContent's renderable content and it's marketplace.
-     * @param marketplaceId the marketplace to move the content to.
+     *
+     * @param marketplaceId        the marketplace to move the content to.
      * @param advertisementContent The renderable content to be updated.
      * @return The updated AdvertisementContent.
      */
@@ -87,12 +90,13 @@ public class ContentDao implements ReadableDao<String, List<AdvertisementContent
     /**
      * Deletes the AdvertisementContent corresponding to the provided contentId. If content cannot be found for the
      * provided contentId an AdvertisementClientException will be thrown.
+     *
      * @param contentId - the id of the content to delete
      * @return - the deleted content
      */
     public AdvertisementContent delete(String contentId) {
         AdvertisementContent advertisementContent = AdvertisementContent.builder()
-            .withContentId(contentId).build();
+                .withContentId(contentId).build();
         AdvertisementContent deletedContent = mapper.load(advertisementContent);
 
         if (deletedContent == null) {

@@ -2,21 +2,21 @@ package com.amazon.ata.customerservice;
 
 public class InvalidParameterException extends ClientFaultException {
 
-  private static final long serialVersionUID = -1L;
+    private static final long serialVersionUID = -1L;
 
-  public InvalidParameterException() {
-  }
+    public InvalidParameterException() {
+    }
 
-  public InvalidParameterException(Throwable cause) {
-    initCause(cause);
-  }
+    public InvalidParameterException(Throwable cause) {
+        initCause(cause);
+    }
 
-  public InvalidParameterException(String message) {
-    super(message);
-  }
+    public InvalidParameterException(String message) {
+        super(message);
+    }
 
-  public InvalidParameterException(String message, Throwable cause) {
-    super(message);
-    initCause(cause);
-  }
+    public InvalidParameterException(String message, Throwable cause) {
+        super(message);
+        initCause(cause);
+    }
 }

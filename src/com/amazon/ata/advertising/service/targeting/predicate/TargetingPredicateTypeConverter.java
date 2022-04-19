@@ -1,10 +1,9 @@
 package com.amazon.ata.advertising.service.targeting.predicate;
 
 import com.amazon.ata.advertising.service.dependency.DaggerLambdaComponent;
-import com.amazon.ata.advertising.service.exceptions.AdvertisementServiceException;
 import com.amazon.ata.advertising.service.dependency.LambdaComponent;
 import com.amazon.ata.advertising.service.dependency.TargetingPredicateInjector;
-
+import com.amazon.ata.advertising.service.exceptions.AdvertisementServiceException;
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBTypeConverter;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -22,8 +21,8 @@ public class TargetingPredicateTypeConverter implements DynamoDBTypeConverter<St
     /**
      * Serializes the passed predicate list into a String. Each member is serialized separately so that the Jackson
      * annotation (@JsonTypeInfo) can live at the abstract TargetingPredicate class, rather than annotating each
-     * subclass.
-     * information
+     * subclass. information
+     *
      * @param predicateList - a list of TargetingPredicates that will be converted to a String value
      * @return The serialized string. "[]" in the case of an empty list.
      */
@@ -50,7 +49,8 @@ public class TargetingPredicateTypeConverter implements DynamoDBTypeConverter<St
         TargetingPredicateInjector injector = component.getTargetingPredicateInjector();
         try {
             final List<TargetingPredicate> predicates = MAPPER.readValue(value,
-                    new TypeReference<List<TargetingPredicate>>() { });
+                    new TypeReference<List<TargetingPredicate>>() {
+                    });
             for (TargetingPredicate predicate : predicates) {
                 injector.inject(predicate);
             }

@@ -12,16 +12,11 @@ import org.mockito.ArgumentCaptor;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 
-import java.util.Arrays;
-import java.util.Collections;
 import java.util.List;
 import java.util.UUID;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
@@ -163,7 +158,7 @@ public class ContentDaoTest {
 
         // WHEN && THEN
         assertThrows(AdvertisementClientException.class, () -> contentDao.delete(CONTENT_ID),
-            "Expected an AdvertisementClientException to be thrown when no content can be found for" +
-                "provided contentId: " + CONTENT_ID);
+                "Expected an AdvertisementClientException to be thrown when no content can be found for" +
+                        "provided contentId: " + CONTENT_ID);
     }
 }

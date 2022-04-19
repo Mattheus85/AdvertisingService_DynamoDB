@@ -5,7 +5,6 @@ import com.amazon.ata.test.reflect.testpackage.ClassInTestPackage;
 import com.amazon.ata.test.reflect.testpackage.ExceptionInTestPackage;
 import com.amazon.ata.test.reflect.testpackage.anothersubpackage.ClassInTestPackageAnotherSubpackage;
 import com.amazon.ata.test.reflect.testpackage.subpackage.ClassInTestPackageSubpackage;
-
 import com.google.common.collect.ImmutableSet;
 import com.google.common.collect.Sets;
 import org.junit.jupiter.api.Test;
@@ -20,15 +19,15 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 public class ClassQueryTest {
     private static final String TEST_PACKAGE_NAME = ClassInTestPackage.class.getPackage().getName();
     private static final String TEST_PACKAGE_SUBPACKAGE_NAME =
-        ClassInTestPackageSubpackage.class.getPackage().getName();
+            ClassInTestPackageSubpackage.class.getPackage().getName();
 
     @Test
     void inExactPackage_withPackageName_filtersOnlyByPackage() {
         // GIVEN
         Set<Class<?>> expectedClasses = ImmutableSet.of(
-            ClassInTestPackage.class,
-            AnotherClassInTestPackage.class,
-            com.amazon.ata.test.reflect.testpackage.DupedSimpleName.class
+                ClassInTestPackage.class,
+                AnotherClassInTestPackage.class,
+                com.amazon.ata.test.reflect.testpackage.DupedSimpleName.class
         );
 
         // WHEN
@@ -49,11 +48,11 @@ public class ClassQueryTest {
 
         // THEN
         assertTrue(
-            classQuery.findClasses().isEmpty(),
-            String.format(
-                "Expected not to find any classes in package '%s', but found {%s}",
-                nonexistentPackage,
-                classQuery.findClasses().toString())
+                classQuery.findClasses().isEmpty(),
+                String.format(
+                        "Expected not to find any classes in package '%s', but found {%s}",
+                        nonexistentPackage,
+                        classQuery.findClasses().toString())
         );
     }
 
@@ -79,9 +78,9 @@ public class ClassQueryTest {
 
         // WHEN + THEN - too high level package throws exception
         assertThrows(
-            IllegalArgumentException.class,
-            () -> ClassQuery.inExactPackage(tooHighLevelPackage),
-            String.format("Expected exception when trying to find class in package '%s'", tooHighLevelPackage)
+                IllegalArgumentException.class,
+                () -> ClassQuery.inExactPackage(tooHighLevelPackage),
+                String.format("Expected exception when trying to find class in package '%s'", tooHighLevelPackage)
         );
     }
 
@@ -95,9 +94,9 @@ public class ClassQueryTest {
 
         // THEN
         assertClassQueryReturnsClasses(
-            classQuery,
-            expectedClasses,
-            "filtering by containing package and specifying exact package"
+                classQuery,
+                expectedClasses,
+                "filtering by containing package and specifying exact package"
         );
     }
 
@@ -105,12 +104,12 @@ public class ClassQueryTest {
     void inContainingPackage_withPackageName_findsClassesInPackageAndAcrossSubpackages() {
         // GIVEN
         Set<Class<?>> expectedClasses = ImmutableSet.of(
-            ClassInTestPackage.class,
-            AnotherClassInTestPackage.class,
-            ClassInTestPackageSubpackage.class,
-            ClassInTestPackageAnotherSubpackage.class,
-            com.amazon.ata.test.reflect.testpackage.DupedSimpleName.class,
-            com.amazon.ata.test.reflect.testpackage.anothersubpackage.DupedSimpleName.class
+                ClassInTestPackage.class,
+                AnotherClassInTestPackage.class,
+                ClassInTestPackageSubpackage.class,
+                ClassInTestPackageAnotherSubpackage.class,
+                com.amazon.ata.test.reflect.testpackage.DupedSimpleName.class,
+                com.amazon.ata.test.reflect.testpackage.anothersubpackage.DupedSimpleName.class
         );
 
         // WHEN
@@ -142,9 +141,9 @@ public class ClassQueryTest {
 
         // WHEN + THEN - too high level package throws exception
         assertThrows(
-            IllegalArgumentException.class,
-            () -> ClassQuery.inContainingPackage(tooHighLevelPackage),
-            String.format("Expected exception when trying to find class in package '%s'", tooHighLevelPackage)
+                IllegalArgumentException.class,
+                () -> ClassQuery.inContainingPackage(tooHighLevelPackage),
+                String.format("Expected exception when trying to find class in package '%s'", tooHighLevelPackage)
         );
     }
 
@@ -153,13 +152,13 @@ public class ClassQueryTest {
         // GIVEN
         // WHEN
         ClassQuery classQuery = ClassQuery.inExactPackage(TEST_PACKAGE_NAME)
-            .withExactSimpleName(ClassInTestPackage.class.getSimpleName());
+                .withExactSimpleName(ClassInTestPackage.class.getSimpleName());
 
         // THEN
         assertClassQueryReturnsClass(
-            classQuery,
-            ClassInTestPackage.class,
-            "filtering by exact class name"
+                classQuery,
+                ClassInTestPackage.class,
+                "filtering by exact class name"
         );
     }
 
@@ -171,16 +170,16 @@ public class ClassQueryTest {
 
         // WHEN
         ClassQuery classQuery = ClassQuery.inExactPackage(TEST_PACKAGE_NAME)
-            .withExactSimpleName(incorrectClassName);
+                .withExactSimpleName(incorrectClassName);
 
         // THEN
         assertTrue(
-            classQuery.findClasses().isEmpty(),
-            String.format(
-                "Expected withExactSimpleName(%s) not to match any classes, but matches were returned: {%s}",
-                incorrectClassName,
-                classQuery.findClasses()
-            )
+                classQuery.findClasses().isEmpty(),
+                String.format(
+                        "Expected withExactSimpleName(%s) not to match any classes, but matches were returned: {%s}",
+                        incorrectClassName,
+                        classQuery.findClasses()
+                )
         );
     }
 
@@ -189,8 +188,8 @@ public class ClassQueryTest {
         // GIVEN
         // WHEN + THEN - null class name results in exception
         assertThrows(
-            IllegalArgumentException.class,
-            () -> ClassQuery.inContainingPackage(TEST_PACKAGE_NAME).withExactSimpleName(null)
+                IllegalArgumentException.class,
+                () -> ClassQuery.inContainingPackage(TEST_PACKAGE_NAME).withExactSimpleName(null)
         );
     }
 
@@ -199,8 +198,8 @@ public class ClassQueryTest {
         // GIVEN
         // WHEN + THEN - empty class name results in exception
         assertThrows(
-            IllegalArgumentException.class,
-            () -> ClassQuery.inContainingPackage(TEST_PACKAGE_NAME).withExactSimpleName("")
+                IllegalArgumentException.class,
+                () -> ClassQuery.inContainingPackage(TEST_PACKAGE_NAME).withExactSimpleName("")
         );
     }
 
@@ -208,12 +207,12 @@ public class ClassQueryTest {
     void withExactSimpleName_calledMultipleTimes_throwsException() {
         // GIVEN - class query with name already specified
         ClassQuery classQuery = ClassQuery.inExactPackage(TEST_PACKAGE_NAME)
-            .withExactSimpleName(ClassInTestPackage.class.getSimpleName());
+                .withExactSimpleName(ClassInTestPackage.class.getSimpleName());
 
         // WHEN + THEN - calling again throws exception
         assertThrows(
-            IllegalStateException.class,
-            () -> classQuery.withExactSimpleName(AnotherClassInTestPackage.class.getSimpleName())
+                IllegalStateException.class,
+                () -> classQuery.withExactSimpleName(AnotherClassInTestPackage.class.getSimpleName())
         );
     }
 
@@ -221,12 +220,12 @@ public class ClassQueryTest {
     void withExactSimpleName_calledAfterWithSimpleNameContaining_throwsException() {
         // GIVEN - class query with name already specified
         ClassQuery classQuery = ClassQuery.inExactPackage(TEST_PACKAGE_NAME)
-            .withSimpleNameContaining("Class");
+                .withSimpleNameContaining("Class");
 
         // WHEN + THEN - calling throws exception
         assertThrows(
-            IllegalStateException.class,
-            () -> classQuery.withExactSimpleName(ClassInTestPackage.class.getSimpleName())
+                IllegalStateException.class,
+                () -> classQuery.withExactSimpleName(ClassInTestPackage.class.getSimpleName())
         );
     }
 
@@ -237,13 +236,13 @@ public class ClassQueryTest {
 
         // WHEN
         ClassQuery classQuery = ClassQuery.inExactPackage(TEST_PACKAGE_NAME)
-            .withSimpleNameContaining(className);
+                .withSimpleNameContaining(className);
 
         // THEN
         assertClassQueryReturnsClass(
-            classQuery,
-            AnotherClassInTestPackage.class,
-            String.format("when filtering for name containing exact name, '%s'", className)
+                classQuery,
+                AnotherClassInTestPackage.class,
+                String.format("when filtering for name containing exact name, '%s'", className)
         );
     }
 
@@ -256,13 +255,13 @@ public class ClassQueryTest {
 
         // WHEN
         ClassQuery classQuery = ClassQuery.inExactPackage(TEST_PACKAGE_NAME)
-            .withSimpleNameContaining(classNameSubstring);
+                .withSimpleNameContaining(classNameSubstring);
 
         // THEN
         assertClassQueryReturnsClass(
-            classQuery,
-            clazz,
-            String.format("when filtering for name containing beginning substring, '%s'", classNameSubstring)
+                classQuery,
+                clazz,
+                String.format("when filtering for name containing beginning substring, '%s'", classNameSubstring)
         );
     }
 
@@ -275,13 +274,13 @@ public class ClassQueryTest {
 
         // WHEN
         ClassQuery classQuery = ClassQuery.inExactPackage(TEST_PACKAGE_NAME)
-            .withSimpleNameContaining(classNameSubstring);
+                .withSimpleNameContaining(classNameSubstring);
 
         // THEN
         assertClassQueryReturnsClass(
-            classQuery,
-            clazz,
-            String.format("when filtering for name containing middle substring, '%s'", classNameSubstring)
+                classQuery,
+                clazz,
+                String.format("when filtering for name containing middle substring, '%s'", classNameSubstring)
         );
     }
 
@@ -290,17 +289,17 @@ public class ClassQueryTest {
         // GIVEN
         String classNameSubstring = "Subpackage";
         Set<Class<?>> expectedClasses =
-            ImmutableSet.of(ClassInTestPackageSubpackage.class, ClassInTestPackageAnotherSubpackage.class);
+                ImmutableSet.of(ClassInTestPackageSubpackage.class, ClassInTestPackageAnotherSubpackage.class);
 
         // WHEN
         ClassQuery classQuery = ClassQuery.inContainingPackage(TEST_PACKAGE_NAME)
-            .withSimpleNameContaining(classNameSubstring);
+                .withSimpleNameContaining(classNameSubstring);
 
         // THEN
         assertClassQueryReturnsClasses(
-            classQuery,
-            expectedClasses,
-            String.format("filtering for name containing '%s'", classNameSubstring)
+                classQuery,
+                expectedClasses,
+                String.format("filtering for name containing '%s'", classNameSubstring)
         );
     }
 
@@ -311,14 +310,14 @@ public class ClassQueryTest {
 
         // WHEN
         ClassQuery classQuery = ClassQuery.inContainingPackage(TEST_PACKAGE_NAME)
-            .withSimpleNameContaining("Another")
-            .withSimpleNameContaining("Subpackage");
+                .withSimpleNameContaining("Another")
+                .withSimpleNameContaining("Subpackage");
 
         // THEN
         assertClassQueryReturnsClass(
-            classQuery,
-            expectedClass,
-            "filtering applying multiple simple name containing filters"
+                classQuery,
+                expectedClass,
+                "filtering applying multiple simple name containing filters"
         );
     }
 
@@ -327,8 +326,8 @@ public class ClassQueryTest {
         // GIVEN
         // WHEN + THEN - null class name results in exception
         assertThrows(
-            IllegalArgumentException.class,
-            () -> ClassQuery.inContainingPackage(TEST_PACKAGE_NAME).withSimpleNameContaining(null)
+                IllegalArgumentException.class,
+                () -> ClassQuery.inContainingPackage(TEST_PACKAGE_NAME).withSimpleNameContaining(null)
         );
     }
 
@@ -337,8 +336,8 @@ public class ClassQueryTest {
         // GIVEN
         // WHEN + THEN - empty class name results in exception
         assertThrows(
-            IllegalArgumentException.class,
-            () -> ClassQuery.inContainingPackage(TEST_PACKAGE_NAME).withSimpleNameContaining("")
+                IllegalArgumentException.class,
+                () -> ClassQuery.inContainingPackage(TEST_PACKAGE_NAME).withSimpleNameContaining("")
         );
     }
 
@@ -346,12 +345,12 @@ public class ClassQueryTest {
     void withSimpleNameContaining_calledAfterWithExactSimpleName_throwsException() {
         // GIVEN - class query with exact name already specified
         ClassQuery classQuery = ClassQuery.inExactPackage(TEST_PACKAGE_NAME)
-            .withExactSimpleName(ClassInTestPackage.class.getSimpleName());
+                .withExactSimpleName(ClassInTestPackage.class.getSimpleName());
 
         // WHEN + THEN - calling again throws exception
         assertThrows(
-            IllegalStateException.class,
-            () -> classQuery.withSimpleNameContaining(AnotherClassInTestPackage.class.getSimpleName())
+                IllegalStateException.class,
+                () -> classQuery.withSimpleNameContaining(AnotherClassInTestPackage.class.getSimpleName())
         );
     }
 
@@ -359,41 +358,41 @@ public class ClassQueryTest {
     void findClass_withSubTypeOfProvided_searchesForSubtypesOfProvidedClass() {
         // GIVEN
         ClassQuery classQuery = ClassQuery.inExactPackage(TEST_PACKAGE_NAME)
-            .withExactSimpleName("ExceptionInTestPackage")
-            .withSubTypeOf(RuntimeException.class);
+                .withExactSimpleName("ExceptionInTestPackage")
+                .withSubTypeOf(RuntimeException.class);
 
         // WHEN
         Class<?> clazz = classQuery.findClass();
 
         // THEN
         assertExpectedClass(ExceptionInTestPackage.class, clazz,
-            "specifying subTypeOf RuntimeException",
-            classQuery);
+                "specifying subTypeOf RuntimeException",
+                classQuery);
     }
 
     @Test
     void findClasses_withSubTypeOfInDifferentPackage_callsReflectionsWithProvidedSubtype() {
         // GIVEN
         ClassQuery classQuery = ClassQuery.inExactPackage(TEST_PACKAGE_NAME) // restrict package
-            // search for a class name in the package that happens to extend RuntimeException (not Object)
-            .withExactSimpleName("ExceptionInTestPackage")
-            // but we're explicitly scanning subtypes of java.lang.Object
-            // Reflections won't search transitively outside TEST_PACKAGE_NAME even though everything rolls up Object
-            .withSubTypeOf(Object.class);
+                // search for a class name in the package that happens to extend RuntimeException (not Object)
+                .withExactSimpleName("ExceptionInTestPackage")
+                // but we're explicitly scanning subtypes of java.lang.Object
+                // Reflections won't search transitively outside TEST_PACKAGE_NAME even though everything rolls up Object
+                .withSubTypeOf(Object.class);
 
         // WHEN
         Set<Class<?>> classes = classQuery.findClasses();
 
         // THEN
         assertTrue(
-            classes.isEmpty(),
-            String.format(
-                "Expected no classes to be returned when searching for a class that extends java.lang" +
-                    ".RuntimeException, '%s' when scanning subtypes of java.lang.Object but found: %s.%nClass " +
-                    "query was: %s",
-                "ExceptionInTestPackage",
-                classes,
-                classQuery)
+                classes.isEmpty(),
+                String.format(
+                        "Expected no classes to be returned when searching for a class that extends java.lang" +
+                                ".RuntimeException, '%s' when scanning subtypes of java.lang.Object but found: %s.%nClass " +
+                                "query was: %s",
+                        "ExceptionInTestPackage",
+                        classes,
+                        classQuery)
         );
     }
 
@@ -402,8 +401,8 @@ public class ClassQueryTest {
         // GIVEN
         // WHEN + THEN - no match assert failure
         assertThrows(
-            AssertionFailedError.class,
-            () -> ClassQuery.inExactPackage(TEST_PACKAGE_NAME).withExactSimpleName("WhoPutThisHere").findClassOrFail()
+                AssertionFailedError.class,
+                () -> ClassQuery.inExactPackage(TEST_PACKAGE_NAME).withExactSimpleName("WhoPutThisHere").findClassOrFail()
         );
     }
 
@@ -411,13 +410,13 @@ public class ClassQueryTest {
     void findClassOrFail_whenOneClassMatches_returnsClass() {
         // GIVEN
         ClassQuery classQuery = ClassQuery.inExactPackage(TEST_PACKAGE_NAME)
-            .withSimpleNameContaining("Another");
+                .withSimpleNameContaining("Another");
 
         // WHEN
         Class<?> clazz = classQuery.findClassOrFail();
 
         // THEN
-        assertExpectedClass(AnotherClassInTestPackage.class, clazz, "filtering to one class",classQuery);
+        assertExpectedClass(AnotherClassInTestPackage.class, clazz, "filtering to one class", classQuery);
     }
 
     @Test
@@ -432,8 +431,8 @@ public class ClassQueryTest {
         // GIVEN
         // WHEN + THEN - no match assert failure
         assertThrows(
-            NoClassFoundException.class,
-            () -> ClassQuery.inExactPackage(TEST_PACKAGE_NAME).withExactSimpleName("WhoPutThisHere").findClass()
+                NoClassFoundException.class,
+                () -> ClassQuery.inExactPackage(TEST_PACKAGE_NAME).withExactSimpleName("WhoPutThisHere").findClass()
         );
     }
 
@@ -441,7 +440,7 @@ public class ClassQueryTest {
     void findClass_whenOneClassMatches_returnsClass() {
         // GIVEN
         ClassQuery classQuery = ClassQuery.inExactPackage(TEST_PACKAGE_NAME)
-            .withSimpleNameContaining("Another");
+                .withSimpleNameContaining("Another");
 
         // WHEN
         Class<?> clazz = classQuery.findClass();
@@ -455,8 +454,8 @@ public class ClassQueryTest {
         // GIVEN
         // WHEN + THEN - too many matches assert failure
         assertThrows(
-            MultipleClassesFoundException.class,
-            () -> ClassQuery.inExactPackage(TEST_PACKAGE_NAME).findClass()
+                MultipleClassesFoundException.class,
+                () -> ClassQuery.inExactPackage(TEST_PACKAGE_NAME).findClass()
         );
     }
 
@@ -465,19 +464,19 @@ public class ClassQueryTest {
         // GIVEN
         String nonExistentClassName = "AtaWouldNeverNameAClassThis";
         ClassQuery classQuery = ClassQuery.inExactPackage("com.amazon.ata")
-            .withExactSimpleName(nonExistentClassName);
+                .withExactSimpleName(nonExistentClassName);
 
         // WHEN
         Set<Class<?>> classes = classQuery.findClasses();
 
         // THEN
         assertTrue(
-            classes.isEmpty(),
-            String.format(
-                "Expected no classes to be returned when searching for '%s', but found: %s.%nClass query was: %s",
-                nonExistentClassName,
-                classes,
-                classQuery)
+                classes.isEmpty(),
+                String.format(
+                        "Expected no classes to be returned when searching for '%s', but found: %s.%nClass query was: %s",
+                        nonExistentClassName,
+                        classes,
+                        classQuery)
         );
     }
 
@@ -485,23 +484,23 @@ public class ClassQueryTest {
     void findClasses_whenMultipleClassesMatch_returnsMultipleClasses() {
         // GIVEN
         Set<Class<?>> expectedClasses = Sets.newHashSet(
-            ClassInTestPackage.class,
-            AnotherClassInTestPackage.class,
-            ClassInTestPackageSubpackage.class,
-            ClassInTestPackageAnotherSubpackage.class
+                ClassInTestPackage.class,
+                AnotherClassInTestPackage.class,
+                ClassInTestPackageSubpackage.class,
+                ClassInTestPackageAnotherSubpackage.class
         );
         ClassQuery classQuery = ClassQuery.inContainingPackage("com.amazon.ata")
-            .withSimpleNameContaining("TestPackage");
+                .withSimpleNameContaining("TestPackage");
 
         // WHEN
         Set<Class<?>> classes = classQuery.findClasses();
 
         // THEN
         assertExpectedClasses(
-            expectedClasses,
-            classes,
-            "finding all classes under testpackage",
-            classQuery
+                expectedClasses,
+                classes,
+                "finding all classes under testpackage",
+                classQuery
         );
     }
 
@@ -509,7 +508,7 @@ public class ClassQueryTest {
     void findClasses_byExactPackageAndExactName_appliesAllFilters() {
         // GIVEN
         ClassQuery classQuery = ClassQuery.inExactPackage(TEST_PACKAGE_NAME)
-            .withExactSimpleName(ClassInTestPackage.class.getSimpleName());
+                .withExactSimpleName(ClassInTestPackage.class.getSimpleName());
         Set<Class<?>> expectedClasses = ImmutableSet.of(ClassInTestPackage.class);
 
         // WHEN
@@ -517,10 +516,10 @@ public class ClassQueryTest {
 
         // THEN
         assertExpectedClasses(
-            expectedClasses,
-            classes,
-            "finding by exact package and exact class name",
-            classQuery
+                expectedClasses,
+                classes,
+                "finding by exact package and exact class name",
+                classQuery
         );
     }
 
@@ -528,10 +527,10 @@ public class ClassQueryTest {
     void findClasses_byExactPackageAndNameContaining_appliesAllFilters() {
         // GIVEN
         ClassQuery classQuery = ClassQuery.inExactPackage(TEST_PACKAGE_NAME)
-            .withSimpleNameContaining("Package");
+                .withSimpleNameContaining("Package");
         Set<Class<?>> expectedClasses = ImmutableSet.of(
-            ClassInTestPackage.class,
-            AnotherClassInTestPackage.class
+                ClassInTestPackage.class,
+                AnotherClassInTestPackage.class
         );
 
         // WHEN
@@ -539,10 +538,10 @@ public class ClassQueryTest {
 
         // THEN
         assertExpectedClasses(
-            expectedClasses,
-            classes,
-            "finding by exact package and class name containing",
-            classQuery
+                expectedClasses,
+                classes,
+                "finding by exact package and class name containing",
+                classQuery
         );
     }
 
@@ -550,11 +549,11 @@ public class ClassQueryTest {
     void findClasses_byExactPackageAndMultipleNameContaining_appliesAllFilters() {
         // GIVEN
         ClassQuery classQuery = ClassQuery.inExactPackage(TEST_PACKAGE_NAME)
-            .withSimpleNameContaining("Class")
-            .withSimpleNameContaining("Package");
+                .withSimpleNameContaining("Class")
+                .withSimpleNameContaining("Package");
         Set<Class<?>> expectedClasses = ImmutableSet.of(
-            ClassInTestPackage.class,
-            AnotherClassInTestPackage.class
+                ClassInTestPackage.class,
+                AnotherClassInTestPackage.class
         );
 
         // WHEN
@@ -562,10 +561,10 @@ public class ClassQueryTest {
 
         // THEN
         assertExpectedClasses(
-            expectedClasses,
-            classes,
-            "finding by exact package and class name containing",
-            classQuery
+                expectedClasses,
+                classes,
+                "finding by exact package and class name containing",
+                classQuery
         );
     }
 
@@ -573,10 +572,10 @@ public class ClassQueryTest {
     void findClasses_byContainingPackageAndExactName_appliesAllFilters() {
         // GIVEN
         ClassQuery classQuery = ClassQuery.inContainingPackage(TEST_PACKAGE_NAME)
-            .withExactSimpleName("DupedSimpleName");
+                .withExactSimpleName("DupedSimpleName");
         Set<Class<?>> expectedClasses = ImmutableSet.of(
-            com.amazon.ata.test.reflect.testpackage.DupedSimpleName.class,
-            com.amazon.ata.test.reflect.testpackage.anothersubpackage.DupedSimpleName.class
+                com.amazon.ata.test.reflect.testpackage.DupedSimpleName.class,
+                com.amazon.ata.test.reflect.testpackage.anothersubpackage.DupedSimpleName.class
         );
 
         // WHEN
@@ -584,10 +583,10 @@ public class ClassQueryTest {
 
         // THEN
         assertExpectedClasses(
-            expectedClasses,
-            classes,
-            "finding by containing package and exact class name",
-            classQuery
+                expectedClasses,
+                classes,
+                "finding by containing package and exact class name",
+                classQuery
         );
     }
 
@@ -595,10 +594,10 @@ public class ClassQueryTest {
     void findClasses_byContainingPackageAndNameContaining_appliesAllFilters() {
         // GIVEN
         ClassQuery classQuery = ClassQuery.inContainingPackage(TEST_PACKAGE_NAME)
-            .withSimpleNameContaining("Duped");
+                .withSimpleNameContaining("Duped");
         Set<Class<?>> expectedClasses = ImmutableSet.of(
-            com.amazon.ata.test.reflect.testpackage.DupedSimpleName.class,
-            com.amazon.ata.test.reflect.testpackage.anothersubpackage.DupedSimpleName.class
+                com.amazon.ata.test.reflect.testpackage.DupedSimpleName.class,
+                com.amazon.ata.test.reflect.testpackage.anothersubpackage.DupedSimpleName.class
         );
 
         // WHEN
@@ -606,10 +605,10 @@ public class ClassQueryTest {
 
         // THEN
         assertExpectedClasses(
-            expectedClasses,
-            classes,
-            "finding by containing package and class name containing",
-            classQuery
+                expectedClasses,
+                classes,
+                "finding by containing package and class name containing",
+                classQuery
         );
     }
 
@@ -617,9 +616,9 @@ public class ClassQueryTest {
     void findClasses_byContainingPackageAndMultipleNameContaining_appliesAllFilters() {
         // GIVEN
         ClassQuery classQuery = ClassQuery.inContainingPackage(TEST_PACKAGE_NAME)
-            .withSimpleNameContaining("TestPackage")
-            .withSimpleNameContaining("Another")
-            .withSimpleNameContaining("Subpackage");
+                .withSimpleNameContaining("TestPackage")
+                .withSimpleNameContaining("Another")
+                .withSimpleNameContaining("Subpackage");
         Set<Class<?>> expectedClasses = ImmutableSet.of(ClassInTestPackageAnotherSubpackage.class);
 
         // WHEN
@@ -627,10 +626,10 @@ public class ClassQueryTest {
 
         // THEN
         assertExpectedClasses(
-            expectedClasses,
-            classes,
-            "finding by containing package and class name containing",
-            classQuery
+                expectedClasses,
+                classes,
+                "finding by containing package and class name containing",
+                classQuery
         );
     }
 
@@ -638,15 +637,15 @@ public class ClassQueryTest {
         Set<Class<?>> classes = classQuery.findClasses();
 
         assertEquals(
-            1,
-            classes.size(),
-            String.format(
-                "Expected findClasses (when %s) to return just one class (%s), but instead found {%s}.%n" +
-                    "Class query was: %s",
-                whenCondition,
-                expectedClass.toString(),
-                classes.toString(),
-                classQuery.toString())
+                1,
+                classes.size(),
+                String.format(
+                        "Expected findClasses (when %s) to return just one class (%s), but instead found {%s}.%n" +
+                                "Class query was: %s",
+                        whenCondition,
+                        expectedClass.toString(),
+                        classes.toString(),
+                        classQuery.toString())
         );
 
         Class<?> clazz = classes.iterator().next();
@@ -660,14 +659,14 @@ public class ClassQueryTest {
             ClassQuery classQueryThatWasApplied) {
 
         assertEquals(
-            expectedClass,
-            actualClass,
-            String.format(
-                "Expected finding class (when %s) to return %s, but found %s instead.%nClass query was: %s",
-                whenCondition,
                 expectedClass,
                 actualClass,
-                classQueryThatWasApplied)
+                String.format(
+                        "Expected finding class (when %s) to return %s, but found %s instead.%nClass query was: %s",
+                        whenCondition,
+                        expectedClass,
+                        actualClass,
+                        classQueryThatWasApplied)
         );
     }
 
@@ -687,15 +686,15 @@ public class ClassQueryTest {
             ClassQuery classQueryThatWasApplied) {
 
         assertEquals(
-            expectedClasses,
-            actualClasses,
-            String.format(
-                "Expected finding classes (when %s) to return exactly {%s}, but found {%s}.%nClass query was: %s",
-                whenCondition,
                 expectedClasses,
                 actualClasses,
-                classQueryThatWasApplied
-            )
+                String.format(
+                        "Expected finding classes (when %s) to return exactly {%s}, but found {%s}.%nClass query was: %s",
+                        whenCondition,
+                        expectedClasses,
+                        actualClasses,
+                        classQueryThatWasApplied
+                )
         );
     }
 }

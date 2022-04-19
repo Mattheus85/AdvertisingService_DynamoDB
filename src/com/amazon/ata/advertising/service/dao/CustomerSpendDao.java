@@ -4,7 +4,6 @@ import com.amazon.ata.advertising.service.model.RequestContext;
 import com.amazon.ata.customerservice.GetCustomerSpendCategoriesRequest;
 import com.amazon.ata.customerservice.GetCustomerSpendCategoriesResponse;
 import com.amazon.ata.customerservice.Spend;
-
 import com.amazon.atacustomerservicelambda.service.ATACustomerService;
 
 import java.util.Map;
@@ -19,6 +18,7 @@ public class CustomerSpendDao implements ReadableDao<RequestContext, Map<String,
 
     /**
      * Access customer spend data.
+     *
      * @param customerClient Client for the CustomerService.
      */
     public CustomerSpendDao(ATACustomerService customerClient) {

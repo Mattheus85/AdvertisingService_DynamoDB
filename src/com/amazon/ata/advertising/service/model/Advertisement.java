@@ -30,7 +30,9 @@ public class Advertisement {
         this.content = builder.content;
     }
 
-    public static Builder builder() {return new Builder();}
+    public static Builder builder() {
+        return new Builder();
+    }
 
     public static final class Builder {
         private String id;
@@ -50,6 +52,8 @@ public class Advertisement {
             return this;
         }
 
-        public Advertisement build() { return new Advertisement(this); }
+        public Advertisement build() {
+            return new Advertisement(this);
+        }
     }
 }

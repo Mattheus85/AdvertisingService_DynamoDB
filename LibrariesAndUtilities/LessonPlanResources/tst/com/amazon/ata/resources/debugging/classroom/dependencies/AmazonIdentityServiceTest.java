@@ -21,7 +21,7 @@ public class AmazonIdentityServiceTest {
     }
 
     @Test
-    public void validateCustomer_customerIdRecognized_returnsTrue(){
+    public void validateCustomer_customerIdRecognized_returnsTrue() {
         // GIVEN
         // recognized customerId
         String recognizedCustomerId = "amzn1.account.AEZI3A063427738YROOFT8WCXKDE";
@@ -36,7 +36,7 @@ public class AmazonIdentityServiceTest {
     }
 
     @Test
-    public void validateCustomer_customerIdUnrecognized_returnsFalse(){
+    public void validateCustomer_customerIdUnrecognized_returnsFalse() {
         // GIVEN
         // unrecognized customerId
         String unrecognizedCustomerId = "amzn1.account.AE12121212121212121212121212";
@@ -51,7 +51,7 @@ public class AmazonIdentityServiceTest {
     }
 
     @Test
-    public void validateCustomer_customerIdEmpty_exceptionRaised(){
+    public void validateCustomer_customerIdEmpty_exceptionRaised() {
         // GIVEN
         // empty customerId
         String emptyCustomerId = "";
@@ -64,7 +64,7 @@ public class AmazonIdentityServiceTest {
     }
 
     @Test
-    public void validateCustomer_customerIdNull_exceptionRaised(){
+    public void validateCustomer_customerIdNull_exceptionRaised() {
         // GIVEN
         // null customerId
         String nullCustomerId = null;
@@ -77,7 +77,7 @@ public class AmazonIdentityServiceTest {
     }
 
     @Test
-    public void validateCustomer_customerIdWhitespace_exceptionRaised(){
+    public void validateCustomer_customerIdWhitespace_exceptionRaised() {
         // GIVEN
         // whitespace customerId
         String whitespaceCustomerId = "  ";

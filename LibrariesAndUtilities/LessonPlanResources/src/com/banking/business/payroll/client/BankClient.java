@@ -4,8 +4,7 @@ import java.math.BigDecimal;
 import java.math.RoundingMode;
 
 /**
- * The BankClient which connects to our company's bank
- * to retrieve our payroll account.
+ * The BankClient which connects to our company's bank to retrieve our payroll account.
  */
 public class BankClient {
     private BigDecimal balance = BigDecimal.valueOf(100000);
@@ -13,10 +12,12 @@ public class BankClient {
     /**
      * Private constructor for BankClient so other code can't instantiate us
      */
-    public BankClient() { }
+    public BankClient() {
+    }
 
     /**
      * Withdraw funds from an account
+     *
      * @param amount The amount to withdraw
      * @return the updated balance
      */

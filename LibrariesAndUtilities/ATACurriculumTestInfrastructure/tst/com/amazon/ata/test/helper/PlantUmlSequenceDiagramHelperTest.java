@@ -35,27 +35,27 @@ class PlantUmlSequenceDiagramHelperTest {
 
     @ParameterizedTest
     @ValueSource(strings = {
-        "Automobile -> Engine: method()",
-        "Automobile -->   Engine",
-        "Automobile<-Engine : method()",
-        "Automobile<--Engine : ReturnType",
-        "Engine ->Automobile    : method()",
-        "Engine -->Automobile   : ReturnType",
-        "Engine<- Automobile:method()",
-        "Engine<--Automobile:ReturnType",
-        "Automobile -> Automobile",
-        "Engine -> Axle\nAutomobile -> Engine",
-        "Engine -> Axle\nEngine -> Automobile",
-        "participant    Automobile as Auto",
-        "'Comment\nAutomobile -> Engine",
-        "'Comment\nEngine<--Automobile",
-        "'Comment\nparticipant Automobile",
-        " ' Comment\nAutomobile -> Engine",
-        " ' Comment\nEngine<--Automobile",
-        " ' Comment\nparticipant Automobile",
-        "Something -> OrOther\n'Comment\nAutomobile -> Engine",
-        "Something -> OrOther\n'Comment\nEngine<--Automobile",
-        "Something -> OrOther\n'Comment\nparticipant Automobile"
+            "Automobile -> Engine: method()",
+            "Automobile -->   Engine",
+            "Automobile<-Engine : method()",
+            "Automobile<--Engine : ReturnType",
+            "Engine ->Automobile    : method()",
+            "Engine -->Automobile   : ReturnType",
+            "Engine<- Automobile:method()",
+            "Engine<--Automobile:ReturnType",
+            "Automobile -> Automobile",
+            "Engine -> Axle\nAutomobile -> Engine",
+            "Engine -> Axle\nEngine -> Automobile",
+            "participant    Automobile as Auto",
+            "'Comment\nAutomobile -> Engine",
+            "'Comment\nEngine<--Automobile",
+            "'Comment\nparticipant Automobile",
+            " ' Comment\nAutomobile -> Engine",
+            " ' Comment\nEngine<--Automobile",
+            " ' Comment\nparticipant Automobile",
+            "Something -> OrOther\n'Comment\nAutomobile -> Engine",
+            "Something -> OrOther\n'Comment\nEngine<--Automobile",
+            "Something -> OrOther\n'Comment\nparticipant Automobile"
     })
     void sequenceDiagramContainsEntity_entityExists_returnsTrue(String content) {
         // GIVEN -- matching string
@@ -70,10 +70,10 @@ class PlantUmlSequenceDiagramHelperTest {
 
     @ParameterizedTest
     @ValueSource(strings = {
-        "Automobile --> Engine: ReturnType",
-        "Automobile --> Engine: ReturnType",
-        "Automobile -> Engine: getReturnType",
-        "Automobile -> Engine: getReturnType()"
+            "Automobile --> Engine: ReturnType",
+            "Automobile --> Engine: ReturnType",
+            "Automobile -> Engine: getReturnType",
+            "Automobile -> Engine: getReturnType()"
     })
     void sequenceDiagramContainsEntity_stringExistsButIsntAnEntity_returnsFalse(String content) {
         // GIVEN - string that exists in the diagram content, but not as an entity
@@ -84,15 +84,15 @@ class PlantUmlSequenceDiagramHelperTest {
 
         // THEN
         assertFalse(result, String.format("Expected not to find entity, '%s', in diagram, '%s', but did.",
-                                          entity,
-                                          content));
+                entity,
+                content));
     }
 
     @ParameterizedTest
     @ValueSource(strings = {
-        "' Comment about Automobile",
-        "'participant Automobile",
-        "'Automobile -> Engine"
+            "' Comment about Automobile",
+            "'participant Automobile",
+            "'Automobile -> Engine"
     })
     void sequenceDiagramContainsEntity_stringExistsButInComment_returnsFalse(String content) {
         // GIVEN - string that exists in the diagram content, but inside a comment
@@ -103,21 +103,21 @@ class PlantUmlSequenceDiagramHelperTest {
 
         // THEN
         assertFalse(result, String.format("Expected not to find entity, '%s', in diagram, '%s', but did.",
-                                          entity,
-                                          content));
+                entity,
+                content));
     }
 
     @ParameterizedTest
     @ValueSource(strings = {
-        "SlowAutomobile -> Engine : method()",
-        "AutomobileType<--Engine : ReturnType",
-        "SlowAutomobileType<--Engine",
-        "Engine -> SlowAutomobile : method()",
-        "Engine <-- AutomobileType : ReturnType",
-        "Engine<--SlowAutomobileType",
-        "participant AutomobileType",
-        "participant SlowAutomobile as Auto",
-        "participant SlowAutomobileType as Auto"
+            "SlowAutomobile -> Engine : method()",
+            "AutomobileType<--Engine : ReturnType",
+            "SlowAutomobileType<--Engine",
+            "Engine -> SlowAutomobile : method()",
+            "Engine <-- AutomobileType : ReturnType",
+            "Engine<--SlowAutomobileType",
+            "participant AutomobileType",
+            "participant SlowAutomobile as Auto",
+            "participant SlowAutomobileType as Auto"
     })
     void sequenceDiagramContainsEntity_entityNameIsSubstringOfOtherEntity_returnsFalse(String content) {
         // GIVEN -- mon-matching string
@@ -128,7 +128,7 @@ class PlantUmlSequenceDiagramHelperTest {
 
         // THEN
         assertFalse(result, String.format("Expected not to find entity, '%s', in diagram, '%s', but did.",
-                                          entity,
-                                          content));
+                entity,
+                content));
     }
 }

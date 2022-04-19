@@ -5,13 +5,13 @@ package com.amazon.ata.test.types;
  */
 public class ATATestId {
     /**
-     * For our use case, the display name is often the name of the test method.
-     * If the test case is a parameterized test, then this will be the toString() of the parameter value.
+     * For our use case, the display name is often the name of the test method. If the test case is a parameterized
+     * test, then this will be the toString() of the parameter value.
      */
     private String displayName;
     /**
-     * For our use case, the parent display name is often the name of the class the test method is a part of.
-     * If the test case is a parameterized test, then this will be the test name.
+     * For our use case, the parent display name is often the name of the class the test method is a part of. If the
+     * test case is a parameterized test, then this will be the test name.
      */
     private String parentDisplayName;
 

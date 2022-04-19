@@ -24,7 +24,9 @@ public class GenerateAdvertisementResponse {
         this.advertisement = builder.advertisement;
     }
 
-    public static Builder builder() {return new Builder();}
+    public static Builder builder() {
+        return new Builder();
+    }
 
     public static final class Builder {
         private Advertisement advertisement;
@@ -38,6 +40,8 @@ public class GenerateAdvertisementResponse {
             return this;
         }
 
-        public GenerateAdvertisementResponse build() { return new GenerateAdvertisementResponse(this); }
+        public GenerateAdvertisementResponse build() {
+            return new GenerateAdvertisementResponse(this);
+        }
     }
 }

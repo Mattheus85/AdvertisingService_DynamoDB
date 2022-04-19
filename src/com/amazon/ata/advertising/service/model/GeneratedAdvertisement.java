@@ -15,6 +15,7 @@ public class GeneratedAdvertisement {
 
     /**
      * Constructs GeneratedAdvertisements - generating a value for the id.
+     *
      * @param content - the content for the generated ad, cannot be null
      */
     public GeneratedAdvertisement(AdvertisementContent content) {

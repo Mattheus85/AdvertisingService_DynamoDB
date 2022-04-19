@@ -104,7 +104,7 @@ public class PlantUmlClassDiagramHelperTest {
 
         // WHEN + THEN -- returns false
         assertFalse(PlantUmlClassDiagramHelper.classDiagramIncludesRelationship(
-                        diagram, "ClassOne", "ClassTwo")
+                diagram, "ClassOne", "ClassTwo")
         );
     }
 
@@ -113,7 +113,7 @@ public class PlantUmlClassDiagramHelperTest {
         // GIVEN -- diagram with relationship including one class but not the other
         // WHEN + THEN -- returns false
         assertFalse(PlantUmlClassDiagramHelper.classDiagramIncludesRelationship(
-                        RIGHT_COMPOSITION, "ClassOne", "ClassSix")
+                RIGHT_COMPOSITION, "ClassOne", "ClassSix")
         );
     }
 
@@ -124,7 +124,7 @@ public class PlantUmlClassDiagramHelperTest {
 
         // WHEN + THEN
         assertFalse(PlantUmlClassDiagramHelper.classDiagramIncludesRelationship(
-                        associations, "ClassOne", "ClassThree")
+                associations, "ClassOne", "ClassThree")
         );
     }
 
@@ -137,7 +137,7 @@ public class PlantUmlClassDiagramHelperTest {
         // GIVEN -- diagram with extends relationship that matches
         // WHEN + THEN -- returns true
         assertTrue(PlantUmlClassDiagramHelper.classDiagramIncludesExtendsRelationship(
-                diagram,"ClassOne", "ClassTwo"
+                diagram, "ClassOne", "ClassTwo"
         ));
     }
 
@@ -150,7 +150,7 @@ public class PlantUmlClassDiagramHelperTest {
         // GIVEN -- diagram with relationship in correct direction between correct types, but write relationship type
         // WHEN + THEN -- returns false
         assertFalse(PlantUmlClassDiagramHelper.classDiagramIncludesExtendsRelationship(
-                        diagram, "ClassOne", "ClassTwo")
+                diagram, "ClassOne", "ClassTwo")
         );
     }
 
@@ -178,7 +178,7 @@ public class PlantUmlClassDiagramHelperTest {
         // GIVEN -- single class with single member
         // WHEN + THEN - nonmember is not found - returns false
         assertFalse(PlantUmlClassDiagramHelper.classDiagramTypeContainsMember(
-                        CLASS_ONE, "ClassOne", "notInHere")
+                CLASS_ONE, "ClassOne", "notInHere")
         );
     }
 
@@ -187,7 +187,7 @@ public class PlantUmlClassDiagramHelperTest {
         // GIVEN -- two classes
         // WHEN + THEN - don't find one class's member in the other - returns false
         assertFalse(PlantUmlClassDiagramHelper.classDiagramTypeContainsMember(
-                        TWO_CLASSES, "ClassOne", "member2")
+                TWO_CLASSES, "ClassOne", "member2")
         );
     }
 }

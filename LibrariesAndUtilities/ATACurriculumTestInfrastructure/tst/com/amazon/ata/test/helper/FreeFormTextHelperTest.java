@@ -23,9 +23,9 @@ public class FreeFormTextHelperTest {
     private static final String ANSWER_3 = "What do you mean? \nAn African or European swallow?";
 
     private static final String MULTI_LINE = String.format("%s\n%s\n%s\n%s\n%s\n%s\n",
-        QUESTION_1, ANSWER_1, QUESTION_2, ANSWER_2, QUESTION_3, ANSWER_3);
+            QUESTION_1, ANSWER_1, QUESTION_2, ANSWER_2, QUESTION_3, ANSWER_3);
     private static final String SINGLE_LINE = String.format("%s%s%s%s%s%s",
-        QUESTION_1, ANSWER_1, QUESTION_2, ANSWER_2, QUESTION_3, ANSWER_3);
+            QUESTION_1, ANSWER_1, QUESTION_2, ANSWER_2, QUESTION_3, ANSWER_3);
 
     // matchesSingleLine
 
@@ -83,9 +83,9 @@ public class FreeFormTextHelperTest {
         // GIVEN a multi line content
         // WHEN we search between two existing patterns
         Optional<String> match = getValueBetweenPatterns(
-            MULTI_LINE,
-            "What is your name\\?",
-            "What is your quest\\?");
+                MULTI_LINE,
+                "What is your name\\?",
+                "What is your quest\\?");
 
         // THEN we find the value between the patterns
         assertTrue(match.isPresent());
@@ -97,9 +97,9 @@ public class FreeFormTextHelperTest {
         // GIVEN a single line content
         // WHEN we search between two existing patterns
         Optional<String> match = getValueBetweenPatterns(
-            SINGLE_LINE,
-            "What is your quest\\?",
-            "What is the air-speed velocity of an unladen swallow\\?");
+                SINGLE_LINE,
+                "What is your quest\\?",
+                "What is the air-speed velocity of an unladen swallow\\?");
 
         // THEN we find the value between the patterns
         assertTrue(match.isPresent());
@@ -111,9 +111,9 @@ public class FreeFormTextHelperTest {
         // GIVEN any content
         // WHEN we search between two non-existent patterns
         Optional<String> match = getValueBetweenPatterns(
-            "the content string",
-            "this pattern does not exist",
-            "neither does this");
+                "the content string",
+                "this pattern does not exist",
+                "neither does this");
 
         // THEN no value is found
         assertFalse(match.isPresent());
@@ -124,8 +124,8 @@ public class FreeFormTextHelperTest {
         // GIVEN a multi line content
         // WHEN we search after an existing pattern
         Optional<String> match = getValueAfterPattern(
-            MULTI_LINE,
-            "What is the air-speed velocity of an unladen swallow\\?");
+                MULTI_LINE,
+                "What is the air-speed velocity of an unladen swallow\\?");
 
         // THEN we find the after the pattern, to the end of the content
         assertTrue(match.isPresent());
@@ -137,8 +137,8 @@ public class FreeFormTextHelperTest {
         // GIVEN a single line content
         // WHEN we search after an existing pattern
         Optional<String> match = getValueAfterPattern(
-            SINGLE_LINE,
-            "What is the air-speed velocity of an unladen swallow\\?");
+                SINGLE_LINE,
+                "What is the air-speed velocity of an unladen swallow\\?");
 
         // THEN we find the after the pattern, to the end of the content
         assertTrue(match.isPresent());
@@ -150,8 +150,8 @@ public class FreeFormTextHelperTest {
         // GIVEN any content
         // WHEN we search after a non-existent pattern
         Optional<String> match = getValueAfterPattern(
-            "the content string",
-            "this pattern does not exist");
+                "the content string",
+                "this pattern does not exist");
 
         // THEN no value is found
         assertFalse(match.isPresent());

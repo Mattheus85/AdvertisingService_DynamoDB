@@ -30,9 +30,9 @@ public class PrimeDaoTest {
             .build();
 
     private static final GetPrimeBenefitsResponse RESULT = GetPrimeBenefitsResponse.builder().withPrimeBenefits(
-            Arrays.asList(PrimeBenefit.builder()
-                    .withBenefitType(Benefit.MOM_DISCOUNT)
-                    .build()))
+                    Arrays.asList(PrimeBenefit.builder()
+                            .withBenefitType(Benefit.MOM_DISCOUNT)
+                            .build()))
             .build();
 
     @InjectMocks

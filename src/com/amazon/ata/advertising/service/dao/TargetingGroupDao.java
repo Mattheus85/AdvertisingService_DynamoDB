@@ -4,13 +4,12 @@ import com.amazon.ata.advertising.service.dependency.TargetingPredicateInjector;
 import com.amazon.ata.advertising.service.exceptions.AdvertisementClientException;
 import com.amazon.ata.advertising.service.targeting.TargetingGroup;
 import com.amazon.ata.advertising.service.targeting.predicate.TargetingPredicate;
-
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBMapper;
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBQueryExpression;
 
+import javax.inject.Inject;
 import java.util.List;
 import java.util.UUID;
-import javax.inject.Inject;
 
 /**
  * Gets the TargetingGroups for a piece of ATA ad content.
@@ -21,8 +20,9 @@ public class TargetingGroupDao implements ReadableDao<String, List<TargetingGrou
 
     /**
      * Constructs a new TargetingGroupDao.
+     *
      * @param targetingPredicateInjector injects the dependencies into the predicates
-     * @param mapper connection to DynamoDB
+     * @param mapper                     connection to DynamoDB
      */
     @Inject
     public TargetingGroupDao(TargetingPredicateInjector targetingPredicateInjector, DynamoDBMapper mapper) {
@@ -33,12 +33,13 @@ public class TargetingGroupDao implements ReadableDao<String, List<TargetingGrou
     /**
      * Retrieves a metadata object for a piece of ATA ad content. The return is wrapped in an optional, which will be
      * empty if no metadata could be retrieved.
+     *
      * @param contentId The id of the content to get metadata for
      * @return the Advertisement metadata for the piece of content. If there is no metadata the Optional will be empty.
      */
     @Override
     public List<TargetingGroup> get(String contentId) {
-        TargetingGroup indexHashKey = new TargetingGroup(null, contentId, 0,  null);
+        TargetingGroup indexHashKey = new TargetingGroup(null, contentId, 0, null);
         DynamoDBQueryExpression<TargetingGroup> queryExpression = new DynamoDBQueryExpression<TargetingGroup>()
                 .withIndexName(TargetingGroup.CONTENT_ID_INDEX)
                 .withConsistentRead(false)
@@ -48,7 +49,8 @@ public class TargetingGroupDao implements ReadableDao<String, List<TargetingGrou
 
     /**
      * Create a new targeting group and persist it.
-     * @param contentId The content to associate with the new targeting group.
+     *
+     * @param contentId           The content to associate with the new targeting group.
      * @param targetingPredicates The targeting predicate list to create the new group from.
      * @return The newly created group
      */
@@ -60,6 +62,7 @@ public class TargetingGroupDao implements ReadableDao<String, List<TargetingGrou
 
     /**
      * Update the click-through rate for a targeting group.
+     *
      * @param targetingGroupId The ID of the targeting group to update
      * @param clickThroughRate The new clickThroughRate for the targeting group
      * @return The updated TargetingGroup
@@ -77,6 +80,7 @@ public class TargetingGroupDao implements ReadableDao<String, List<TargetingGrou
 
     /**
      * Deletes the List of TargetingGroups associated with the provided contentId.
+     *
      * @param contentId - the id of the content to delete TargetingGroups for
      * @return the deleted list of TargetingGroups
      */

@@ -16,6 +16,7 @@ public class Stock {
 
     /**
      * A unique series of letters assigned to a stock for trading purposes.
+     *
      * @return The unique identifier of this stock
      */
     public String getSymbol() {
@@ -24,6 +25,7 @@ public class Stock {
 
     /**
      * The name of the company that this stock represents ownership of.
+     *
      * @return Company name
      */
     public String getName() {

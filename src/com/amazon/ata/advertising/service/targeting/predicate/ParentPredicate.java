@@ -3,7 +3,6 @@ package com.amazon.ata.advertising.service.targeting.predicate;
 import com.amazon.ata.advertising.service.dao.ReadableDao;
 import com.amazon.ata.advertising.service.model.RequestContext;
 import com.amazon.ata.customerservice.CustomerProfile;
-
 import com.google.common.annotations.VisibleForTesting;
 
 import javax.inject.Inject;
@@ -18,6 +17,7 @@ public class ParentPredicate extends TargetingPredicate {
 
     /**
      * Evaluates to true if a customer is a parent.
+     *
      * @param inverse Can force the predicate to evaluate to true only if a customer isn't a parent.
      */
     public ParentPredicate(boolean inverse) {
@@ -27,7 +27,8 @@ public class ParentPredicate extends TargetingPredicate {
     /**
      * Evaluates to true if a customer is a parent.
      */
-    public ParentPredicate() {}
+    public ParentPredicate() {
+    }
 
     @Override
     TargetingPredicateResult evaluateRecognizedCustomer(RequestContext context) {

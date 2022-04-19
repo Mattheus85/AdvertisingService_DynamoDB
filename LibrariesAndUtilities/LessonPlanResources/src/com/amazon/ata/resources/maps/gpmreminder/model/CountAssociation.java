@@ -2,10 +2,9 @@ package com.amazon.ata.resources.maps.gpmreminder.model;
 
 /**
  * General association between some ID and a long count.
- *
- * In its original example, it was used to:
- *   1. Associate a GPM with the number of devices they manage.
- *   2. Associate a part with the number of GPMs responsible for it.
+ * <p>
+ * In its original example, it was used to: 1. Associate a GPM with the number of devices they manage. 2. Associate a
+ * part with the number of GPMs responsible for it.
  */
 public class CountAssociation {
     private String id;
@@ -13,7 +12,8 @@ public class CountAssociation {
 
     /**
      * Creates an association between the provided ID and the provided count.
-     * @param id A unique identifier to associate with this count.
+     *
+     * @param id    A unique identifier to associate with this count.
      * @param count The count associated with this unique identifier.
      */
     public CountAssociation(String id, long count) {

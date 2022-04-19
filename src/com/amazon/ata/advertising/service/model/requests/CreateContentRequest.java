@@ -48,7 +48,9 @@ public class CreateContentRequest {
         this.targetingPredicates = builder.targetingPredicates;
     }
 
-    public static Builder builder() {return new Builder();}
+    public static Builder builder() {
+        return new Builder();
+    }
 
     public static final class Builder {
         private String content;
@@ -74,6 +76,8 @@ public class CreateContentRequest {
             return this;
         }
 
-        public CreateContentRequest build() { return new CreateContentRequest(this); }
+        public CreateContentRequest build() {
+            return new CreateContentRequest(this);
+        }
     }
 }

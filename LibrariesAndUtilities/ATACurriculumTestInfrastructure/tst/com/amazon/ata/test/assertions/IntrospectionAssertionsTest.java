@@ -26,15 +26,21 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class IntrospectionAssertionsTest {
 
-    private static class TestSuperclass {}
-    private static class TestSubclass extends TestSuperclass { }
+    private static class TestSuperclass {
+    }
 
-    private static class MemberlessClass { }
+    private static class TestSubclass extends TestSuperclass {
+    }
+
+    private static class MemberlessClass {
+    }
 
     private static class OneMemberClass {
         private int member1;
 
-        public int getMember1() { return member1; }
+        public int getMember1() {
+            return member1;
+        }
     }
 
     private static class MultiMemberClass {
@@ -42,9 +48,17 @@ public class IntrospectionAssertionsTest {
         private List<String> member2;
         private InputStream member3;
 
-        public int getMember1() { return member1; }
-        public List<String> getMember2() { return member2; }
-        public InputStream getMember3() { return member3; }
+        public int getMember1() {
+            return member1;
+        }
+
+        public List<String> getMember2() {
+            return member2;
+        }
+
+        public InputStream getMember3() {
+            return member3;
+        }
     }
 
     private static class RepeatedMemberTypeClass {
@@ -52,16 +66,35 @@ public class IntrospectionAssertionsTest {
         private List<String> member2;
         private List<String> member3;
 
-        public int getMember1() { return member1; }
-        public List<String> getMember2() { return member2; }
-        public List<String> getMember3() { return member3; }
+        public int getMember1() {
+            return member1;
+        }
+
+        public List<String> getMember2() {
+            return member2;
+        }
+
+        public List<String> getMember3() {
+            return member3;
+        }
     }
 
     private static class OverloadedMethodsClass {
-        public int overloadedMethod() { return 0; }
-        public int overloadedMethod(int i) { return i; }
-        public int overloadedMethod(int i, int j) { return i + j; }
-        public String otherMethod() { return "something else"; }
+        public int overloadedMethod() {
+            return 0;
+        }
+
+        public int overloadedMethod(int i) {
+            return i;
+        }
+
+        public int overloadedMethod(int i, int j) {
+            return i + j;
+        }
+
+        public String otherMethod() {
+            return "something else";
+        }
     }
 
     private static interface IntrospectionTestable {
@@ -69,7 +102,8 @@ public class IntrospectionAssertionsTest {
     }
 
     private static class ImplementerOfIntrospectionTestable implements IntrospectionTestable {
-        public void aMethod() {}
+        public void aMethod() {
+        }
     }
 
     private static class TestClassWithMock {
@@ -96,8 +130,8 @@ public class IntrospectionAssertionsTest {
         // GIVEN - subclass is *super*class of expected superclass
         // WHEN + THEN - assert failure
         assertThrows(
-            AssertionFailedError.class,
-            () -> assertDirectlyExtends(TestSuperclass.class, TestSubclass.class));
+                AssertionFailedError.class,
+                () -> assertDirectlyExtends(TestSuperclass.class, TestSubclass.class));
     }
 
     @Test
@@ -105,8 +139,8 @@ public class IntrospectionAssertionsTest {
         // GIVEN - subclass and superclass are unrelated
         // WHEN + THEN - assert failure
         assertThrows(
-            AssertionFailedError.class,
-            () -> assertDirectlyExtends(TestSubclass.class, OneMemberClass.class));
+                AssertionFailedError.class,
+                () -> assertDirectlyExtends(TestSubclass.class, OneMemberClass.class));
     }
 
     @Test
@@ -156,9 +190,9 @@ public class IntrospectionAssertionsTest {
         // GIVEN - subtype of an interface
         // WHEN + THEN - assert failure
         assertThrows(
-            AssertionFailedError.class,
-            () -> assertDoesNotImplementInterface(ImplementerOfIntrospectionTestable.class,
-                                                  IntrospectionTestable.class)
+                AssertionFailedError.class,
+                () -> assertDoesNotImplementInterface(ImplementerOfIntrospectionTestable.class,
+                        IntrospectionTestable.class)
         );
     }
 
@@ -167,8 +201,8 @@ public class IntrospectionAssertionsTest {
         // GIVEN - subtype of an interface, but indirectly so
         // WHEN + THEN - assert failure
         assertThrows(
-            AssertionFailedError.class,
-            () -> assertDoesNotImplementInterface(RuntimeException.class, Serializable.class)
+                AssertionFailedError.class,
+                () -> assertDoesNotImplementInterface(RuntimeException.class, Serializable.class)
         );
     }
 
@@ -220,8 +254,8 @@ public class IntrospectionAssertionsTest {
 
         // WHEN + THEN - assert failure
         assertThrows(
-            AssertionFailedError.class,
-            () -> assertClassContainsMemberVariableTypes(clazz, memberTypes));
+                AssertionFailedError.class,
+                () -> assertClassContainsMemberVariableTypes(clazz, memberTypes));
     }
 
     @Test
@@ -244,8 +278,8 @@ public class IntrospectionAssertionsTest {
 
         // WHEN + THEN - assert failure
         assertThrows(
-            AssertionFailedError.class,
-            () -> assertClassContainsMemberVariableTypes(clazz, memberTypes));
+                AssertionFailedError.class,
+                () -> assertClassContainsMemberVariableTypes(clazz, memberTypes));
     }
 
     @Test
@@ -279,8 +313,8 @@ public class IntrospectionAssertionsTest {
 
         // WHEN + THEN - assert failure
         assertThrows(
-            AssertionFailedError.class,
-            () -> assertClassContainsMemberVariableTypes(clazz, memberTypes));
+                AssertionFailedError.class,
+                () -> assertClassContainsMemberVariableTypes(clazz, memberTypes));
     }
 
     @Test
@@ -292,8 +326,8 @@ public class IntrospectionAssertionsTest {
 
         // WHEN + THEN - assert failure
         assertThrows(
-            AssertionFailedError.class,
-            () -> assertClassContainsMemberVariableTypes(clazz, memberTypes));
+                AssertionFailedError.class,
+                () -> assertClassContainsMemberVariableTypes(clazz, memberTypes));
     }
 
 
@@ -339,8 +373,8 @@ public class IntrospectionAssertionsTest {
 
         // WHEN + THEN - assert failure
         assertThrows(
-            AssertionFailedError.class,
-            () -> assertClassContainsMemberMethodNames(clazz, methodNames));
+                AssertionFailedError.class,
+                () -> assertClassContainsMemberMethodNames(clazz, methodNames));
     }
 
     @Test
@@ -352,8 +386,8 @@ public class IntrospectionAssertionsTest {
 
         // WHEN + THEN - assert failure
         assertThrows(
-            AssertionFailedError.class,
-            () -> assertClassContainsMemberMethodNames(clazz, methodNames));
+                AssertionFailedError.class,
+                () -> assertClassContainsMemberMethodNames(clazz, methodNames));
     }
 
 
@@ -377,8 +411,8 @@ public class IntrospectionAssertionsTest {
 
         // WHEN + THEN - assert failure
         assertThrows(
-            AssertionFailedError.class,
-            () -> assertClassDoesNotContainMemberMethodNames(clazz, methodNames));
+                AssertionFailedError.class,
+                () -> assertClassDoesNotContainMemberMethodNames(clazz, methodNames));
     }
 
     @Test
@@ -401,8 +435,8 @@ public class IntrospectionAssertionsTest {
 
         // WHEN + THEN - assert falure
         assertThrows(
-            AssertionFailedError.class,
-            () -> assertClassDoesNotContainMemberMethodNames(clazz, methodNames));
+                AssertionFailedError.class,
+                () -> assertClassDoesNotContainMemberMethodNames(clazz, methodNames));
     }
 
     @Test
@@ -455,8 +489,8 @@ public class IntrospectionAssertionsTest {
 
         // THEN
         assertTrue(
-            result,
-            String.format("Should have found @Mock annotation in array: %s", Arrays.toString(annotations))
+                result,
+                String.format("Should have found @Mock annotation in array: %s", Arrays.toString(annotations))
         );
     }
 
@@ -470,8 +504,8 @@ public class IntrospectionAssertionsTest {
 
         // THEN
         assertFalse(
-            result,
-            String.format("Should *not* have found @Mock annotation in array: %s", Arrays.toString(annotations))
+                result,
+                String.format("Should *not* have found @Mock annotation in array: %s", Arrays.toString(annotations))
         );
     }
 
@@ -479,15 +513,15 @@ public class IntrospectionAssertionsTest {
     void annotationsIncludeMock_onEmptyArray_returnsFalse() throws NoSuchFieldException {
         // GIVEN - annotations array that should be empty
         Annotation[] annotations =
-            TestClassWithMock.class.getDeclaredField("noAnnotationAtAllField").getAnnotations();
+                TestClassWithMock.class.getDeclaredField("noAnnotationAtAllField").getAnnotations();
 
         // WHEN
         boolean result = annotationsIncludeMock(annotations);
 
         // THEN
         assertFalse(
-            result,
-            String.format("Should *not* have found @Mock annotation in empty array: %s", Arrays.toString(annotations))
+                result,
+                String.format("Should *not* have found @Mock annotation in empty array: %s", Arrays.toString(annotations))
         );
     }
 }

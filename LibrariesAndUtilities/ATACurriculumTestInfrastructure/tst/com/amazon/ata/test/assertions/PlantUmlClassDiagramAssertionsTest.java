@@ -25,7 +25,7 @@ public class PlantUmlClassDiagramAssertionsTest {
     private static final String LEFT_EXTENDS = "class One {} \nClassTwo {} \nClassTwo <|-- ClassOne ";
     private static final String CLASS_ONE = "class ClassOne {\n  -member1 : String\n+getMember1() : String\n}\n";
     private static final String TWO_CLASSES = "class ClassOne {\n -member1 : String\n+getMember1() : String\n}\n" +
-                                              "class ClassTwo{\n -member2 : String\n+getMember2() : String\n}\n";
+            "class ClassTwo{\n -member2 : String\n+getMember2() : String\n}\n";
     private static final String CLASS_WITH_ABSTRACT_METHOD =
             "class Abstracty {\n + { abstract}implementMe() : int\n}\n";
     private static final String CLASS_WITH_STATIC_METHOD = "class Staticky {\n  +{static}classMethod() : String\n}\n";
@@ -38,9 +38,14 @@ public class PlantUmlClassDiagramAssertionsTest {
             "class ClassOne{\nmethodOne( ) : ReturnType\n}\nclass OtherClass {}";
 
     // For the diagram methods that accept Class args
-    private static class ClassOne {}
-    private static class ClassTwo {}
-    private static class ClassThree {}
+    private static class ClassOne {
+    }
+
+    private static class ClassTwo {
+    }
+
+    private static class ClassThree {
+    }
 
     // assertClassDiagramContains
 
@@ -301,8 +306,8 @@ public class PlantUmlClassDiagramAssertionsTest {
                     e.getMessage(),
                     expectedMessage,
                     String.format("Expected assertion message ('%s') to include '%s', but didn't",
-                                  e.getMessage(),
-                                  expectedMessage)
+                            e.getMessage(),
+                            expectedMessage)
             );
 
             // test pass
@@ -374,8 +379,8 @@ public class PlantUmlClassDiagramAssertionsTest {
                     e.getMessage(),
                     expectedMessage,
                     String.format("Expected assertion message ('%s') to include '%s', but didn't",
-                                  e.getMessage(),
-                                  expectedMessage)
+                            e.getMessage(),
+                            expectedMessage)
             );
 
             // test pass
@@ -438,8 +443,8 @@ public class PlantUmlClassDiagramAssertionsTest {
                     e.getMessage(),
                     expectedMessage,
                     String.format("Expected assertion message ('%s') to include '%s', but didn't",
-                                  e.getMessage(),
-                                  expectedMessage)
+                            e.getMessage(),
+                            expectedMessage)
             );
 
             // test pass
@@ -510,8 +515,8 @@ public class PlantUmlClassDiagramAssertionsTest {
                     e.getMessage(),
                     expectedMessage,
                     String.format("Expected assertion message ('%s') to include '%s', but didn't",
-                                  e.getMessage(),
-                                  expectedMessage)
+                            e.getMessage(),
+                            expectedMessage)
             );
 
             // test pass
@@ -528,7 +533,7 @@ public class PlantUmlClassDiagramAssertionsTest {
         // GIVEN -- diagram with extends relationship that matches
         // WHEN + THEN -- no assert failure
         PlantUmlClassDiagramAssertions.assertClassDiagramIncludesExtendsRelationship(
-                diagram,"ClassOne", "ClassTwo"
+                diagram, "ClassOne", "ClassTwo"
         );
     }
 
@@ -574,8 +579,8 @@ public class PlantUmlClassDiagramAssertionsTest {
                     e.getMessage(),
                     expectedMessage,
                     String.format("Expected assertion message ('%s') to include '%s', but didn't",
-                                  e.getMessage(),
-                                  expectedMessage)
+                            e.getMessage(),
+                            expectedMessage)
             );
 
             // test pass
@@ -646,8 +651,8 @@ public class PlantUmlClassDiagramAssertionsTest {
                     e.getMessage(),
                     expectedMessage,
                     String.format("Expected assertion message ('%s') to include '%s', but didn't",
-                                  e.getMessage(),
-                                  expectedMessage)
+                            e.getMessage(),
+                            expectedMessage)
             );
 
             // test pass
@@ -696,7 +701,7 @@ public class PlantUmlClassDiagramAssertionsTest {
         // GIVEN -- single class with single member
         // WHEN + THEN - that member is found, no assert failure
         PlantUmlClassDiagramAssertions.assertClassDiagramTypeContainsMember(
-            CLASS_ONE, "ClassOne", "member1\\s*:\\s*String", "member1"
+                CLASS_ONE, "ClassOne", "member1\\s*:\\s*String", "member1"
         );
     }
 
@@ -705,9 +710,9 @@ public class PlantUmlClassDiagramAssertionsTest {
         // GIVEN -- single class with single member
         // WHEN + THEN - nonmember is not found - assert failure
         assertThrows(
-            AssertionFailedError.class,
-            () -> PlantUmlClassDiagramAssertions.assertClassDiagramTypeContainsMember(
-                CLASS_ONE, "ClassOne", "notInHere\\s*:\\s*Integer", "notInHere")
+                AssertionFailedError.class,
+                () -> PlantUmlClassDiagramAssertions.assertClassDiagramTypeContainsMember(
+                        CLASS_ONE, "ClassOne", "notInHere\\s*:\\s*Integer", "notInHere")
         );
     }
 
@@ -716,9 +721,9 @@ public class PlantUmlClassDiagramAssertionsTest {
         // GIVEN -- two classes
         // WHEN + THEN - don't find one class's member in the other - assert failure
         assertThrows(
-            AssertionFailedError.class,
-            () -> PlantUmlClassDiagramAssertions.assertClassDiagramTypeContainsMember(
-                TWO_CLASSES, "ClassOne", "member2: BigDecimal", "member2")
+                AssertionFailedError.class,
+                () -> PlantUmlClassDiagramAssertions.assertClassDiagramTypeContainsMember(
+                        TWO_CLASSES, "ClassOne", "member2: BigDecimal", "member2")
         );
     }
 

@@ -2,7 +2,6 @@ package com.amazon.ata.test.wrapper;
 
 import com.amazon.ata.test.reflect.ConstructorQuery;
 import com.amazon.ata.test.reflect.MethodQuery;
-
 import com.google.common.collect.Lists;
 
 import java.lang.reflect.Constructor;
@@ -12,34 +11,32 @@ import java.lang.reflect.Method;
 import static com.amazon.ata.test.helper.AtaTestHelper.failTestWithException;
 
 /**
- * Superclass for the wrapper classes that allows us to pretend we have
- * direct access to instances of the base project classes.
- *
- * Note: It may be worth exploring java.lang.reflect.Proxy, java.lang.reflect.InvocationHandler,
- * as there might be a clever way to create interfaces (that participant classes
- * do not actually implement) that we create simple handlers that wrap
- * participant class instances that the handlers actually delegate to
- * to satisfy the interface methods. We'd need to dynamically find the appropriate
- * method to call on the participant class instance, either by name/type if we can
- * force any of these....
+ * Superclass for the wrapper classes that allows us to pretend we have direct access to instances of the base project
+ * classes.
+ * <p>
+ * Note: It may be worth exploring java.lang.reflect.Proxy, java.lang.reflect.InvocationHandler, as there might be a
+ * clever way to create interfaces (that participant classes do not actually implement) that we create simple handlers
+ * that wrap participant class instances that the handlers actually delegate to to satisfy the interface methods. We'd
+ * need to dynamically find the appropriate method to call on the participant class instance, either by name/type if we
+ * can force any of these....
  */
 public abstract class WrapperBase {
     // the object that is an instance of the base package
     private Object wrappedInstance;
 
     /**
-     * Saves the wrapped class instance and type, ensuring the wrapped instance looks like the right type for
-     * the given wrapper class.
+     * Saves the wrapped class instance and type, ensuring the wrapped instance looks like the right type for the given
+     * wrapper class.
      *
      * @param wrappedInstance the instance to be wrapped
      */
     protected WrapperBase(final Object wrappedInstance) {
         if (wrappedInstance != null && !getWrappedClass().isInstance(wrappedInstance)) {
             throw new IllegalArgumentException(
-                String.format("Unexpected wrapped instance type for %s. Expected instance to be a %s, but is a %s",
-                    this.getClass().getSimpleName(),
-                    getWrappedClass().getSimpleName(),
-                    wrappedInstance.getClass().getSimpleName())
+                    String.format("Unexpected wrapped instance type for %s. Expected instance to be a %s, but is a %s",
+                            this.getClass().getSimpleName(),
+                            getWrappedClass().getSimpleName(),
+                            wrappedInstance.getClass().getSimpleName())
             );
         }
 
@@ -48,12 +45,11 @@ public abstract class WrapperBase {
 
     /**
      * Returns this wrapper class's wrapped class.
-     *
-     * Used by logic in this superclass, so we need an instance method for
-     * abstract/overriding/polymorphism purposes.
-     *
-     * Subclasses likely implement a static version of this method, which
-     * this method calls. That is an expected pattern.
+     * <p>
+     * Used by logic in this superclass, so we need an instance method for abstract/overriding/polymorphism purposes.
+     * <p>
+     * Subclasses likely implement a static version of this method, which this method calls. That is an expected
+     * pattern.
      *
      * @return The class wrapped by this wrapper class
      */
@@ -63,11 +59,11 @@ public abstract class WrapperBase {
     public boolean equals(final Object other) {
         if (isNull()) {
             throw new NullPointerException(
-                String.format("Called equals() on a %s with null wrapped instance", this.getClass().getSimpleName())
+                    String.format("Called equals() on a %s with null wrapped instance", this.getClass().getSimpleName())
             );
         }
 
-        if (! (other instanceof WrapperBase)) {
+        if (!(other instanceof WrapperBase)) {
             return false;
         }
 
@@ -106,25 +102,24 @@ public abstract class WrapperBase {
 
     /**
      * Returns the constructor specified by {@code parameterTypes} for the class indicated by {@code wrappedClass}.
-     *
+     * <p>
      * If a matching constructor is not found, will {@code fail()}.
      *
-     * @param wrappedClass The class to find a constructor for
+     * @param wrappedClass   The class to find a constructor for
      * @param parameterTypes The list of parameter types for the requested constructor
-     * @param <T> The type to fetch the constructor for
+     * @param <T>            The type to fetch the constructor for
      * @return The Constructor object, if it exists.
      */
     protected static <T> Constructor<T> getConstructor(final Class<T> wrappedClass, Class<?>... parameterTypes) {
         return ConstructorQuery.inClass(wrappedClass)
-            .withExactArgTypes(Lists.newArrayList(parameterTypes))
-            .findConstructorOrFail();
+                .withExactArgTypes(Lists.newArrayList(parameterTypes))
+                .findConstructorOrFail();
     }
 
     /**
      * Returns the Method object corresponding to the method name provided.
-     *
-     * Will {@code fail()} if method not found, or if more than one method with that
-     * name is found.
+     * <p>
+     * Will {@code fail()} if method not found, or if more than one method with that name is found.
      *
      * @param methodName The name of the method requested
      * @return the Method object corresponding to {@code methodName}
@@ -135,6 +130,7 @@ public abstract class WrapperBase {
 
     /**
      * Invokes the given method with the provided arguments and handles the reflection exceptions.
+     *
      * @param method The method to invoke
      * @param args   The arguments to provide to the method
      */
@@ -158,8 +154,8 @@ public abstract class WrapperBase {
      * exceptions.
      *
      * @param invokeTarget The object to invoke the given method on
-     * @param method The method to invoke
-     * @param args The arguments to provide to the method
+     * @param method       The method to invoke
+     * @param args         The arguments to provide to the method
      * @return The return value of the method, as an {@code Object}
      */
     protected static Object invokeInstanceMethodWithReturnValue(
@@ -167,9 +163,9 @@ public abstract class WrapperBase {
 
         if (null == invokeTarget) {
             throw new NullPointerException(
-                String.format("Attempted to call method %s on a null instance of %s",
-                    method.getName(),
-                    method.getDeclaringClass().getSimpleName())
+                    String.format("Attempted to call method %s on a null instance of %s",
+                            method.getName(),
+                            method.getDeclaringClass().getSimpleName())
             );
         }
 
@@ -194,7 +190,7 @@ public abstract class WrapperBase {
      * Calls the given static method with the provided arguments and handles the reflection exceptions.
      *
      * @param method The method to invoke
-     * @param args The arguments to provide to the method
+     * @param args   The arguments to provide to the method
      * @return The return value of the method, as an {@code Object}
      */
     protected static Object invokeStaticMethodWithReturnValue(final Method method, Object... args) {

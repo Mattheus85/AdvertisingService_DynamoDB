@@ -1,11 +1,11 @@
 package com.amazon.ata.advertising.service.activity;
 
-import com.amazon.ata.advertising.service.model.requests.GenerateAdvertisementRequest;
-import com.amazon.ata.advertising.service.model.responses.GenerateAdvertisementResponse;
 import com.amazon.ata.advertising.service.businesslogic.AdvertisementSelectionLogic;
 import com.amazon.ata.advertising.service.model.AdvertisementContent;
 import com.amazon.ata.advertising.service.model.EmptyGeneratedAdvertisement;
 import com.amazon.ata.advertising.service.model.GeneratedAdvertisement;
+import com.amazon.ata.advertising.service.model.requests.GenerateAdvertisementRequest;
+import com.amazon.ata.advertising.service.model.responses.GenerateAdvertisementResponse;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;

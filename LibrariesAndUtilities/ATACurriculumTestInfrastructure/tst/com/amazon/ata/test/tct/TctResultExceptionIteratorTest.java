@@ -23,7 +23,7 @@ class TctResultExceptionIteratorTest {
         } catch (Exception e) {
             // THEN
             assertTrue(e instanceof RuntimeException, "hasNext() should throw a RuntimeException");
-            assertTrue(e.getCause() instanceof FileNotFoundException,CAUSE_ERROR_MESSAGE);
+            assertTrue(e.getCause() instanceof FileNotFoundException, CAUSE_ERROR_MESSAGE);
         }
     }
 

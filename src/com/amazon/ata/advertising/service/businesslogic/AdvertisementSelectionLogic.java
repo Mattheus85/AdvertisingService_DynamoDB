@@ -14,9 +14,6 @@ import org.apache.logging.log4j.Logger;
 import javax.inject.Inject;
 import java.util.Collections;
 import java.util.List;
-import java.util.Map;
-import java.util.Random;
-import java.util.TreeMap;
 import java.util.stream.Collectors;
 
 /**
@@ -49,8 +46,8 @@ public class AdvertisementSelectionLogic {
      *
      * @param customerId    - the customer to generate a custom advertisement for
      * @param marketplaceId - the id of the marketplace the advertisement will be rendered on
-     * @return an advertisement customized for the customer id provided, or an empty advertisement if one could
-     * not be generated.
+     * @return an advertisement customized for the customer id provided, or an empty advertisement if one could not be
+     * generated.
      */
     public GeneratedAdvertisement selectAdvertisement(String customerId, String marketplaceId) {
         GeneratedAdvertisement generatedAdvertisement = new EmptyGeneratedAdvertisement();

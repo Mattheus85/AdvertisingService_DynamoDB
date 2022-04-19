@@ -1,18 +1,18 @@
 ## Mastery Task 2 - Concurrent Tasks
 
-The product detail page team has strict latency requirements for any content rendered “above the fold“, which refers to 
+The product detail page team has strict latency requirements for any content rendered “above the fold“, which refers to
 any part of a product detail page that you see when the page first loads without scrolling down.
 
 ![Figure 1](../../src/resources/mastery-task2-abovethefold-example.png)
 
-*Figure 1: Screenshot of an Amazon product detail page, with a red horizontal line across the image to indicate "the 
+*Figure 1: Screenshot of an Amazon product detail page, with a red horizontal line across the image to indicate "the
 fold" in "above the fold". We consider any content on the detail page above the red line "above the fold".*
 
 We've been looking at our latency graphs, and we've discovered that our latency increases almost linearly with the
-number of `TargetingPredicate`s in a `TargetingGroup`. It's probably because each `TargetingPredicate` calls 
+number of `TargetingPredicate`s in a `TargetingGroup`. It's probably because each `TargetingPredicate` calls
 the DAOs it needs on its own.
 
-You recall from the `KindlePublishingService` project that when `RecommendationsService` was slowing us down, you cached 
+You recall from the `KindlePublishingService` project that when `RecommendationsService` was slowing us down, you cached
 the calls using an in-memory cache. However, since our service runs on Lambda, our activities can run on
 different hosts every time, so any data we save in an in-memory cache will not be there in subsequent calls.
 

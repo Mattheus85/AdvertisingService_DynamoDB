@@ -11,15 +11,15 @@ public class FreeFormTextHelper {
     /**
      * Determines if the given (multiline) content has a match within a single line somewhere in it that corresponds
      * with the given regular expression string.
-     *
-     * If you contain a dot ({@code .}) in your pattern, it will *not* match newline
-     * characters, so your pattern must all be found on a single line of {@code content}. If you need to match a pattern
-     * across multiple lines, use {@code matchesMultiLine}.
-     *
+     * <p>
+     * If you contain a dot ({@code .}) in your pattern, it will *not* match newline characters, so your pattern must
+     * all be found on a single line of {@code content}. If you need to match a pattern across multiple lines, use
+     * {@code matchesMultiLine}.
+     * <p>
      * Also note that {@code ^} will only match the beginning of the entire content string; {@code $} will only match
      * the end of the entire content string;
      *
-     * @param content The string in which to search for the given regex
+     * @param content       The string in which to search for the given regex
      * @param patternToFind The regex to search for within {@code content}.
      * @return If the pattern was found on a single line
      */
@@ -31,14 +31,14 @@ public class FreeFormTextHelper {
     /**
      * Determines if the given (multiline) content has a match that may span lines in it that corresponds with the given
      * regular expression string.
-     *
-     * If you contain a dot ({@code .}) in your pattern, it *will* match newline characters, so
-     * your pattern might be matching across lines. If you intend to match a pattern that should only exist on a
-     * single line, use {@code matchesSingleLine}.
-     *
+     * <p>
+     * If you contain a dot ({@code .}) in your pattern, it *will* match newline characters, so your pattern might be
+     * matching across lines. If you intend to match a pattern that should only exist on a single line, use
+     * {@code matchesSingleLine}.
+     * <p>
      * Also note that {@code ^} will match beginning of *any* line; {@code $} will match end of *any* line.
      *
-     * @param content The string in which to search for the given regex
+     * @param content       The string in which to search for the given regex
      * @param patternToFind The regex to search for within {@code content}.
      * @return If the pattern was found across multiple lines
      */
@@ -50,22 +50,18 @@ public class FreeFormTextHelper {
     }
 
     /**
-     * Searches a provided String content for a section of text in between
-     * the two provided patterns.
+     * Searches a provided String content for a section of text in between the two provided patterns.
      * <p>
-     * Useful for things like getting the answer in between two known text patterns
-     * (e.g. the answer between question 1 and question 2).
+     * Useful for things like getting the answer in between two known text patterns (e.g. the answer between question 1
+     * and question 2).
      * <p>
-     * NOTE: The input patterns get compiled to a {@link java.util.regex.Pattern},
-     * so regex is fair game, or make sure to escape any unintentional regex characters!
+     * NOTE: The input patterns get compiled to a {@link java.util.regex.Pattern}, so regex is fair game, or make sure
+     * to escape any unintentional regex characters!
      *
-     * @param leftPattern  The start pattern to search between.
-     *                     Gets compiled into a {@link java.util.regex.Pattern}.
-     * @param rightPattern The end pattern to search between.
-     *                     Gets compiled into a {@link java.util.regex.Pattern}.
+     * @param leftPattern  The start pattern to search between. Gets compiled into a {@link java.util.regex.Pattern}.
+     * @param rightPattern The end pattern to search between. Gets compiled into a {@link java.util.regex.Pattern}.
      * @param content      The String to search through.
-     * @return             An Optional String with the contents between the start and end pattern.
-     *                     Empty if no match was found.
+     * @return An Optional String with the contents between the start and end pattern. Empty if no match was found.
      */
     public static Optional<String> getValueBetweenPatterns(final String content,
                                                            final String leftPattern,
@@ -73,7 +69,7 @@ public class FreeFormTextHelper {
         // DOTALL allows . to match newline
         // CASE_INSENSITIVE for convenience, but can consider removing
         Pattern questionPattern = Pattern.compile(String.format("%s(.*?)%s", leftPattern, rightPattern),
-            Pattern.CASE_INSENSITIVE | Pattern.DOTALL);
+                Pattern.CASE_INSENSITIVE | Pattern.DOTALL);
         Matcher answerMatcher = questionPattern.matcher(content);
 
         if (answerMatcher.find()) {
@@ -84,17 +80,14 @@ public class FreeFormTextHelper {
     }
 
     /**
-     * Searches a provided String content for a section of text from a start pattern
-     * to the end of the String.
+     * Searches a provided String content for a section of text from a start pattern to the end of the String.
      * <p>
-     * NOTE: The input pattern gets compiled to a {@link java.util.regex.Pattern},
-     * so regex is fair game, or make sure to escape any unintentional regex characters!
+     * NOTE: The input pattern gets compiled to a {@link java.util.regex.Pattern}, so regex is fair game, or make sure
+     * to escape any unintentional regex characters!
      *
-     * @param leftPattern  The left regex to search between.
-     *                     Will be compiled into a {@link java.util.regex.Pattern}.
-     * @param content      The String to search through.
-     * @return             An Optional String with the contents after the start pattern.
-     *                     Empty if no match was found.
+     * @param leftPattern The left regex to search between. Will be compiled into a {@link java.util.regex.Pattern}.
+     * @param content     The String to search through.
+     * @return An Optional String with the contents after the start pattern. Empty if no match was found.
      */
     public static Optional<String> getValueAfterPattern(final String content, final String leftPattern) {
         return getValueBetweenPatterns(content, leftPattern, "\\z");

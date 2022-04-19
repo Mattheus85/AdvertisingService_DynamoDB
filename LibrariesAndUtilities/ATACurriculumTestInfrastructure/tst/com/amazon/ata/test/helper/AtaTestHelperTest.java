@@ -16,7 +16,7 @@ public class AtaTestHelperTest {
 
         // WHEN & THEN
         assertThrows(IllegalArgumentException.class, () -> AtaTestHelper.getFileContentFromResources(fileName),
-            "Expected exception to be thrown for a non-existent file.");
+                "Expected exception to be thrown for a non-existent file.");
     }
 
     @Test
@@ -40,8 +40,8 @@ public class AtaTestHelperTest {
 
         // WHEN + THEN - assert failure
         assertThrows(
-            AssertionFailedError.class,
-            () -> AtaTestHelper.failTestWithException(e, "summary")
+                AssertionFailedError.class,
+                () -> AtaTestHelper.failTestWithException(e, "summary")
         );
     }
 }

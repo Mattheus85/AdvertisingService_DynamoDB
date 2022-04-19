@@ -7,7 +7,6 @@ import com.amazon.ata.advertising.service.targeting.predicate.ParentPredicate;
 import com.amazon.ata.advertising.service.targeting.predicate.PrimeBenefitTargetingPredicate;
 import com.amazon.ata.advertising.service.targeting.predicate.RecognizedTargetingPredicate;
 import com.amazon.ata.advertising.service.targeting.predicate.TargetingPredicate;
-
 import dagger.MembersInjector;
 
 import javax.inject.Inject;
@@ -22,12 +21,13 @@ public class TargetingPredicateInjector {
 
     /**
      * Constructs a targeting predicate injector.
-     * @param agePredicateInjector injects dependencies in AgeTargetingPredicates
+     *
+     * @param agePredicateInjector            injects dependencies in AgeTargetingPredicates
      * @param spendFrequencyPredicateInjector injects dependencies in CategorySpendFrequencyTargetingPredicate
-     * @param spendValuePredicateInjector injects dependencies in CategorySpendValueTargetingPredicate
-     * @param primePredicateInjector injects dependencies in PrimeBenefitTargetingPredicate
-     * @param parentPredicateInjector injects dependencies in ParentPredicate
-     * @param recognizedPredicateInjector injects dependencies in RecognizedTargetingPredicate
+     * @param spendValuePredicateInjector     injects dependencies in CategorySpendValueTargetingPredicate
+     * @param primePredicateInjector          injects dependencies in PrimeBenefitTargetingPredicate
+     * @param parentPredicateInjector         injects dependencies in ParentPredicate
+     * @param recognizedPredicateInjector     injects dependencies in RecognizedTargetingPredicate
      */
     @Inject
     public TargetingPredicateInjector(MembersInjector<AgeTargetingPredicate> agePredicateInjector,
@@ -48,6 +48,7 @@ public class TargetingPredicateInjector {
     /**
      * Injects any member variables or method's marked with @Inject. This is how we can serialize the targeting
      * predicates without the DAOs and then inject the dependencies later.
+     *
      * @param targetingPredicate predicate to be injected
      */
     public void inject(TargetingPredicate targetingPredicate) {

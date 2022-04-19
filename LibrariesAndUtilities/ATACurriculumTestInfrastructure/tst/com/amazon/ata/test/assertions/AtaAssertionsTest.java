@@ -41,11 +41,11 @@ public class AtaAssertionsTest {
 
     private static Stream<Arguments> provideStringsForAssertContains() {
         return Stream.of(
-            Arguments.of("One\n", "three"),
-            Arguments.of("two", "four\n"),
-            Arguments.of("One\n", "four\n"),
-            Arguments.of("One\n", "five"),
-            Arguments.of("O", "e")
+                Arguments.of("One\n", "three"),
+                Arguments.of("two", "four\n"),
+                Arguments.of("One\n", "four\n"),
+                Arguments.of("One\n", "five"),
+                Arguments.of("O", "e")
         );
     }
 
@@ -95,8 +95,8 @@ public class AtaAssertionsTest {
 
         // WHEN + THEN -- assert failure
         assertThrows(
-            AssertionFailedError.class,
-            () -> assertMatchesSingleLine("ab\ncde\nfg", nonMatchingPattern, "")
+                AssertionFailedError.class,
+                () -> assertMatchesSingleLine("ab\ncde\nfg", nonMatchingPattern, "")
         );
     }
 
@@ -124,8 +124,8 @@ public class AtaAssertionsTest {
 
         // WHEN + THEN -- assert failure
         assertThrows(
-            AssertionFailedError.class,
-            () -> assertMatchesMultiLine("ab\ncde\nfg", nonMatchingPattern, "")
+                AssertionFailedError.class,
+                () -> assertMatchesMultiLine("ab\ncde\nfg", nonMatchingPattern, "")
         );
     }
 
@@ -136,9 +136,9 @@ public class AtaAssertionsTest {
         // GIVEN - null expected, non-null actual, margin
         // WHEN + THEN - assert failure
         assertThrows(
-            IllegalArgumentException.class,
-            () -> assertClose(null, BigDecimal.ONE, ""),
-            "Expected assertBigDecimal(null, ...) to throw IAE, but did not"
+                IllegalArgumentException.class,
+                () -> assertClose(null, BigDecimal.ONE, ""),
+                "Expected assertBigDecimal(null, ...) to throw IAE, but did not"
         );
     }
 
@@ -147,9 +147,9 @@ public class AtaAssertionsTest {
         // GIVEN - non-null expected, null actual, non-null margin
         // WHEN + THEN - assert failure
         assertThrows(
-            IllegalArgumentException.class,
-            () -> assertClose(BigDecimal.ONE, null, ""),
-            "Expected assertBigDecimal(..., null, ...) to throw IAE, but did not"
+                IllegalArgumentException.class,
+                () -> assertClose(BigDecimal.ONE, null, ""),
+                "Expected assertBigDecimal(..., null, ...) to throw IAE, but did not"
         );
     }
 
@@ -200,9 +200,9 @@ public class AtaAssertionsTest {
         // GIVEN - null expected, non-null actual, margin
         // WHEN + THEN - assert failure
         assertThrows(
-            IllegalArgumentException.class,
-            () -> assertClose(null, BigDecimal.ONE, BigDecimal.ONE, ""),
-            "Expected assertBigDecimal(null, ...) to throw IAE, but did not"
+                IllegalArgumentException.class,
+                () -> assertClose(null, BigDecimal.ONE, BigDecimal.ONE, ""),
+                "Expected assertBigDecimal(null, ...) to throw IAE, but did not"
         );
     }
 
@@ -211,9 +211,9 @@ public class AtaAssertionsTest {
         // GIVEN - non-null expected, null actual, non-null margin
         // WHEN + THEN - assert failure
         assertThrows(
-            IllegalArgumentException.class,
-            () -> assertClose(BigDecimal.ONE, null, BigDecimal.ONE, ""),
-            "Expected assertBigDecimal(..., null, ...) to throw IAE, but did not"
+                IllegalArgumentException.class,
+                () -> assertClose(BigDecimal.ONE, null, BigDecimal.ONE, ""),
+                "Expected assertBigDecimal(..., null, ...) to throw IAE, but did not"
         );
     }
 
@@ -222,9 +222,9 @@ public class AtaAssertionsTest {
         // GIVEN - non-null expected, non-null actual, null margin
         // WHEN + THEN - assert failure
         assertThrows(
-            IllegalArgumentException.class,
-            () -> assertClose(BigDecimal.ONE, BigDecimal.ONE, null, ""),
-            "Expected assertBigDecimal(..., null) to throw IAE, but did not"
+                IllegalArgumentException.class,
+                () -> assertClose(BigDecimal.ONE, BigDecimal.ONE, null, ""),
+                "Expected assertBigDecimal(..., null) to throw IAE, but did not"
         );
     }
 
@@ -236,9 +236,9 @@ public class AtaAssertionsTest {
 
         // WHEN + THEN - assert failure
         assertThrows(
-            IllegalArgumentException.class,
-            () -> assertClose(BigDecimal.ONE, BigDecimal.ONE, negative, ""),
-            "Expected assertBigDecimal(..., negativeMargin) to throw IAE, but did not"
+                IllegalArgumentException.class,
+                () -> assertClose(BigDecimal.ONE, BigDecimal.ONE, negative, ""),
+                "Expected assertBigDecimal(..., negativeMargin) to throw IAE, but did not"
         );
     }
 

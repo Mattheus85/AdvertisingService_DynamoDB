@@ -25,15 +25,15 @@ public class MasteryTaskTwoTests {
     // Empirical testing indicates this number is close to 55. Logging indicates 29 targeting groups.
     private static final int NUMBER_OF_TARGETING_GROUPS = 55;
     private static final int CONCURRENT_APPROXIMATE_EXECUTION_DURATION =
-        HARDCODED_SLEEP_DURATION * NUMBER_OF_TARGETING_GROUPS;
+            HARDCODED_SLEEP_DURATION * NUMBER_OF_TARGETING_GROUPS;
     private static final int SERIAL_MINIMUM_EXECUTION_DURATION = HARDCODED_SLEEP_DURATION * NUMBER_OF_PREDICATES;
 
     @Test
     public void generateAdvertisement_withTargetCustomerIdInMarketplace_returnsAdvertisement() {
         GenerateAdvertisementRequest request = new GenerateAdvertisementRequest().builder()
-            .withCustomerId(PARENT_PROFILE_CUSTOMER_ID)
-            .withMarketplaceId(US_MARKETPLACE_ID)
-            .build();
+                .withCustomerId(PARENT_PROFILE_CUSTOMER_ID)
+                .withMarketplaceId(US_MARKETPLACE_ID)
+                .build();
 
         long start = System.currentTimeMillis();
         GenerateAdvertisementResponse result = new GenerateAdActivityDagger().handleRequest(request, null);
@@ -41,15 +41,15 @@ public class MasteryTaskTwoTests {
 
         long elapsed = finish - start;
         LOG.info("GenerateAdvertisement request took {} milliseconds to complete, " +
-                    "expected less than {} ms. GenerateAdvertisement should " +
-                    "evaluate predicates concurrently!",
+                        "expected less than {} ms. GenerateAdvertisement should " +
+                        "evaluate predicates concurrently!",
                 elapsed, SERIAL_MINIMUM_EXECUTION_DURATION);
 
         assertNotNull(result.getAdvertisement(), "Expected a non null advertisement in the response.");
         assertNotNull(result.getAdvertisement().getId(), "Expected the advertisement to have a non-null " +
-            "content ID.");
+                "content ID.");
         assertFalse(StringUtils.isBlank(result.getAdvertisement().getContent()), "Expected a non-empty " +
-            "advertisement content when generating an advertisement for a customer ID with a parent profile " +
-            "in marketplace ID: " + request.getMarketplaceId());
+                "advertisement content when generating an advertisement for a customer ID with a parent profile " +
+                "in marketplace ID: " + request.getMarketplaceId());
     }
 }

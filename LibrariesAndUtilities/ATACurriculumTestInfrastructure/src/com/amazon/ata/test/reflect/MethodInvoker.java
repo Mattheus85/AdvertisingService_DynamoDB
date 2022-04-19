@@ -21,18 +21,18 @@ public final class MethodInvoker {
      * exceptions.
      *
      * @param invokeTarget The object to invoke the given method on
-     * @param method The method to invoke
-     * @param args The arguments to provide to the method
+     * @param method       The method to invoke
+     * @param args         The arguments to provide to the method
      * @return The return value of the method, as an {@code Object}
      */
     public static Object invokeInstanceMethodWithReturnValue(
-        final Object invokeTarget, final Method method, Object... args) {
+            final Object invokeTarget, final Method method, Object... args) {
 
         if (null == invokeTarget) {
             throw new NullPointerException(
-                String.format("Attempted to call method %s on a null instance of %s",
-                    method.getName(),
-                    method.getDeclaringClass().getSimpleName())
+                    String.format("Attempted to call method %s on a null instance of %s",
+                            method.getName(),
+                            method.getDeclaringClass().getSimpleName())
             );
         }
 
@@ -42,12 +42,12 @@ public final class MethodInvoker {
             returnValue = method.invoke(invokeTarget, args);
         } catch (IllegalAccessException e) {
             failTestWithException(e, String.format("Unable to access %s on %s",
-                method.getName(),
-                invokeTarget.getClass().getSimpleName()));
+                    method.getName(),
+                    invokeTarget.getClass().getSimpleName()));
         } catch (InvocationTargetException e) {
             failTestWithException(e.getCause(), String.format("Failed to successfully call %s on %s",
-                method.getName(),
-                invokeTarget.getClass().getSimpleName()));
+                    method.getName(),
+                    invokeTarget.getClass().getSimpleName()));
         }
 
         return returnValue;
@@ -57,7 +57,7 @@ public final class MethodInvoker {
      * Calls the given static method with the provided arguments and handles the reflection exceptions.
      *
      * @param method The method to invoke
-     * @param args The arguments to provide to the method
+     * @param args   The arguments to provide to the method
      * @return The return value of the method, as an {@code Object}
      */
     public static Object invokeStaticMethodWithReturnValue(final Method method, Object... args) {
@@ -68,24 +68,24 @@ public final class MethodInvoker {
             returnValue = method.invoke(null, args);
         } catch (IllegalAccessException e) {
             failTestWithException(e, String.format("Unable to access %s on %s",
-                method.getName(),
-                method.getDeclaringClass().getSimpleName()));
+                    method.getName(),
+                    method.getDeclaringClass().getSimpleName()));
         } catch (InvocationTargetException e) {
             failTestWithException(e.getCause(), String.format("Failed to successfully call %s on %s",
-                method.getName(),
-                method.getDeclaringClass().getSimpleName()));
+                    method.getName(),
+                    method.getDeclaringClass().getSimpleName()));
         }
 
         return returnValue;
     }
 
     /**
-     * Calls the provided constructor with the given arguments and does exception handling,
-     * assertion failure reporting.
+     * Calls the provided constructor with the given arguments and does exception handling, assertion failure
+     * reporting.
      *
      * @param constructor The constructor to call
-     * @param parameters The args to pass to the constructor
-     * @param <T> The (wrapped class) type the constructor belongs to
+     * @param parameters  The args to pass to the constructor
+     * @param <T>         The (wrapped class) type the constructor belongs to
      * @return The constructed instance
      */
     public static <T> T invokeConstructor(final Constructor<T> constructor, Object... parameters) {
@@ -100,10 +100,10 @@ public final class MethodInvoker {
             }
 
             failTestWithException(
-                e,
-                String.format("Failed to instantiate a new %s with args (%s)",
-                    constructor.getDeclaringClass().getSimpleName(),
-                    String.join(", ", argList))
+                    e,
+                    String.format("Failed to instantiate a new %s with args (%s)",
+                            constructor.getDeclaringClass().getSimpleName(),
+                            String.join(", ", argList))
             );
         }
 

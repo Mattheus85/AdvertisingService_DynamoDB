@@ -7,10 +7,12 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 public class TargetingGroupTranslator {
-    private TargetingGroupTranslator() {}
+    private TargetingGroupTranslator() {
+    }
 
     /**
      * Translate from an internal representation of a TargetingGroup to a coral shape.
+     *
      * @param group The internal representation
      * @return The coral shape
      */

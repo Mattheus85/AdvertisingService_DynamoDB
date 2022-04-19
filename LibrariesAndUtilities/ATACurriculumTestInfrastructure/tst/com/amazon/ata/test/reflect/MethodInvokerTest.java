@@ -52,6 +52,7 @@ public class MethodInvokerTest {
     public static class SubType extends SuperType {
 
     }
+
     public static class MethodInvokerTestClass {
         String distinctArgType1;
         Long distinctArgType2;
@@ -117,8 +118,8 @@ public class MethodInvokerTest {
         // WHEN - invoke method
         // THEN - exception thrown
         assertThrows(
-            NullPointerException.class,
-            () -> MethodInvoker.invokeInstanceMethodWithReturnValue((Object) null, method)
+                NullPointerException.class,
+                () -> MethodInvoker.invokeInstanceMethodWithReturnValue((Object) null, method)
         );
     }
 
@@ -135,35 +136,35 @@ public class MethodInvokerTest {
         // WHEN - invoke method
         // THEN - assertion failure
         AssertionFailedError e = assertThrows(
-            AssertionFailedError.class,
-            () -> MethodInvoker.invokeInstanceMethodWithReturnValue(exceptionThrowingType, method),
-            "Should have thrown assertion failed error when called method throws exception"
+                AssertionFailedError.class,
+                () -> MethodInvoker.invokeInstanceMethodWithReturnValue(exceptionThrowingType, method),
+                "Should have thrown assertion failed error when called method throws exception"
         );
         // message contains class name
         assertTrue(
-            e.getMessage().contains(exceptionThrowingType.getClass().getSimpleName()),
-            String.format(
-                "Expected exception message to include class name ('%s') but was '%s'",
-                exceptionThrowingType.getClass().getSimpleName(),
-                e.getMessage())
+                e.getMessage().contains(exceptionThrowingType.getClass().getSimpleName()),
+                String.format(
+                        "Expected exception message to include class name ('%s') but was '%s'",
+                        exceptionThrowingType.getClass().getSimpleName(),
+                        e.getMessage())
         );
 
         // message contains method name
         assertTrue(
-            e.getMessage().contains(methodName),
-            String.format(
-                "Expected exception message to include method name ('%s') but was '%s'",
-                methodName,
-                e.getMessage())
+                e.getMessage().contains(methodName),
+                String.format(
+                        "Expected exception message to include method name ('%s') but was '%s'",
+                        methodName,
+                        e.getMessage())
         );
 
         // message contains exception name
         assertTrue(
-            e.getMessage().contains(MethodInvokerTest.ExceptionThrowingType.getExceptionTypeThrown().getSimpleName()),
-            String.format(
-                "Expected exception message to include exception name ('%s') but was '%s'",
-                MethodInvokerTest.ExceptionThrowingType.getExceptionTypeThrown().getSimpleName(),
-                e.getMessage())
+                e.getMessage().contains(MethodInvokerTest.ExceptionThrowingType.getExceptionTypeThrown().getSimpleName()),
+                String.format(
+                        "Expected exception message to include exception name ('%s') but was '%s'",
+                        MethodInvokerTest.ExceptionThrowingType.getExceptionTypeThrown().getSimpleName(),
+                        e.getMessage())
         );
     }
 
@@ -224,29 +225,29 @@ public class MethodInvokerTest {
             } catch (AssertionFailedError e) {
                 // message contains class name
                 assertTrue(
-                    e.getMessage().contains(MethodInvokerTest.ExceptionThrowingType.class.getSimpleName()),
-                    String.format(
-                        "Expected exception message to include class name ('%s') but was '%s'",
-                        MethodInvokerTest.ExceptionThrowingType.class.getSimpleName(),
-                        e.getMessage())
+                        e.getMessage().contains(MethodInvokerTest.ExceptionThrowingType.class.getSimpleName()),
+                        String.format(
+                                "Expected exception message to include class name ('%s') but was '%s'",
+                                MethodInvokerTest.ExceptionThrowingType.class.getSimpleName(),
+                                e.getMessage())
                 );
 
                 // message contains method name
                 assertTrue(
-                    e.getMessage().contains(methodName),
-                    String.format(
-                        "Expected exception message to include method name ('%s') but was '%s'",
-                        methodName,
-                        e.getMessage())
+                        e.getMessage().contains(methodName),
+                        String.format(
+                                "Expected exception message to include method name ('%s') but was '%s'",
+                                methodName,
+                                e.getMessage())
                 );
 
                 // message contains exception name
                 assertTrue(
-                    e.getMessage().contains(MethodInvokerTest.ExceptionThrowingType.getExceptionTypeThrown().getSimpleName()),
-                    String.format(
-                        "Expected exception message to include exception name ('%s') but was '%s'",
-                        MethodInvokerTest.ExceptionThrowingType.getExceptionTypeThrown().getSimpleName(),
-                        e.getMessage())
+                        e.getMessage().contains(MethodInvokerTest.ExceptionThrowingType.getExceptionTypeThrown().getSimpleName()),
+                        String.format(
+                                "Expected exception message to include exception name ('%s') but was '%s'",
+                                MethodInvokerTest.ExceptionThrowingType.getExceptionTypeThrown().getSimpleName(),
+                                e.getMessage())
                 );
 
                 // all good!
@@ -278,7 +279,7 @@ public class MethodInvokerTest {
         // GIVEN
         // String-arg constructor
         Constructor<?> argConstructor =
-            ConstructorQuery.inClass(String.class).withExactArgTypes(ImmutableList.of(String.class)).findConstructor();
+                ConstructorQuery.inClass(String.class).withExactArgTypes(ImmutableList.of(String.class)).findConstructor();
         // constructor argument
         String arg = "welcome";
 
@@ -294,7 +295,7 @@ public class MethodInvokerTest {
         // GIVEN
         // a distinct, multi-arg constructor
         Constructor<?> argConstructor =
-            ConstructorQuery.inClass(MethodInvokerTestClass.class).withExactArgTypes(ImmutableList.of(String.class, Long.class)).findConstructor();
+                ConstructorQuery.inClass(MethodInvokerTestClass.class).withExactArgTypes(ImmutableList.of(String.class, Long.class)).findConstructor();
         // constructor argument
         String arg1 = "welcome";
         Long arg2 = 1L;
@@ -314,8 +315,8 @@ public class MethodInvokerTest {
         // GIVEN
         // a distinct, multi-arg constructor
         Constructor<?> argConstructor =
-            ConstructorQuery.inClass(MethodInvokerTestClass.class).withExactArgTypes(ImmutableList.of(InterfaceType.class,
-                SuperType.class)).findConstructor();
+                ConstructorQuery.inClass(MethodInvokerTestClass.class).withExactArgTypes(ImmutableList.of(InterfaceType.class,
+                        SuperType.class)).findConstructor();
         // constructor argument
         ImplType implType = new ImplType();
         SubType subType = new SubType();
@@ -335,8 +336,8 @@ public class MethodInvokerTest {
         // GIVEN
         // a multi-arg constructor with duplicate types
         Constructor<?> argConstructor =
-            ConstructorQuery.inClass(MethodInvokerTestClass.class).withExactArgTypes(ImmutableList.of(String.class,
-                String.class)).findConstructor();
+                ConstructorQuery.inClass(MethodInvokerTestClass.class).withExactArgTypes(ImmutableList.of(String.class,
+                        String.class)).findConstructor();
         // constructor argument
         String arg1 = "arg1";
         String arg2 = "arg2";
@@ -358,7 +359,7 @@ public class MethodInvokerTest {
         // GIVEN
         // exception-throwing constructor
         Constructor<?> exceptionConstructor = ConstructorQuery.inClass(MethodInvokerTest.ExceptionThrowingType.class)
-            .withExactArgTypes(ImmutableList.of(Boolean.class)).findConstructor();
+                .withExactArgTypes(ImmutableList.of(Boolean.class)).findConstructor();
         boolean shouldThrowException = true;
 
         // WHEN - invoke constructor
@@ -369,19 +370,19 @@ public class MethodInvokerTest {
         } catch (AssertionFailedError e) {
             // message contains class name
             assertTrue(
-                e.getMessage().contains(exceptionConstructor.getClass().getSimpleName()),
-                String.format(
-                    "Expected exception message to include class name ('%s') but was '%s'",
-                    exceptionConstructor.getClass().getSimpleName(),
-                    e.getMessage())
+                    e.getMessage().contains(exceptionConstructor.getClass().getSimpleName()),
+                    String.format(
+                            "Expected exception message to include class name ('%s') but was '%s'",
+                            exceptionConstructor.getClass().getSimpleName(),
+                            e.getMessage())
             );
             // message contains exception class name
             assertTrue(
-                e.getMessage().contains(MethodInvokerTest.ExceptionThrowingType.getExceptionTypeThrown().getSimpleName()),
-                String.format(
-                    "Expected exception message to include exception class name ('%s') but was '%s'",
-                    MethodInvokerTest.ExceptionThrowingType.getExceptionTypeThrown().getSimpleName(),
-                    e.getMessage())
+                    e.getMessage().contains(MethodInvokerTest.ExceptionThrowingType.getExceptionTypeThrown().getSimpleName()),
+                    String.format(
+                            "Expected exception message to include exception class name ('%s') but was '%s'",
+                            MethodInvokerTest.ExceptionThrowingType.getExceptionTypeThrown().getSimpleName(),
+                            e.getMessage())
             );
 
             // all good!

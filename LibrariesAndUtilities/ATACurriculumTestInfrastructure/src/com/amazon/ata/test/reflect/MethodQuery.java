@@ -1,7 +1,6 @@
 package com.amazon.ata.test.reflect;
 
 import com.amazon.ata.test.helper.AtaTestHelper;
-
 import com.google.common.collect.Collections2;
 import com.google.common.collect.ImmutableList;
 import org.reflections.ReflectionUtils;
@@ -16,9 +15,8 @@ import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
 /**
- * Allows finding a Java {@code Method} using introspection by specifying
- * constraints on the method being sought (e.g. name/partial name, return value,
- * method arguments).
+ * Allows finding a Java {@code Method} using introspection by specifying constraints on the method being sought (e.g.
+ * name/partial name, return value, method arguments).
  * <p>
  * Allows for:
  * <ul>
@@ -47,7 +45,7 @@ import java.util.stream.Collectors;
  *         {@code MAX_ARGUMENTS} arguments. Can repeat arg types
  *         This method can only be called once per query.</li>
  * </ul>
- *
+ * <p>
  * Examples:
  * <ul>
  * <li><pre>
@@ -86,14 +84,16 @@ import java.util.stream.Collectors;
  * Will return a {@code Set<Method>}, whether 0, 1, or many {@code Method}s are found.
  * </p>
  *
- * @see com.amazon.ata.test.assertions.IntrospectionAssertions for assertions on
- * methods after the method of interest is returned.
+ * @see com.amazon.ata.test.assertions.IntrospectionAssertions for assertions on methods after the method of interest is
+ * returned.
  * @see MethodInvoker for means to invoke methods with reflection.
- *
+ * <p>
  * For further improvements, see https://sim.amazon.com/issues/ATAENG-1614
  */
 public final class MethodQuery {
-    /** maximum allowed number of argument types to specify with {@code withExactArgTypes}. */
+    /**
+     * maximum allowed number of argument types to specify with {@code withExactArgTypes}.
+     */
     public static final int MAX_ARGUMENTS = 8;
 
     private final Class<?> clazz;
@@ -125,8 +125,8 @@ public final class MethodQuery {
     }
 
     /**
-     * Creates a new {@code MethodQuery} by specifying the {@code Class} in which
-     * to look for the method(s) of interest.
+     * Creates a new {@code MethodQuery} by specifying the {@code Class} in which to look for the method(s) of
+     * interest.
      * <p>
      * Providing a {@code null} type results in {@code IllegalArgumentException}.
      * </p>
@@ -145,13 +145,11 @@ public final class MethodQuery {
     /**
      * Applies a filter based on return type of the method.
      * <p>
-     * The return type must match exactly (cannot specify a supertype of the method's
-     * return type and get a match).
+     * The return type must match exactly (cannot specify a supertype of the method's return type and get a match).
      * </p>
      * <p>
-     * This method can only be called once. Multiple calls will result in
-     * {@code IllegalStateException}. Similarly, cannot be called if
-     * {@code withVoidReturnType} has already been called.
+     * This method can only be called once. Multiple calls will result in {@code IllegalStateException}. Similarly,
+     * cannot be called if {@code withVoidReturnType} has already been called.
      * </p>
      * <p>
      * Passing in {@code null} will result in {@code IllegalArgumentException}.
@@ -167,7 +165,7 @@ public final class MethodQuery {
         }
 
         return new MethodQuery(
-            this.clazz, returnTypeToUse, this.exactMethodName, this.methodNameContainingSubstrings, this.exactArgTypes
+                this.clazz, returnTypeToUse, this.exactMethodName, this.methodNameContainingSubstrings, this.exactArgTypes
         );
     }
 
@@ -175,9 +173,8 @@ public final class MethodQuery {
      * Applies a filter specifying that return type of method is {@code void}.
      *
      * <p>
-     * This method can only be called once. Multiple calls will result in
-     * {@code IllegalStateException}. Similarly, cannot be called if
-     * {@code withReturnType} has already been called.
+     * This method can only be called once. Multiple calls will result in {@code IllegalStateException}. Similarly,
+     * cannot be called if {@code withReturnType} has already been called.
      * </p>
      *
      * @return an updated {@code MethodQuery} with new filter applied
@@ -186,16 +183,15 @@ public final class MethodQuery {
         ensureReturnTypeNotAlreadySet();
 
         return new MethodQuery(
-            this.clazz, Void.TYPE, this.exactMethodName, this.methodNameContainingSubstrings, this.exactArgTypes
+                this.clazz, Void.TYPE, this.exactMethodName, this.methodNameContainingSubstrings, this.exactArgTypes
         );
     }
 
     /**
      * Applies a filter specifying exact method name.
      * <p>
-     * This method can only be called once. Multiple calls will result in
-     * {@code IllegalStateException}. Similarly, cannot be called if
-     * {@code withNameContaining} has already been called.
+     * This method can only be called once. Multiple calls will result in {@code IllegalStateException}. Similarly,
+     * cannot be called if {@code withNameContaining} has already been called.
      * </p>
      * <p>
      * Passing in {@code null} will result in {@code IllegalArgumentException}.
@@ -211,7 +207,7 @@ public final class MethodQuery {
         }
 
         return new MethodQuery(
-            this.clazz, this.returnType, methodName, this.methodNameContainingSubstrings, this.exactArgTypes
+                this.clazz, this.returnType, methodName, this.methodNameContainingSubstrings, this.exactArgTypes
         );
     }
 
@@ -221,12 +217,11 @@ public final class MethodQuery {
      * This filter *is* case-sensitive.
      * </p>
      * <p>
-     * This method can be called any number of times and each name filter will be
-     * AND-ed together so that all provided substrings must be found in method name.
+     * This method can be called any number of times and each name filter will be AND-ed together so that all provided
+     * substrings must be found in method name.
      * </p>
      * <p>
-     * This method cannot be called after {@code withExactName}; this will result in
-     * {@code IllegalStateException}.
+     * This method cannot be called after {@code withExactName}; this will result in {@code IllegalStateException}.
      * </p>
      *
      * @param methodNameSubstring The substring of the method name to search for
@@ -242,7 +237,7 @@ public final class MethodQuery {
         newMethodNameContainingSubstrings.add(methodNameSubstring);
 
         return new MethodQuery(
-            this.clazz, this.returnType, this.exactMethodName, newMethodNameContainingSubstrings, this.exactArgTypes
+                this.clazz, this.returnType, this.exactMethodName, newMethodNameContainingSubstrings, this.exactArgTypes
         );
     }
 
@@ -250,30 +245,27 @@ public final class MethodQuery {
      * Applies a filter specifying the exact argument types for the method.
      *
      * <p>
-     * The types must match exactly (providing a superclass of the argument type will
-     * not result in a match).
+     * The types must match exactly (providing a superclass of the argument type will not result in a match).
      * </p>
      * <p>
      * The order of argument types does not matter.
      * </p>
      * <p>
-     * If the method accepts more than one argument of the same type, then the
-     * argument type must be repeated in the list provided.
+     * If the method accepts more than one argument of the same type, then the argument type must be repeated in the
+     * list provided.
      * </p>
      * <p>
      * If {@code argTypes} is {@code null}, throws {@code IllegalArgumentException}.
      * </p>
      * <p>
-     * This method can only be called once. Multiple calls will result in
-     * {@code IllegalStateException}.
+     * This method can only be called once. Multiple calls will result in {@code IllegalStateException}.
      * </p>
      * <p>
-     * To keep computation of argument permutations under control, passing in
-     * more than {@code MAX_ARGUMENTS} will result in an {@code IllegalArgumentException}.
+     * To keep computation of argument permutations under control, passing in more than {@code MAX_ARGUMENTS} will
+     * result in an {@code IllegalArgumentException}.
      * </p>
      *
-     * @param argTypes {@code Collection<Class<?>>} of argument types. List to allow repeated
-     *                                       arg types
+     * @param argTypes {@code Collection<Class<?>>} of argument types. List to allow repeated arg types
      * @return an updated {@code MethodQuery} with new filter applied
      */
     public MethodQuery withExactArgTypes(final Collection<Class<?>> argTypes) {
@@ -283,10 +275,10 @@ public final class MethodQuery {
         }
         if (argTypes.size() > MAX_ARGUMENTS) {
             throw new IllegalArgumentException(
-                String.format(
-                    "withExactArgTypes will not accept more than %d arguments: %s",
-                    MAX_ARGUMENTS,
-                    argTypes.toString())
+                    String.format(
+                            "withExactArgTypes will not accept more than %d arguments: %s",
+                            MAX_ARGUMENTS,
+                            argTypes.toString())
             );
         }
         for (Class<?> argType : argTypes) {
@@ -296,11 +288,11 @@ public final class MethodQuery {
         }
 
         return new MethodQuery(
-            this.clazz,
-            this.returnType,
-            this.exactMethodName,
-            this.methodNameContainingSubstrings,
-            new ArrayList<>(argTypes)
+                this.clazz,
+                this.returnType,
+                this.exactMethodName,
+                this.methodNameContainingSubstrings,
+                new ArrayList<>(argTypes)
         );
     }
 
@@ -308,8 +300,7 @@ public final class MethodQuery {
      * Returns the unique method matching the specified filters, if one exists.
      *
      * <p>
-     * If no method is found, or if too many methods found, will {@code fail()}
-     * (JUnit) with meaningful message.
+     * If no method is found, or if too many methods found, will {@code fail()} (JUnit) with meaningful message.
      * </p>
      *
      * @return the unique {@code Method} matching the criteria
@@ -358,7 +349,7 @@ public final class MethodQuery {
 
         // for each set of filters, findMethods() and union with methods found so far
         for (Set<Predicate<? super Method>> currFilterSet : getFilterPermutations()) {
-            Predicate<? super Method>[] filterArray = (Predicate []) currFilterSet.toArray(new Predicate[0]);
+            Predicate<? super Method>[] filterArray = (Predicate[]) currFilterSet.toArray(new Predicate[0]);
             matchingMethods.addAll(ReflectionUtils.getMethods(clazz, filterArray));
         }
 
@@ -382,7 +373,7 @@ public final class MethodQuery {
         // iterate through all permutations of arg types, generating a full set of
         // predicates for each one so we can try each one with ReflectionUtils.findMethods()
         for (List<Class<?>> argTypePermutation : Collections2.permutations(exactArgTypes)) {
-            Class<?>[] argTypesArray = (Class []) argTypePermutation.toArray(new Class[0]);
+            Class<?>[] argTypesArray = (Class[]) argTypePermutation.toArray(new Class[0]);
 
             Set<Predicate<? super Method>> filterSet = new HashSet<>(fixedFilters);
             filterSet.add(ReflectionUtils.withParameters(argTypesArray));
@@ -429,9 +420,9 @@ public final class MethodQuery {
 
     private Set<Method> filterOutTestMethods(final Set<Method> methods) {
         return methods.stream()
-            // when running unit tests, JaCoCo seems to inject this method...ignore it
-            .filter(m -> !m.getName().equals("$jacocoInit"))
-            .collect(Collectors.toSet());
+                // when running unit tests, JaCoCo seems to inject this method...ignore it
+                .filter(m -> !m.getName().equals("$jacocoInit"))
+                .collect(Collectors.toSet());
     }
 
     // throw exceptions if attempt is made to overwrite filters -- consider these bugs
@@ -446,7 +437,7 @@ public final class MethodQuery {
         ensureExactMethodNameNotAlreadySet();
         if (!methodNameContainingSubstrings.isEmpty()) {
             throw new IllegalStateException(
-                "Name filter(s) already exist(s): " + methodNameContainingSubstrings.toString()
+                    "Name filter(s) already exist(s): " + methodNameContainingSubstrings.toString()
             );
         }
     }
@@ -471,7 +462,7 @@ public final class MethodQuery {
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder("{MethodQuery | ")
-            .append("class: ").append(clazz);
+                .append("class: ").append(clazz);
 
         if (null != returnType) {
             sb.append(String.format(", returnType: %s", returnType.toString()));
@@ -481,7 +472,7 @@ public final class MethodQuery {
             sb.append(String.format(", exactMethodName: %s", exactMethodName));
         } else if (null != methodNameContainingSubstrings && !methodNameContainingSubstrings.isEmpty()) {
             sb.append(
-                String.format(", methodNameContainingSubstrings: [%s]", methodNameContainingSubstrings.toString())
+                    String.format(", methodNameContainingSubstrings: [%s]", methodNameContainingSubstrings.toString())
             );
         }
 

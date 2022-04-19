@@ -13,6 +13,7 @@ public class DevicePartReport {
     /**
      * Constructs a DevicePartReport, passing in lists of the number of devices each GPM owns, and the number of GPMs
      * responsible for each device.
+     *
      * @param gpmParts a list of GPMs associated with the number of devices they own.
      * @param partGpms a list of DeviceParts associated with the number of GPMs that own them.
      */

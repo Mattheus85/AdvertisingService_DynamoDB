@@ -8,9 +8,9 @@ public class BookRecommendation {
     /**
      * Book Recommendation Constructor.
      *
-     * @param title of book.
+     * @param title  of book.
      * @param author of book.
-     * @param asin of book.
+     * @param asin   of book.
      */
     public BookRecommendation(String title, String author, String asin) {
         this.title = title;
@@ -32,6 +32,7 @@ public class BookRecommendation {
 
     /**
      * Display string.
+     *
      * @return display string.
      */
     public String toString() {

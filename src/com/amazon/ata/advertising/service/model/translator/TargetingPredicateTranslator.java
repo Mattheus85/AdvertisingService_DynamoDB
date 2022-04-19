@@ -31,10 +31,12 @@ public class TargetingPredicateTranslator {
     private static final String EXCEPTION_MESSAGE = "An %s must be specified with a valid %s in it's attribute Map. " +
             "Valid values include: %s. Value specified was %s.";
 
-    private TargetingPredicateTranslator() {}
+    private TargetingPredicateTranslator() {
+    }
 
     /**
      * Converts from a coral shape to the internal representation of a TargetingPredicate.
+     *
      * @param predicate The coral shape
      * @return The internal representation
      */
@@ -160,6 +162,7 @@ public class TargetingPredicateTranslator {
 
     /**
      * Convert from an internal representation of a TargetingPredicate to the coral shape.
+     *
      * @param targetingPredicate The internal representation
      * @return The coral shape
      */
@@ -204,7 +207,7 @@ public class TargetingPredicateTranslator {
             attributes.put(CATEGORY_KEY, spendPredicate.getTargetedCategory());
             attributes.put(COMPARISON_KEY, spendPredicate.getComparison().toString());
             attributes.put(VALUE_KEY, Integer.toString(spendPredicate.getTargetedValue()));
-        }  else if (predicate instanceof PrimeBenefitTargetingPredicate) {
+        } else if (predicate instanceof PrimeBenefitTargetingPredicate) {
             PrimeBenefitTargetingPredicate primePredicate = (PrimeBenefitTargetingPredicate) predicate;
             attributes.put(BENEFIT_KEY, primePredicate.getBenefitToHave());
         }

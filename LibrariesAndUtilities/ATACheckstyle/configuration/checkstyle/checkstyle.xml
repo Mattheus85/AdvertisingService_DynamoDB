@@ -7,18 +7,18 @@
 <!-- http://checkstyle.sourceforge.net/config.html#Checker -->
 
 <module name="Checker">
-    <property name="charset" value="UTF-8" />
-    <property name="severity" value="error" />
+    <property name="charset" value="UTF-8"/>
+    <property name="severity" value="error"/>
 
     <!-- Filters -->
     <!-- http://checkstyle.sourceforge.net/config_filters.html -->
     <module name="SuppressionFilter">
-        <property name="file" value="${checkstyle.suppression.filter}" />
+        <property name="file" value="${checkstyle.suppression.filter}"/>
     </module>
     <module name="SuppressWithPlainTextCommentFilter">
-        <property name="offCommentFormat" value="CHECKSTYLE\:OFF\:([\w\|]+)" />
-        <property name="onCommentFormat"   value="CHECKSTYLE\:ON\:([\w\|]+)" />
-        <property name="checkFormat" value="$1" />
+        <property name="offCommentFormat" value="CHECKSTYLE\:OFF\:([\w\|]+)"/>
+        <property name="onCommentFormat" value="CHECKSTYLE\:ON\:([\w\|]+)"/>
+        <property name="checkFormat" value="$1"/>
     </module>
 
     <!-- Javadoc Comments -->
@@ -26,26 +26,26 @@
 
     <!-- Miscellaneous -->
     <!-- http://checkstyle.sourceforge.net/config_misc.html -->
-    <module name="NewlineAtEndOfFile" />
-    <module name="Translation" />
-    <module name="UniqueProperties" />
+    <module name="NewlineAtEndOfFile"/>
+    <module name="Translation"/>
+    <module name="UniqueProperties"/>
 
     <!-- Size Violations -->
     <!-- http://checkstyle.sourceforge.net/config_sizes.html -->
     <module name="FileLength">
-        <property name="max" value="500" />
+        <property name="max" value="500"/>
     </module>
 
     <!-- Whitespace -->
     <!-- http://checkstyle.sourceforge.net/config_whitespace.html -->
     <module name="FileTabCharacter">
-        <property name="eachLine" value="true" />
+        <property name="eachLine" value="true"/>
     </module>
 
     <module name="LineLength">
-        <property name="max" value="120" />
+        <property name="max" value="120"/>
         <property name="ignorePattern"
-                  value="^package.*|^import.*|http://|https://" />
+                  value="^package.*|^import.*|http://|https://"/>
     </module>
 
     <!-- TreeWalker -->
@@ -54,59 +54,59 @@
         <!-- Annotations -->
         <!-- http://checkstyle.sourceforge.net/config_annotation.html -->
         <module name="AnnotationLocation">
-            <property name="tokens" value="CLASS_DEF" />
-            <property name="tokens" value="INTERFACE_DEF" />
-            <property name="tokens" value="ENUM_DEF" />
-            <property name="tokens" value="METHOD_DEF" />
-            <property name="tokens" value="CTOR_DEF" />
-            <property name="tokens" value="VARIABLE_DEF" />
-            <property name="allowSamelineMultipleAnnotations" value="false" />
-            <property name="allowSamelineSingleParameterlessAnnotation" value="false" />
+            <property name="tokens" value="CLASS_DEF"/>
+            <property name="tokens" value="INTERFACE_DEF"/>
+            <property name="tokens" value="ENUM_DEF"/>
+            <property name="tokens" value="METHOD_DEF"/>
+            <property name="tokens" value="CTOR_DEF"/>
+            <property name="tokens" value="VARIABLE_DEF"/>
+            <property name="allowSamelineMultipleAnnotations" value="false"/>
+            <property name="allowSamelineSingleParameterlessAnnotation" value="false"/>
         </module>
         <!--<module name="AnnotationUseStyle" /> -->
-        <module name="MissingDeprecated" />
+        <module name="MissingDeprecated"/>
 
         <!-- Block Checks -->
         <!-- http://checkstyle.sourceforge.net/config_blocks.html -->
         <module name="EmptyBlock">
-            <property name="option" value="text" />
-            <property name="tokens" value="LITERAL_ELSE" />
+            <property name="option" value="text"/>
+            <property name="tokens" value="LITERAL_ELSE"/>
         </module>
 
         <module name="EmptyBlock">
-            <property name="option" value="statement" />
-            <property name="tokens" value="LITERAL_IF" />
-            <property name="tokens" value="LITERAL_ELSE" />
-            <property name="tokens" value="LITERAL_FOR" />
-            <property name="tokens" value="LITERAL_WHILE" />
-            <property name="tokens" value="LITERAL_DO" />
-            <property name="tokens" value="LITERAL_TRY" />
-            <property name="tokens" value="LITERAL_CATCH" />
-            <property name="tokens" value="LITERAL_FINALLY" />
-            <property name="tokens" value="LITERAL_SWITCH" />
-            <property name="tokens" value="LITERAL_SYNCHRONIZED" />
-            <property name="tokens" value="INSTANCE_INIT" />
-            <property name="tokens" value="STATIC_INIT" />
+            <property name="option" value="statement"/>
+            <property name="tokens" value="LITERAL_IF"/>
+            <property name="tokens" value="LITERAL_ELSE"/>
+            <property name="tokens" value="LITERAL_FOR"/>
+            <property name="tokens" value="LITERAL_WHILE"/>
+            <property name="tokens" value="LITERAL_DO"/>
+            <property name="tokens" value="LITERAL_TRY"/>
+            <property name="tokens" value="LITERAL_CATCH"/>
+            <property name="tokens" value="LITERAL_FINALLY"/>
+            <property name="tokens" value="LITERAL_SWITCH"/>
+            <property name="tokens" value="LITERAL_SYNCHRONIZED"/>
+            <property name="tokens" value="INSTANCE_INIT"/>
+            <property name="tokens" value="STATIC_INIT"/>
         </module>
         <module name="LeftCurly"/>
-        <module name="NeedBraces" />
+        <module name="NeedBraces"/>
 
         <module name="RightCurly"/>
 
         <!-- Class Design -->
         <!-- http://checkstyle.sourceforge.net/config_design.html -->
         <!-- <module name="HideUtilityClassConstructor" />, consider for unit 2 -->
-        <module name="InnerTypeLast" />
+        <module name="InnerTypeLast"/>
         <!--<module name="InterfaceIsType" />, consider for unit 2 -->
         <!--<module name="MutableException" />, consider for unit 2-->
-        <module name="OneTopLevelClass" />
+        <module name="OneTopLevelClass"/>
 
         <!-- Coding -->
         <!-- http://checkstyle.sourceforge.net/config_coding.html -->
         <!--<module name="CovariantEquals" />-->
-        <module name="DeclarationOrder" />
-        <module name="DefaultComesLast" />
-        <module name="EmptyStatement" />
+        <module name="DeclarationOrder"/>
+        <module name="DefaultComesLast"/>
+        <module name="EmptyStatement"/>
         <!--<module name="EqualsHashCode" />, consider for unit 2 -->
         <module name="FallThrough">
             <property name="checkLastCaseGroup" value="true"/>
@@ -114,12 +114,12 @@
         </module>
         <!--<module name="FinalLocalVariable" />, consider for unit 2 -->
         <module name="HiddenField">
-            <property name="ignoreConstructorParameter" value="true" />
-            <property name="ignoreSetter" value="true" />
+            <property name="ignoreConstructorParameter" value="true"/>
+            <property name="ignoreSetter" value="true"/>
         </module>
         <!--<module name="IllegalCatch"/>, consider for unit 2 -->
         <!--<module name="IllegalThrows"/>, consider for unit 2 -->
-        <module name="IllegalToken" />
+        <module name="IllegalToken"/>
         <module name="IllegalType">
             <property name="illegalClassNames" value="
                 LinkedHashMap, java.util.LinkedHashMap,
@@ -128,126 +128,126 @@
                 TreeSet, java.util.TreeSet,
                 LinkedHashSet, java.util.LinkedHashSet,
                 HashSet, java.util.HashSet
-                ArrayList, java.util.ArrayList" />
+                ArrayList, java.util.ArrayList"/>
         </module>
-        <module name="InnerAssignment" />
+        <module name="InnerAssignment"/>
         <!--<module name="MagicNumber" />, consider for unit 2 -->
         <!--<module name="MissingCtor" />, consider for unit 2 -->
-        <module name="MissingSwitchDefault" />
-        <module name="ModifiedControlVariable" />
-        <module name="MultipleVariableDeclarations" />
+        <module name="MissingSwitchDefault"/>
+        <module name="ModifiedControlVariable"/>
+        <module name="MultipleVariableDeclarations"/>
         <module name="NestedForDepth">
-            <property name="max" value="3" />
+            <property name="max" value="3"/>
         </module>
         <module name="NestedIfDepth">
-            <property name="max" value="3" />
+            <property name="max" value="3"/>
         </module>
         <module name="NestedTryDepth">
-            <property name="max" value="1" />
+            <property name="max" value="1"/>
         </module>
-        <module name="NoClone" />
-        <module name="NoFinalizer" />
-        <module name="OneStatementPerLine" />
-        <module name="OverloadMethodsDeclarationOrder" />
-        <module name="PackageDeclaration" />
-        <module name="ParameterAssignment" />
-        <module name="SimplifyBooleanExpression" />
-        <module name="SimplifyBooleanReturn" />
-        <module name="StringLiteralEquality" />
-        <module name="SuperClone" />
-        <module name="SuperFinalize" />
-        <module name="UnnecessaryParentheses" />
+        <module name="NoClone"/>
+        <module name="NoFinalizer"/>
+        <module name="OneStatementPerLine"/>
+        <module name="OverloadMethodsDeclarationOrder"/>
+        <module name="PackageDeclaration"/>
+        <module name="ParameterAssignment"/>
+        <module name="SimplifyBooleanExpression"/>
+        <module name="SimplifyBooleanReturn"/>
+        <module name="StringLiteralEquality"/>
+        <module name="SuperClone"/>
+        <module name="SuperFinalize"/>
+        <module name="UnnecessaryParentheses"/>
 
         <!-- Imports -->
         <!-- http://checkstyle.sourceforge.net/config_imports.html -->
-        <module name="AvoidStarImport" />
+        <module name="AvoidStarImport"/>
         <module name="CustomImportOrder">
             <property name="customImportOrderRules"
                       value="SAME_PACKAGE(3)###THIRD_PARTY_PACKAGE###STANDARD_JAVA_PACKAGE###STATIC"/>
-            <property name="sortImportsInGroupAlphabetically" value="true" />
+            <property name="sortImportsInGroupAlphabetically" value="true"/>
             <property name="separateLineBetweenGroups" value="true"/>
         </module>
-        <module name="IllegalImport" />
-        <module name="RedundantImport" />
-        <module name="UnusedImports" />
+        <module name="IllegalImport"/>
+        <module name="RedundantImport"/>
+        <module name="UnusedImports"/>
 
         <!-- Javadoc Comments -->
         <!-- http://checkstyle.sourceforge.net/config_javadoc.html -->
-        <module name="AtclauseOrder" />
+        <module name="AtclauseOrder"/>
         <module name="JavadocMethod">
-<!--            <property name="allowUndeclaredRTE" value="true"/>-->
-<!--            <property name="allowThrowsTagsForSubclasses" value="true" />-->
-            <property name="allowedAnnotations" value="Override,Test" />
-            <property name="scope" value="package" />
-            <property name="excludeScope" value="private" />
+            <!--            <property name="allowUndeclaredRTE" value="true"/>-->
+            <!--            <property name="allowThrowsTagsForSubclasses" value="true" />-->
+            <property name="allowedAnnotations" value="Override,Test"/>
+            <property name="scope" value="package"/>
+            <property name="excludeScope" value="private"/>
         </module>
-        <module name="JavadocStyle" />
+        <module name="JavadocStyle"/>
 
-        <module name="JavadocType" />
-        
+        <module name="JavadocType"/>
+
         <module name="MissingJavadocMethod">
-            <property name="allowMissingPropertyJavadoc" value="true" />
+            <property name="allowMissingPropertyJavadoc" value="true"/>
         </module>
 
-        <module name="NonEmptyAtclauseDescription" />
+        <module name="NonEmptyAtclauseDescription"/>
         <!--<module name="SummaryJavadoc" />, consider for unit 2 -->
 
         <!-- Metrics -->
         <!-- http://checkstyle.sourceforge.net/config_metrics.html -->
         <module name="BooleanExpressionComplexity">
-            <property name="max" value="7" />
+            <property name="max" value="7"/>
         </module>
 
         <!-- Miscellaneous -->
         <!-- http://checkstyle.sourceforge.net/config_misc.html -->
         <module name="ArrayTypeStyle"/>
         <module name="AvoidEscapedUnicodeCharacters">
-            <property name="allowByTailComment" value="true" />
-            <property name="allowEscapesForControlCharacters" value="true" />
-            <property name="allowNonPrintableEscapes" value="true" />
+            <property name="allowByTailComment" value="true"/>
+            <property name="allowEscapesForControlCharacters" value="true"/>
+            <property name="allowNonPrintableEscapes" value="true"/>
         </module>
-        <module name="Indentation" />
-        <module name="OuterTypeFilename" />
-        <module name="TrailingComment" />
-        <module name="UpperEll" />
+        <module name="Indentation"/>
+        <module name="OuterTypeFilename"/>
+        <module name="TrailingComment"/>
+        <module name="UpperEll"/>
 
         <!-- Modifiers -->
         <!-- http://checkstyle.sourceforge.net/config_modifier.html -->
-        <module name="ModifierOrder" />
-        <module name="RedundantModifier" />
+        <module name="ModifierOrder"/>
+        <module name="RedundantModifier"/>
 
         <!-- Naming Conventions -->
         <!-- http://checkstyle.sourceforge.net/config_naming.html -->
         <!--<module name="ClassTypeParameterName" />, consider for unit 2 -->
         <!--<module name="ConstantName" />, consider for unit 2 -->
-        <module name="InterfaceTypeParameterName" />
-        <module name="LocalFinalVariableName" />
+        <module name="InterfaceTypeParameterName"/>
+        <module name="LocalFinalVariableName"/>
         <module name="LocalVariableName">
-            <property name="allowOneCharVarInForLoop" value="true" />
+            <property name="allowOneCharVarInForLoop" value="true"/>
         </module>
-        <module name="MemberName" />
-        <module name="MethodName" />
-        <module name="MethodTypeParameterName" />
-        <module name="PackageName" />
-        <module name="ParameterName" />
+        <module name="MemberName"/>
+        <module name="MethodName"/>
+        <module name="MethodTypeParameterName"/>
+        <module name="PackageName"/>
+        <module name="ParameterName"/>
         <!--<module name="StaticVariableName" />, consider for unit 2 -->
-        <module name="TypeName" />
+        <module name="TypeName"/>
 
         <!-- Size Violations -->
         <!-- http://checkstyle.sourceforge.net/config_sizes.html -->
         <module name="MethodCount">
-            <property name="maxTotal" value="100" />
+            <property name="maxTotal" value="100"/>
         </module>
-        <module name="OuterTypeNumber" />
+        <module name="OuterTypeNumber"/>
         <!--<module name="ParameterNumber" />, consider for unit 2 -->
 
         <!-- Whitespace -->
         <!-- http://checkstyle.sourceforge.net/config_whitespace.html -->
-        <module name="EmptyForInitializerPad" />
-        <module name="EmptyForIteratorPad" />
-        <module name="GenericWhitespace" />
-        <module name="MethodParamPad" />
-        <module name="NoLineWrap" />
+        <module name="EmptyForInitializerPad"/>
+        <module name="EmptyForIteratorPad"/>
+        <module name="GenericWhitespace"/>
+        <module name="MethodParamPad"/>
+        <module name="NoLineWrap"/>
         <module name="OperatorWrap">
             <property name="option" value="eol"/>
             <property name="tokens" value="QUESTION"/>
@@ -287,29 +287,29 @@
             <property name="tokens" value="BOR_ASSIGN"/>
             <property name="tokens" value="BAND_ASSIGN"/>
         </module>
-        <module name="ParenPad" />
+        <module name="ParenPad"/>
         <module name="SeparatorWrap">
-            <property name="option" value="nl" />
-            <property name="tokens" value="DOT" />
-            <property name="tokens" value="METHOD_REF" />
+            <property name="option" value="nl"/>
+            <property name="tokens" value="DOT"/>
+            <property name="tokens" value="METHOD_REF"/>
         </module>
         <module name="SeparatorWrap">
-            <property name="option" value="eol" />
-            <property name="tokens" value="ARRAY_DECLARATOR" />
-            <property name="tokens" value="COMMA" />
-            <property name="tokens" value="ELLIPSIS" />
+            <property name="option" value="eol"/>
+            <property name="tokens" value="ARRAY_DECLARATOR"/>
+            <property name="tokens" value="COMMA"/>
+            <property name="tokens" value="ELLIPSIS"/>
         </module>
-        <module name="TypecastParenPad" />
-        <module name="WhitespaceAfter" />
+        <module name="TypecastParenPad"/>
+        <module name="WhitespaceAfter"/>
         <module name="WhitespaceAround">
-            <property name="allowEmptyConstructors" value="true" />
-            <property name="allowEmptyMethods" value="true" />
-            <property name="allowEmptyTypes" value="false" />
-            <property name="ignoreEnhancedForColon" value="true" />
+            <property name="allowEmptyConstructors" value="true"/>
+            <property name="allowEmptyMethods" value="true"/>
+            <property name="allowEmptyTypes" value="false"/>
+            <property name="ignoreEnhancedForColon" value="true"/>
         </module>
         <!--<module name="MultipleStringLiterals" />, consider for unit 2 -->
         <module name="ReturnCount">
-            <property name="max" value="4" />
+            <property name="max" value="4"/>
         </module>
         <module name="CommentsIndentation"/>
         <!--<module name="FinalParameters"/>, consider for unit 2 -->

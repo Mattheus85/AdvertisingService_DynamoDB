@@ -15,8 +15,9 @@ public class RequestContext {
     /**
      * Constructor of RequestContext objects. A flag denoting whether the customer is recognized is set based on the
      * passed customerId field. Empty/Null values will result in a false value for the recognizedCustomer flag.
-     * @param customerId The unique identifier for the customer who will be viewing the advertisement, if the customer
-     *                   is recognized.
+     *
+     * @param customerId    The unique identifier for the customer who will be viewing the advertisement, if the
+     *                      customer is recognized.
      * @param marketplaceId The marketplace to view the advertisement in.
      */
     public RequestContext(String customerId, String marketplaceId) {

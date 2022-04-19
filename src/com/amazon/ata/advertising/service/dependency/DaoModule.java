@@ -11,7 +11,6 @@ import com.amazon.ata.advertising.service.model.RequestContext;
 import com.amazon.ata.advertising.service.targeting.TargetingGroup;
 import com.amazon.ata.customerservice.CustomerProfile;
 import com.amazon.ata.customerservice.Spend;
-
 import com.amazon.atacustomerservicelambda.service.ATACustomerService;
 import com.amazon.ataprimeclubservicelambda.service.ATAPrimeClubService;
 import dagger.Module;
@@ -25,6 +24,7 @@ public class DaoModule {
 
     /**
      * Dao for content.
+     *
      * @param contentDao source of content data
      * @return Dao
      */
@@ -35,6 +35,7 @@ public class DaoModule {
 
     /**
      * Dao for customer profiles.
+     *
      * @param customerClient source of customer profile data
      * @return Dao
      */
@@ -45,6 +46,7 @@ public class DaoModule {
 
     /**
      * Dao for customer spend per category.
+     *
      * @param customerClient source of customer spend data
      * @return Dao
      */
@@ -55,6 +57,7 @@ public class DaoModule {
 
     /**
      * Dao for prime benefits.
+     *
      * @param primeClubServiceClient source of prime benefit data
      * @return Dao
      */
@@ -66,6 +69,7 @@ public class DaoModule {
 
     /**
      * Dao to get all of the targeting groups for a piece of content.
+     *
      * @param targetingGroupDao source of targeting Dao data
      * @return Dao
      */

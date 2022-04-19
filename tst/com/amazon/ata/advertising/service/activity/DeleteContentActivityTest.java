@@ -1,11 +1,10 @@
 package com.amazon.ata.advertising.service.activity;
 
+import com.amazon.ata.advertising.service.dao.ContentDao;
+import com.amazon.ata.advertising.service.dao.TargetingGroupDao;
 import com.amazon.ata.advertising.service.exceptions.AdvertisementClientException;
 import com.amazon.ata.advertising.service.model.requests.DeleteContentRequest;
 import com.amazon.ata.advertising.service.model.responses.DeleteContentResponse;
-import com.amazon.ata.advertising.service.dao.ContentDao;
-import com.amazon.ata.advertising.service.dao.TargetingGroupDao;
-
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
@@ -46,16 +45,16 @@ public class DeleteContentActivityTest {
 
         // WHEN && THEN
         assertThrows(AdvertisementClientException.class, () -> deleteContentActivity.deleteContent(request),
-            "Expected an AdvertisementClientException to be thrown when no content can be found for" +
-                "provided contentId: " + CONTENT_ID);
+                "Expected an AdvertisementClientException to be thrown when no content can be found for" +
+                        "provided contentId: " + CONTENT_ID);
     }
 
     @Test
     public void deleteContent_contentIdExists_contentAndTargetingDeleted() {
         // GIVEN
         DeleteContentRequest request = DeleteContentRequest.builder()
-            .withContentId(CONTENT_ID)
-            .build();
+                .withContentId(CONTENT_ID)
+                .build();
 
         // WHEN
         DeleteContentResponse response = deleteContentActivity.deleteContent(request);

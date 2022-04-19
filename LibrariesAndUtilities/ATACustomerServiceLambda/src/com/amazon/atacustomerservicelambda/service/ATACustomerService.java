@@ -4,7 +4,6 @@ import com.amazon.ata.customerservice.GetCustomerProfileRequest;
 import com.amazon.ata.customerservice.GetCustomerProfileResponse;
 import com.amazon.ata.customerservice.GetCustomerSpendCategoriesRequest;
 import com.amazon.ata.customerservice.GetCustomerSpendCategoriesResponse;
-
 import com.amazon.atacustomerservicelambda.activity.GetCustomerProfileActivity;
 import com.amazon.atacustomerservicelambda.activity.GetCustomerSpendCategoriesActivity;
 

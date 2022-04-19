@@ -5,13 +5,13 @@ import com.amazonaws.client.builder.AwsClientBuilder;
 
 public class ATAPrimeClubServiceClientBuilder {
 
-     public static Builder standard() {
-         return new Builder();
-     }
+    public static Builder standard() {
+        return new Builder();
+    }
 
-     public static final class Builder {
-         private AwsClientBuilder.EndpointConfiguration endpointConfiguration;
-         private AWSCredentialsProvider awsCredentialsProvider;
+    public static final class Builder {
+        private AwsClientBuilder.EndpointConfiguration endpointConfiguration;
+        private AWSCredentialsProvider awsCredentialsProvider;
 
         public Builder withEndpointConfiguration(AwsClientBuilder.EndpointConfiguration endpointConfiguration) {
             this.endpointConfiguration = endpointConfiguration;
@@ -26,6 +26,6 @@ public class ATAPrimeClubServiceClientBuilder {
         public ATAPrimeClubService build() {
             return new ATAPrimeClubService();
         }
-     }
+    }
 }
 

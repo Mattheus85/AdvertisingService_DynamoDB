@@ -17,13 +17,15 @@ import static com.amazon.ata.test.helper.AtaTestHelper.matchesSingleLine;
 
 public class PlantUmlClassDiagramHelper {
 
-    private PlantUmlClassDiagramHelper() {}
+    private PlantUmlClassDiagramHelper() {
+    }
 
 
     /**
      * Find all types related to your given type in a class diagram.
+     *
      * @param content The contents of the Plant UML diagram
-     * @param type The type you want to find relationships to
+     * @param type    The type you want to find relationships to
      * @return All types related to type
      */
     public static Set<String> getClassDiagramRelatedTypes(final String content, final String type) {
@@ -65,8 +67,8 @@ public class PlantUmlClassDiagramHelper {
      * @return Whether the class diagram includes the given relationship
      */
     public static boolean classDiagramIncludesRelationship(final String content,
-                                                              final String typeOne,
-                                                              final String typeTwo) {
+                                                           final String typeOne,
+                                                           final String typeTwo) {
         Set<String> relatedToTypeOne = getClassDiagramRelatedTypes(content, typeOne);
         return relatedToTypeOne.contains(typeTwo);
     }
@@ -74,18 +76,18 @@ public class PlantUmlClassDiagramHelper {
     /**
      * Determine if a Plant UML class diagram includes a "contains" relationship between the specified classes
      * (represented as {@code String}s).
+     * <p>
+     * {@code containingType} (the "from" type) is the type where the relationship originates from (it contains
+     * {@code containedType}). {@code containedType} (the "to" type) is the type that is contained.
      *
-     * {@code containingType} (the "from" type) is the type where the relationship originates from (it contains {@code
-     * containedType}). {@code containedType} (the "to" type) is the type that is contained.
-     *
-     * @param content The contents of the Plant UML diagram
+     * @param content        The contents of the Plant UML diagram
      * @param containingType The "from" side of the relationship (represented as a {@code String}
-     * @param containedType The "to" side of the relationship (represented as a {@code String}
+     * @param containedType  The "to" side of the relationship (represented as a {@code String}
      * @return Whether the class diagram includes the given extends relationship
      */
     public static boolean classDiagramIncludesContainsRelationship(final String content,
-                                                                  final String containingType,
-                                                                  final String containedType) {
+                                                                   final String containingType,
+                                                                   final String containedType) {
         return matchesSingleLine(
                 content,
                 patternForDiagramIncludesContainsRelationship(containingType, containedType));
@@ -94,18 +96,18 @@ public class PlantUmlClassDiagramHelper {
     /**
      * Determine if a Plant UML class diagram includes an "extends" relationship between the specified classes
      * (represented as {@code String}s).
+     * <p>
+     * {@code subType} (the "from" type) is the type where the relationship originates from (it extends
+     * {@code superType}). {@code superType} (the "to" type) is the type that is extended.
      *
-     * {@code subType} (the "from" type) is the type where the relationship originates from (it extends {@code
-     * superType}). {@code superType} (the "to" type) is the type that is extended.
-     *
-     * @param content The contents of the Plant UML diagram
-     * @param subType The "from" side of the relationship (represented as a {@code String}
+     * @param content   The contents of the Plant UML diagram
+     * @param subType   The "from" side of the relationship (represented as a {@code String}
      * @param superType The "to" side of the relationship (represented as a {@code String}
      * @return Whether the class diagram includes the given extends relationship
      */
     public static boolean classDiagramIncludesExtendsRelationship(final String content,
-                                                                     final String subType,
-                                                                     final String superType) {
+                                                                  final String subType,
+                                                                  final String superType) {
         return matchesSingleLine(
                 content,
                 patternForDiagramIncludesExtendsRelationship(subType, superType));
@@ -114,10 +116,10 @@ public class PlantUmlClassDiagramHelper {
     /**
      * Determine if the class diagram includes the expected member in the specified type (class).
      *
-     * @param content The contents of the Plant UML diagram
-     * @param type The type/class being inspected
-     * @param includedMember The member that we expect to be present in {@code type}. This should probably be
-     *                       a variable name, but could also be a type (as long as no other members share this type)
+     * @param content        The contents of the Plant UML diagram
+     * @param type           The type/class being inspected
+     * @param includedMember The member that we expect to be present in {@code type}. This should probably be a variable
+     *                       name, but could also be a type (as long as no other members share this type)
      * @return Whether the type in the class diagram contained the expected member
      */
     public static boolean classDiagramTypeContainsMember(

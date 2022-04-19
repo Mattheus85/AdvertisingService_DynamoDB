@@ -1,9 +1,7 @@
 package com.amazon.ata.advertising.service.targeting;
 
 import com.amazon.ata.advertising.service.targeting.predicate.TargetingPredicate;
-
 import com.amazon.ata.advertising.service.targeting.predicate.TargetingPredicateTypeConverter;
-
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBAttribute;
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBHashKey;
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBIndexHashKey;
@@ -34,9 +32,10 @@ public class TargetingGroup {
 
     /**
      * Creates a TargetingGroup.
-     * @param targetingGroupId The ID specifically for this targeting group
-     * @param contentId The ID of the content this metadata is tied to.
-     * @param clickThroughRate The probability a customer will click on this advertisement.
+     *
+     * @param targetingGroupId    The ID specifically for this targeting group
+     * @param contentId           The ID of the content this metadata is tied to.
+     * @param clickThroughRate    The probability a customer will click on this advertisement.
      * @param targetingPredicates All the targeting predicates that must be TRUE to show this advertisement.
      */
     public TargetingGroup(String targetingGroupId,
@@ -53,7 +52,8 @@ public class TargetingGroup {
     /**
      * Creates an empty TargetingGroup.
      */
-    public TargetingGroup() {}
+    public TargetingGroup() {
+    }
 
     public String getTargetingGroupId() {
         return targetingGroupId;

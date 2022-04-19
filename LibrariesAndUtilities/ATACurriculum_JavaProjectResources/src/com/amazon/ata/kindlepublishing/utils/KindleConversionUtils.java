@@ -5,10 +5,12 @@ package com.amazon.ata.kindlepublishing.utils;
  */
 public final class KindleConversionUtils {
 
-    private KindleConversionUtils(){}
+    private KindleConversionUtils() {
+    }
 
     /**
      * Accepts the text of the book and coverts it to the kindle text format.
+     *
      * @param text the text to format
      * @return the formatted text
      */

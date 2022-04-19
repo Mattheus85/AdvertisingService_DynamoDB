@@ -55,6 +55,6 @@ public class MasteryTaskThreeTests {
 
         // THEN
         results.forEach(result ->
-            MasteryTaskThreeHelper.assertContent(expectedContent.getContent(), result, Arrays.asList(0.0, 0.3, 0.6, 0.95)));
+                MasteryTaskThreeHelper.assertContent(expectedContent.getContent(), result, Arrays.asList(0.0, 0.3, 0.6, 0.95)));
     }
 }

@@ -2,14 +2,12 @@ package com.amazon.ata.resources.designcomposition.fastgeometry;
 
 /**
  * PARTICIPANTS: DO NOT MODIFY.
- *
- * This class represents a third-party dependency. As such, Amazon would have no control
- * over it.
- *
- * This class is provided as an example; it does not actually perform lightning-fast
- * geometrical calculations. It is a stand-in representing code that we do not control,
- * but that we want to enhance and/or modify.
- *
+ * <p>
+ * This class represents a third-party dependency. As such, Amazon would have no control over it.
+ * <p>
+ * This class is provided as an example; it does not actually perform lightning-fast geometrical calculations. It is a
+ * stand-in representing code that we do not control, but that we want to enhance and/or modify.
+ * <p>
  * Again, DO NOT MODIFY THIS CODE.
  */
 public class PointInTwoDimensions {
@@ -20,8 +18,9 @@ public class PointInTwoDimensions {
 
     /**
      * Constructor taking an initial position for the point.
-     *
+     * <p>
      * DO NOT MODIFY!
+     *
      * @param x The x position of the point.
      * @param y The y position of the point.
      */
@@ -32,8 +31,8 @@ public class PointInTwoDimensions {
     }
 
     /**
-     * Returns the current X location of the point.
-     * DO NOT MODIFY!
+     * Returns the current X location of the point. DO NOT MODIFY!
+     *
      * @return the current X location of the point.
      */
     public int getX() {
@@ -42,8 +41,8 @@ public class PointInTwoDimensions {
     }
 
     /**
-     * Returns the current Y location of the point.
-     * DO NOT MODIFY!
+     * Returns the current Y location of the point. DO NOT MODIFY!
+     *
      * @return the current Y location of the point.
      */
     public int getY() {
@@ -52,8 +51,8 @@ public class PointInTwoDimensions {
     }
 
     /**
-     * Updates the point's location to the provided location.
-     * DO NOT MODIFY!
+     * Updates the point's location to the provided location. DO NOT MODIFY!
+     *
      * @param x The new X location for the point.
      * @param y The new Y location for the point.
      */
@@ -64,8 +63,8 @@ public class PointInTwoDimensions {
     }
 
     /**
-     * Updates the point's location by adding the amounts provided.
-     * DO NOT MODIFY!
+     * Updates the point's location by adding the amounts provided. DO NOT MODIFY!
+     *
      * @param x The X distance and direction to move the point.
      * @param y The Y distance and direction to move the point.
      */
@@ -77,12 +76,12 @@ public class PointInTwoDimensions {
 
     /**
      * Finds the distance in the XY plane between this point and the given point.
-     *
-     * In theory, this would use some kind of lightning-fast algorithm, avoiding
-     * the Math.sqrt() altogether. I'm don't have that magic, so it actually just
-     * uses the standard Pythagorean theorem.
-     *
+     * <p>
+     * In theory, this would use some kind of lightning-fast algorithm, avoiding the Math.sqrt() altogether. I'm don't
+     * have that magic, so it actually just uses the standard Pythagorean theorem.
+     * <p>
      * DO NOT MODIFY!
+     *
      * @param p The point to calculate distance to.
      * @return the distance in the XY plane between this point and the given point.
      */

@@ -4,11 +4,8 @@ import com.amazon.ata.advertising.service.model.RequestContext;
 import com.amazon.ata.advertising.service.targeting.predicate.TargetingPredicateResult;
 import com.amazon.ata.advertising.service.util.Futures;
 
-import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
-import java.util.concurrent.TimeUnit;
-import java.util.concurrent.TimeoutException;
 
 /**
  * Evaluates TargetingPredicates for a given RequestContext.
@@ -42,7 +39,7 @@ public class TargetingEvaluator {
                 .map(predicate -> service.submit(() -> predicate.evaluate(requestContext)))
                 .anyMatch(future -> !Futures.getUnchecked(future).isTrue());
 
-                return result ?
+        return result ?
                 TargetingPredicateResult.FALSE :
                 TargetingPredicateResult.TRUE;
     }

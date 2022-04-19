@@ -2,7 +2,7 @@ package com.amazon.ata.resources.maps.gpmreminder.model;
 
 /**
  * Represents an Amazonian; an employee of Amazon. For this simple example, that's an alias and an email.
- *
+ * <p>
  * For more complicated examples, we might include a job class, a level, etc...
  */
 public class Amazonian {
@@ -12,6 +12,7 @@ public class Amazonian {
 
     /**
      * Constructs an Amazonian
+     *
      * @param alias The ID or alias of this Amazonian.
      * @param email The email of this Amazonian.
      */
