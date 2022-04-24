@@ -12,7 +12,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import javax.inject.Inject;
-import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -56,19 +56,30 @@ public class AdvertisementSelectionLogic {
         if (StringUtils.isEmpty(marketplaceId)) {
             LOG.warn("MarketplaceId cannot be null or empty. Returning empty ad.");
         } else {
-            generatedAdvertisement = contentDao.get(marketplaceId)
+            Comparator<AdvertisementContent> comparator = (o1, o2) -> (int) (targetingGroupDao.get(o1.getContentId())
+                                                                                              .stream()
+                                                                                              .sorted(Comparator.comparingDouble(
+                                                                                                      TargetingGroup::getClickThroughRate))
+                                                                                              .collect(
+                                                                                                      Collectors.toList())
+                                                                                              .get(0)
+                                                                                              .getClickThroughRate() - targetingGroupDao
+                    .get(o2.getContentId())
                     .stream()
-                    .filter(adContent -> (
-                            targetingGroupDao.get(adContent.getContentId())
-                                    .stream()
-                                    .anyMatch(targetingGroup -> evaluator.evaluate(targetingGroup).isTrue()))
-                    ).collect(Collectors.collectingAndThen(Collectors.toList(), list -> {
-                        Collections.shuffle(list);
-                        return list.stream();
-                    }))
-                    .findFirst()
-                    .map(GeneratedAdvertisement::new)
-                    .orElseGet(EmptyGeneratedAdvertisement::new);
+                    .sorted(Comparator.comparingDouble(TargetingGroup::getClickThroughRate)).collect(
+                            Collectors.toList()).get(0).getClickThroughRate());
+
+            generatedAdvertisement = contentDao.get(marketplaceId)
+                                               .stream()
+                                               .filter(adContent -> (
+                                                       targetingGroupDao.get(adContent.getContentId())
+                                                                        .stream()
+                                                                        .anyMatch(targetingGroup -> evaluator
+                                                                                .evaluate(targetingGroup).isTrue())))
+                                               .sorted(comparator)
+                                               .findFirst()
+                                               .map(GeneratedAdvertisement::new)
+                                               .orElseGet(EmptyGeneratedAdvertisement::new);
         }
         return generatedAdvertisement;
     }
