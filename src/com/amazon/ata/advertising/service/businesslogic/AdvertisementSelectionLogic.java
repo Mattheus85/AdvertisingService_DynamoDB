@@ -14,7 +14,8 @@ import org.apache.logging.log4j.Logger;
 import javax.inject.Inject;
 import java.util.Comparator;
 import java.util.List;
-import java.util.stream.Collectors;
+import java.util.Map;
+import java.util.TreeMap;
 
 /**
  * This class is responsible for picking the advertisement to be rendered.
@@ -56,30 +57,21 @@ public class AdvertisementSelectionLogic {
         if (StringUtils.isEmpty(marketplaceId)) {
             LOG.warn("MarketplaceId cannot be null or empty. Returning empty ad.");
         } else {
-            Comparator<AdvertisementContent> comparator = (o1, o2) -> (int) (targetingGroupDao.get(o1.getContentId())
-                                                                                              .stream()
-                                                                                              .sorted(Comparator.comparingDouble(
-                                                                                                      TargetingGroup::getClickThroughRate))
-                                                                                              .collect(
-                                                                                                      Collectors.toList())
-                                                                                              .get(0)
-                                                                                              .getClickThroughRate() - targetingGroupDao
-                    .get(o2.getContentId())
-                    .stream()
-                    .sorted(Comparator.comparingDouble(TargetingGroup::getClickThroughRate)).collect(
-                            Collectors.toList()).get(0).getClickThroughRate());
+            Map<Double, AdvertisementContent> ctrMap = new TreeMap<>(Comparator.reverseOrder());
 
-            generatedAdvertisement = contentDao.get(marketplaceId)
+            contentDao.get(marketplaceId)
+                      .forEach(adContent -> (
+                              targetingGroupDao.get(adContent.getContentId())
                                                .stream()
-                                               .filter(adContent -> (
-                                                       targetingGroupDao.get(adContent.getContentId())
-                                                                        .stream()
-                                                                        .anyMatch(targetingGroup -> evaluator
-                                                                                .evaluate(targetingGroup).isTrue())))
-                                               .sorted(comparator)
-                                               .findFirst()
-                                               .map(GeneratedAdvertisement::new)
-                                               .orElseGet(EmptyGeneratedAdvertisement::new);
+                                               .filter(targetingGroup -> evaluator
+                                                       .evaluate(targetingGroup).isTrue()))
+                              .forEach(x -> ctrMap.put(x.getClickThroughRate(), adContent)));
+
+            generatedAdvertisement = ctrMap.values()
+                                           .stream()
+                                           .findFirst()
+                                           .map(GeneratedAdvertisement::new)
+                                           .orElseGet(EmptyGeneratedAdvertisement::new);
         }
         return generatedAdvertisement;
     }

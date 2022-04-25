@@ -27,13 +27,15 @@ public class AdvertisementSelectionLogicTest {
     private static final String MARKETPLACE_ID = "1";
 
     private static final String CONTENT_ID1 = UUID.randomUUID().toString();
-    private static final AdvertisementContent CONTENT1 = AdvertisementContent.builder().withContentId(CONTENT_ID1).build();
     private static final String CONTENT_ID2 = UUID.randomUUID().toString();
-    private static final AdvertisementContent CONTENT2 = AdvertisementContent.builder().withContentId(CONTENT_ID2).build();
     private static final String CONTENT_ID3 = UUID.randomUUID().toString();
-    private static final AdvertisementContent CONTENT3 = AdvertisementContent.builder().withContentId(CONTENT_ID3).build();
     private static final String CONTENT_ID4 = UUID.randomUUID().toString();
+
+    private static final AdvertisementContent CONTENT1 = AdvertisementContent.builder().withContentId(CONTENT_ID1).build();
+    private static final AdvertisementContent CONTENT2 = AdvertisementContent.builder().withContentId(CONTENT_ID2).build();
+    private static final AdvertisementContent CONTENT3 = AdvertisementContent.builder().withContentId(CONTENT_ID3).build();
     private static final AdvertisementContent CONTENT4 = AdvertisementContent.builder().withContentId(CONTENT_ID4).build();
+
     private static final TargetingGroup GROUP1 = new TargetingGroup(
             null, CONTENT_ID1, 0, Collections.emptyList());
     private static final TargetingGroup GROUP2 = new TargetingGroup(
@@ -49,17 +51,12 @@ public class AdvertisementSelectionLogicTest {
     @Mock
     private ReadableDao<String, List<TargetingGroup>> targetingGroupDao;
 
-    @Mock
-    private Random random;
-
     private AdvertisementSelectionLogic adSelectionService;
-
 
     @BeforeEach
     public void setup() {
         openMocks(this);
         adSelectionService = new AdvertisementSelectionLogic(contentDao, targetingGroupDao);
-//        adSelectionService.setRandom(random);
     }
 
     @Test
@@ -103,6 +100,7 @@ public class AdvertisementSelectionLogicTest {
 
         when(contentDao.get(MARKETPLACE_ID)).thenReturn(contents);
         when(targetingGroupDao.get(any(String.class))).thenReturn(groups);
+
         GeneratedAdvertisement ad = adSelectionService.selectAdvertisement(CUSTOMER_ID, MARKETPLACE_ID);
 
         assertTrue(contents.contains(ad.getContent()),
