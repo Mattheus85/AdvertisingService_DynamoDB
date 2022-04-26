@@ -12,9 +12,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import javax.inject.Inject;
-import java.util.Comparator;
 import java.util.List;
-import java.util.Map;
 import java.util.TreeMap;
 
 /**
@@ -57,7 +55,7 @@ public class AdvertisementSelectionLogic {
         if (StringUtils.isEmpty(marketplaceId)) {
             LOG.warn("MarketplaceId cannot be null or empty. Returning empty ad.");
         } else {
-            Map<Double, AdvertisementContent> ctrMap = new TreeMap<>(Comparator.reverseOrder());
+            TreeMap<Double, AdvertisementContent> ctrMap = new TreeMap<>();
 
             contentDao.get(marketplaceId)
                       .forEach(adContent -> (
@@ -65,13 +63,11 @@ public class AdvertisementSelectionLogic {
                                                .stream()
                                                .filter(targetingGroup -> evaluator
                                                        .evaluate(targetingGroup).isTrue()))
-                              .forEach(x -> ctrMap.put(x.getClickThroughRate(), adContent)));
+                              .forEach(targetingGroup -> ctrMap.put(targetingGroup.getClickThroughRate(), adContent)));
 
-            generatedAdvertisement = ctrMap.values()
-                                           .stream()
-                                           .findFirst()
-                                           .map(GeneratedAdvertisement::new)
-                                           .orElseGet(EmptyGeneratedAdvertisement::new);
+            if (!ctrMap.isEmpty()) {
+                generatedAdvertisement = new GeneratedAdvertisement(ctrMap.lastEntry().getValue());
+            }
         }
         return generatedAdvertisement;
     }
