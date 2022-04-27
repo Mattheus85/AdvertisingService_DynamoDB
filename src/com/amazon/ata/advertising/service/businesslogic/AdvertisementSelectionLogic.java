@@ -50,11 +50,11 @@ public class AdvertisementSelectionLogic {
      */
     public GeneratedAdvertisement selectAdvertisement(String customerId, String marketplaceId) {
         GeneratedAdvertisement generatedAdvertisement = new EmptyGeneratedAdvertisement();
-        TargetingEvaluator evaluator = new TargetingEvaluator(new RequestContext(customerId, marketplaceId));
 
         if (StringUtils.isEmpty(marketplaceId)) {
             LOG.warn("MarketplaceId cannot be null or empty. Returning empty ad.");
         } else {
+            TargetingEvaluator evaluator = new TargetingEvaluator(new RequestContext(customerId, marketplaceId));
             TreeMap<Double, AdvertisementContent> ctrMap = new TreeMap<>();
 
             contentDao.get(marketplaceId)
