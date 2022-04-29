@@ -43,20 +43,22 @@ public class AddTargetingGroupActivity {
      */
     public AddTargetingGroupResponse addTargetingGroup(AddTargetingGroupRequest request) {
         LOG.info(String.format("Adding targeting predicates [%s] to content with id: %s.",
-                request.getTargetingPredicates(),
-                request.getContentId()));
+                               request.getTargetingPredicates(),
+                               request.getContentId()));
 
         return request.getTargetingPredicates() != null ?
-                AddTargetingGroupResponse.builder()
+                AddTargetingGroupResponse
+                        .builder()
                         .withTargetingGroup(TargetingGroupTranslator.toCoral(
                                 targetingGroupDao.create(
                                         request.getContentId(),
                                         request.getTargetingPredicates()
-                                                .stream()
-                                                .map(TargetingPredicateTranslator::fromCoral)
-                                                .collect(Collectors.toList()))))
+                                               .stream()
+                                               .map(TargetingPredicateTranslator::fromCoral)
+                                               .collect(Collectors.toList()))))
                         .build() :
-                AddTargetingGroupResponse.builder()
+                AddTargetingGroupResponse
+                        .builder()
                         .withTargetingGroup(TargetingGroupTranslator.toCoral(
                                 targetingGroupDao.create(
                                         request.getContentId(),
