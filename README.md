@@ -1,54 +1,319 @@
-# Unit 7 Project: ATA Advertising Service
+# Advertising Service Design
 
-## Preliminaries: The More Things Change
-
-### Ambiguity, Complexity, and Scope
-
-Ambiguity will be increasing from previous projects. Tasks instructions will contain fewer details, as we expect you to
-reference documentation and deep dive into the code yourself to understand how things work. Even if there isn't a
-specific task for it, you're of course welcome to create any diagrams or other notes as a reference for yourself or
-others!
-
-There will be some increasing complexity as we work with ExecutorServices for the first time.
-
-You'll have your fellow participants in the same situation as you, so remember to collaborate: rely on each other for
-assistance, and share your own knowledge.
-
-## Unit 7 Project Progress and Tracking
-
-### Doneness checklist
-
-You're done with the project when:
-
-* You have successfully passed all tests in CodeGrade
-
-### cloudformation commands
-
-You'll want to run the following commands to setup your DynamoDB tables for this project (note that you will need to
-wait for the first command's stack to finish building before running the next commands):
-
-```
-aws cloudformation create-stack --region us-west-2 --stack-name advertisingservice-createtables --template-body file://configurations/cloudFormation/ddb_tables.template.yml --capabilities CAPABILITY_IAM
-aws dynamodb batch-write-item --request-items file://configurations/cloudFormation/content_table.json
-aws dynamodb batch-write-item --request-items file://configurations/cloudFormation/targeting_group_table.json
-aws dynamodb batch-write-item --request-items file://configurations/cloudFormation/targeting_group_table2.json
-```
-
-## The Problem: ATA Advertising
+## Background
 
 ATA's AdvertisingService serves advertisements for ATA. These advertisements show up on the retail website and use
 targeting to present different ATA advertisements to each individual. The targeting tries to take advantage of what
 Amazon knows about you to show you the particular ad that is most likely to appeal to you.
 
-An overview of the service is covered in the [design document](DESIGN_DOCUMENT.md). We encourage you to read that now
-before continuing below.
+Below is an example of what an ATA advertisement could look like for a customer on a product detail page:
 
-## Project Mastery Tasks
+![Figure 1](src/resources/ata-ad-detail-page.png)
 
-### [Mastery Task 1: Filter out the noise](tasks/project-mastery-tasks/MasteryTask01.md)
+*Figure 1: A product detail page for the book Beginning Programming with Java. On the detail page is
+an advertisement that says “Sonia, are you learning to code? Come learn with Amazon at Amazon Technical Academy!” and
+has a “Learn more” button.*
 
-### [Mastery Task 2: Concurrent Tasks](tasks/project-mastery-tasks/MasteryTask02.md)
+## Glossary
 
-### [Mastery Task 3: Ads don't grow on trees (or do they?)](tasks/project-mastery-tasks/MasteryTask03.md)
+* **content**: Refers to html of the ATA advertising content that is rendered and displayed to customers. Each content
+  has one or more targeting groups assigned to it defining who can view this piece of content.
+* **targeting group**: a collection of targeting predicates and a click through rate associated with advertising
+  content. Every targeting predicate within a targeting group is AND'd together. Each piece of advertising content can
+  have multiple targeting groups. An example targeting group could be customers who are between ages 22-25 AND who have
+  spent over $20 in the technical books category AND are a parent.
+* **targeting predicate**: a single rule that a customer must match to be included in the targeting group. An example
+  could be customers who have spent over $20 in the technical books category.
+* **click though rate (CTR)**: The rate at which customers in a specific targeting group who sees an ad will click on
+  it.
+  The values are from 0 to 1 inclusive. For example, if a targeting has a click through rate of 0.2, that means that 20%
+  of people who are in this targeting group and see this advertisement clicks the advertisement. Click through rates are
+  generally low, because most people don't click on advertisements at all.
+* **PrimeClubService**: an external service used to retrieve a customer's Prime benefits.
+* **CustomerService**: an external service used to retrieve customer profile information and spending habits.
+* **MarketplaceID**: a unique identifier of a marketplace. A marketplaceID can be in the obfuscated or unobfuscated
+  format. For example, for the US marketplace, the obfuscated marketplaceID is `ATVPDKIKX0DER` and the unobfuscated
+  marketplaceId is `1`. See [wiki](https://w.amazon.com/bin/view/MarketplaceID/) for more details.
+
+## Use Cases
+
+* As an ATA business owner, I want to create ATA advertising content that targets specific groups of customers.
+* As an ATA business owner, I want to be able to update existing advertising content .
+* As an ATA business owner, I want to be able to add a new targeting group to an existing piece of advertising content.
+* As an ATA business owner, I want to generate an advertisement for a customer based on the existing advertising
+  content.
+* As an ATA business owner, I want to update an advertisement's click through rate for a targeting group.
+
+## Advertising Service Implementation Notes
+
+A piece of content can have multiple targeting groups. For example, we can have a specific advertisement that is
+displayed for customers who have spent at least $15 in the technical books category, but no more than $100 ***OR***
+customers who have spent at least $15 on logic books. Every targeting rule within a targeting group is AND'd together.
+To reach customers that meet one criteria *or *another, we have to use multiple targeting groups.
+
+The click through rate tells us the probability that someone who sees this ad will click on it (values are from 0 to 1
+inclusively). We separate click through rate by targeting group, because this advertisement may be incredibly popular
+with customers who have bought technical books (30% chance they will click on the ad), but less popular with the logic
+book group (only a 15% chance they will click on the ad).
+
+To evaluate these targeting rules, we often have to call other services to get data like the PrimeClubService to find
+out a customer's Prime benefits, or the CustomerService to get profile information and spending habits for the customer.
+
+If, for a given customer, there is no eligible advertisement, we will return an empty ad. If any exception occurs when
+calling to generate the ad, we do not want to throw an exception that will bubble up when rendering a detail page, so
+instead we return an empty ad i.e. an empty string.
+
+## High Level Architecture
+
+This is the architecture of what things will look like at the end of the project. Since this is a high level
+architecture diagram, it does not include more granular details such as the service client that the user would use to
+connect to ATA Advertising Service or Amazon API Gateway used to route requests to/from
+the Lambda services.
+
+![Figure 2](src/resources/ATAAdsServiceHighLevelArchitecture.png)
+
+*Figure 2: Diagram showing the high level architecture of ATA Advertising
+Service. A user connects to the advertising service. The Advertising Service connects to DynamoDB for persisting
+advertising information and connects to existing external services
+PrimeClubService and CustomerService.*
+
+## API
+
+### Public Models
+
+The public models represent an interface with the user. These names should be recognizable to the users.
+This section includes data structures that are used in lists and as members in API requests or responses. The actual
+request and response details are listed separately, with each endpoint.
+
+**AdvertisingContent**
+
+Advertising content to be displayed in the given marketplace.
+
+```
+id // identifier for advertising content
+marketplaceId // marketplace to display the add
+content // the html/css content to be rendered
+```
+
+**TargetingPredicate**
+
+A predicate, or rule, to target the audience of a piece of content. A customer must meet the criteria of this
+targeting predicate for it to evaluate to true. If it is not possible to determine if a customer meets this
+criteria, the predicate will evaluate to indeterminate.
+
+```
+targetingPredicateType // type of rule, e.g. AGE, CATEGORY_SPEND_FREQUENCY
+negate // whether to use the inverse of the given rule
+attributes // targeting predicate attributes
+```
+
+**TargetingPredicateType**
+
+Enum representing type associated with a targeting predicate.
+
+```
+AGE
+CATEGORY_SPEND_FREQUENCY
+CATEGORY_SPEND_VALUE
+PARENT
+PRIME_BENEFIT
+RECOGNIZED
+```
+
+**TargetingGroup**
+
+A group of `TargetingPredicates` that determines the group of customers that are being targeted for an
+advertisement. One piece of content can have multiple targeting groups associated with it. Since different
+groups of customers behave different ways, the click through rate is measured for the particular targeting group
+and not the overall content.
+
+```
+targetingGroupId // unique identifier of the targeting group
+contentId // id of the advertising content this targeting group is associated with
+clickThroughRate // the rate that customers who see the add click on it (between 0 and 1)
+targetingPredicates // the targeting rules for this group 
+```
+
+## Activity
+
+### CreateContent
+
+Creates a new piece of advertising content and a targeting group to go with it. The html/css content of the
+advertisement
+and a marketplace to schedule the content in is required. If a list of targeting predicates is provided, the initial
+targeting group will be created with those rules. Otherwise, the targeting group will be created without any predicates,
+meaning it is viewable by any customer. Targeting groups are giving a click through rate of 1 to start, so that they are
+guaranteed some initial impressions and a true click through rate can be learned.
+
+* POST content
+
+**CreateContentRequest**
+
+```
+content // html/css content to create
+marketplaceId // marketplace to show contend
+targetingPredicates // targeting rules to determine who can see the content
+```
+
+**CreateContentResponse**
+
+```
+advertisingContent // created AdvertisingContent
+targetingGroup // created targeting group with targeting predicates
+```
+
+### UpdateContent
+
+Updates a piece of advertising content. You can either update the content of the advertisement itself or the
+marketplace in which it is scheduled to be displayed.
+
+* PUT content/<contentId>
+
+**UpdateContentRequest**
+
+```
+contentId // id of content to update
+advertisingContent // AdvertisingContent object with updates
+```
+
+**UpdateContentResponse**
+
+```
+advertisingContent // updated AdvertisingContent
+targetingGroups // targetingGroups for content
+```
+
+### AddTargetingGroup
+
+Adds a new targeting group to an existing piece of advertising content based on the `contentId` specified. If a list of
+targeting predicates is provided, the initial targeting group will be created with those rules. Otherwise, the targeting
+group will be created without any predicates, meaning it is viewable by any customer. Targeting groups are giving a
+click through rate of 1 to start, so that they are guaranteed some initial impressions and a true click through rate can
+be learned.
+
+* POST targetingGroups
+
+**AddTargetingGroupRequest**
+
+```
+contentId // id of content to add targeting group to
+targetingPredicates // list of predicates to add to targeting group
+```
+
+**AddTargetingGroupResponse**
+
+```
+targetingGroup // the TargetingGroup added
+```
+
+### GenerateAdvertisement
+
+When provided the customerId and the marketplaceId for the ad to be served, this API decides on the add most likely to
+be clicked on. If the customer is unrecognized (i.e. not authenticated), a null customerId is a valid input. The
+response will contain the Advertisement, which has an id and renderable content (html/css). If the service is unable
+to generate an ad, the content will be an empty string. The id of the advertisement is unique to the impression. It can
+be used to report on whether or not this impression led to a customer action, like a click.
+
+* GET advertisement/<marketplaceId>?customerId=<customerId>
+
+**GenerateAdvertisementRequest**
+
+```
+customerId // customerId to generate advertisment for, null if unrecognized
+marketplaceId // marketplace where ad will be shown
+```
+
+**GenerateAdvertisementResponse**
+
+```
+advertisement // add content to be rendered
+```
+
+### UpdateClickThroughRate
+
+Updates the click through rate that has been calculated for a targeting group based on the targetingGroupId.
+
+* PUT targetingGroups/<targetingGroupId>
+
+**UpdateClickThroughRateRequest**
+
+```
+targetingGroupId // id of targeting group to update
+clickThroughRate // click through rate value
+```
+
+**UpdateClickThroughRateResponse**
+
+```
+targetingGroup // updated TargetingGroup
+```
+
+### DeleteContent
+
+* DELETE content/<contentId>
+
+Deletes a piece of advertising content. The targeting groups associated with the content will also be deleted.
+If the provided contentId does not match any existing content an AdvertisementClientException will be thrown.
+The deleted content and its targeting groups will be returned.
+
+**DeleteContentRequest**
+
+```
+contentId // id of content to delete
+```
+
+**DeleteContentResponse**
+
+```
+// returns empty response if delete was successful
+```
+
+## Data Model
+
+Our service relies on DynamoDB to store our advertising content and targeting data. Each piece of content
+maps to multiple targeting groups. A targeting group is a collection of targeting rules (predicates) and a click through
+rate.
+
+You can look through the `ContentDAO` to find the DynamoDB tables that the ad service uses.
+The classes it uses will be annotated, and you can find the tables and items in your AWS account.
+
+## Appendix:
+
+### Sequence Diagrams
+
+*GenerateAdActivity calls AdvertisementSelectionLogic's selectAdvertisement to retrieve an ad. AdvertisementSelectionLogic calls ContentDAO to retrieve ad content and then randomly choosing an ad returned by ContentDAO to return to GenerateAdActivity.*
+![Figure 3 - Generate Ad sequence diagram start state](src/resources/generate-ad-start-sequence-diagram.png)
 
 
+*GenerateAdActivity calls
+AdvertisementSelectionLogic's selectAdvertisement. AdvertisementSelectionLogic calls ContentDAO and TargetingGroupDao to
+get content and targeting data respectively. It sorts the targeting groups by click through rate. It also calls
+TargetingEvaluator to evaluate whether the given request meets all of the rules in the targetingGroups. Then it returns
+an eligible ad with the highest click through rate.*
+![Figure 4 - Generate Ad sequence diagram end state](src/resources/generate-ad-end-sequence-diagram.png)
+
+### Class diagrams
+
+*RequestContext, TargetingPredicateResult, Comparison, and TargetingEvaluator.*
+![Figure 5 - TargetEvaluator related class diagrams](src/resources/class-diagram-targeting-evaluator.png)
+
+
+*AdvertisementContent, EmptyAdvertismentContent (a subclass of AdvertismentContent),
+GeneratedAdvertisment, and EmptyGeneratedAdvertisement (a subclass of GeneratedAdvertisement).*
+![Figure 6 -Advertisement Content class diagrams](src/resources/class-diagram-ad-content.png)
+
+
+*TargetingGroup, GenerateAdActivity, and AdvertisementSelectionLogic.*
+![Figure 7 - Generate Advertisement class diagrams](src/resources/class-diagram-generate-ad.png)
+
+
+*ReadOnlyDAO interface and classes that implement ReadOnlyDAO: TargetingGroupDao,
+ContentDao, CustomerProfileDao, CustomerSpendDao, and PrimeDao.*
+![Figure 8 - Dao class diagrams](src/resources/class-diagram-dao.png)
+
+
+*TargetingPredicate and its subclasses AgeTargetingPredicate,
+CategorySpendFrequencyTargetingPredicate,
+CategorySpendValueTargetingPredicate, ParentTargetingPredicate, PrimeBenefitTargetingPredicate, and
+RecognizedTargetingPredicate.*
+![Figure 9 - Targeting Predicate class diagrams](src/resources/class-diagram-targeting-predicates.png)
